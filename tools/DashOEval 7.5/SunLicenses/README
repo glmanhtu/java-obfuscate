@@ -1,0 +1,8 @@
+JAVA WEB SERVICES DEVELOPER PACK, VERSION 1.6
+
+The following jars were redistributed under the Section B of the SUPPLEMENTAL LICENSE TERMS:
+jaxb-api.jar, jaxb-impl.jar, jaxb-libs.jar, jaxb-xjc.jar, jaxp-api.jar, sax.jar, dom.jar, xalan.jar, jax-qname.jar, namespace.jar, xsdlib.jar, relaxngDatatype.jar
+
+http://docs.oracle.com/cd/E17802_01/webservices/webservices/docs/1.6/ReleaseNotes.html#RedistributableComponents
+
+See the LICENSE and THIRDPARTYLICENSEREADME files for additional information.

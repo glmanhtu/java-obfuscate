@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dasho version="6.8.1">
+    <propertylist/>
+    <global>
+        <option>FORNAMEDETECTION</option>
+        <option>FORCE</option>
+    </global>
+    <inputpath>
+        <pathelement location="Metalworks.jar"/>
+        <pathelement location="classes"/>
+    </inputpath>
+    <entrypoints>
+        <classes name="Metalworks">
+            <method modifiers="public static" name="main" signature="java.lang.String[]"/>
+        </classes>
+        <classes name="MetalworksAuthorization">
+            <method modifiers="public static" name="main" signature="java.lang.String[]"/>
+        </classes>
+    </entrypoints>
+    <output>
+        <jar path="ProtectedMetalworks.jar"/>
+    </output>
+    <removal classes="unused" members="unused">
+        <debug/>
+        <attributes/>
+    </removal>
+    <renaming option="on">
+        <mapping>
+            <mapoutput overwrite="true"/>
+        </mapping>
+    </renaming>
+    <optimization option="on"/>
+    <controlflow option="on"/>
+    <stringencrypt option="on"/>
+    <instrumentation fullData="false" sendMessages="false" supportOffline="false">
+        <classes name="MetalworksFrame">
+            <method name="&lt;init&gt;" signature="">
+                <annotation name="ExpiryTokenSource" value="MetalworksAuthorization.getToken()"/>
+                <annotation name="ExpiryCheck" value="MetalworksAuthorization.check()">
+                    <property name="where" value="End"/>
+                </annotation>
+            </method>
+        </classes>
+    </instrumentation>
+</dasho>
+

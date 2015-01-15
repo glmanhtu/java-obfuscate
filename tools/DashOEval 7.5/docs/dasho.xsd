@@ -1,0 +1,1367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+	<xsd:element name="dasho">
+		<xsd:annotation>
+			<xsd:documentation>The DashO project file. This is version 7.1.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="propertylist" type="PropertyListType"
+					minOccurs="0" />
+				<xsd:element name="global" type="GlobalType" minOccurs="0" />
+				<xsd:element name="inputpath" type="InputPathType"
+					minOccurs="0" />
+				<xsd:element name="globalProcessingExclude" type="ClassListType" minOccurs="0"/>	
+				<xsd:element name="classpath" type="ClasspathType"
+					minOccurs="0" />
+				<xsd:element name="entrypoints" type="EntryPointsType"
+					minOccurs="0" />
+				<xsd:element name="report" type="ReportType" minOccurs="0" />
+				<xsd:element name="output" type="OutputType" minOccurs="0" />
+				<xsd:element name="removal" type="RemovalType"
+					minOccurs="0" />
+				<xsd:element name="methodCallRemoval" type="MethodCallRemovalType"
+					minOccurs="0" />
+				<xsd:element name="renaming" type="RenamingType"
+					minOccurs="0" />
+				<xsd:element name="optimization" type="OptimizationType"
+					minOccurs="0" />
+				<xsd:element name="controlflow" type="ControlflowType"
+					minOccurs="0" />
+				<xsd:element name="stringencrypt" type="StringEncryptType"
+					minOccurs="0" />
+				<xsd:element name="make-synthetic" type="MakeSyntheticType"
+					minOccurs="0" />
+				<xsd:element name="premark" type="PremarkType"
+					minOccurs="0" />
+				<xsd:element name="constantpooltag" type="xsd:string"
+					minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>This element has been deprecated in version
+							6.7.1 and is replaced by the constpooltag in output.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="includenonclassfiles" type="IncludeNonClassFilesType"
+					minOccurs="0" />
+				<xsd:element name="preverifier" type="PreverifierType"
+					minOccurs="0" />
+				<xsd:element name="instrumentation" type="InstrumentationType"
+					minOccurs="0" />
+				<xsd:element name="signjar" type="SignJarType"
+					minOccurs="0" />
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" use="required">
+				<xsd:annotation>
+					<xsd:documentation>The version of the project file. This may be in
+						either V.v or V.v.v format.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="PropertyListType">
+		<xsd:sequence>
+			<xsd:element name="property" type="PropertyType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertyType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="value" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="GlobalType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="option" type="xsd:string" minOccurs="0" />
+			<xsd:element name="exclude" type="ExcludeType" minOccurs="0" />
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:complexType name="PathElementType">
+		<xsd:attribute name="location" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The location of the element: either a directory,
+					jar, or zip file.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="InputPathType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="pathelement" type="PathElementType">
+				<xsd:annotation>
+					<xsd:documentation>An entry on the input path.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:complexType name="ClasspathType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="pathelement" type="PathElementType">
+				<xsd:annotation>
+					<xsd:documentation>An entry on the classpath.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dir" type="DirType">
+				<xsd:annotation>
+					<xsd:documentation>This element has been deprecated in version
+						6.0001 and is replaced by pathelement.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="jar" type="JarType">
+				<xsd:annotation>
+					<xsd:documentation>This element has been deprecated in version
+						6.0001 and is replaced by pathelement.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:choice>
+		<xsd:attribute name="appendrtjar" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>Should the current JDK runtime be added to the
+					classpath.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="systemclasspath">
+			<xsd:annotation>
+				<xsd:documentation>Should the current system classpath be added to
+					the classpath.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="prepend">
+						<xsd:annotation>
+							<xsd:documentation>The system classpath entries will be added
+								before user defined entries.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="append">
+						<xsd:annotation>
+							<xsd:documentation>The system classpath entries will be added
+								after user defined entries.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="EntryPointsType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="classes" type="EntryClassesType" />
+			<xsd:element name="unconditional" type="UnconditionalType" />
+			<xsd:element name="quickjar" type="QuickJarType" />
+			<xsd:element name="library" type="LibraryType" />
+			<xsd:element name="midlet" type="MidletType" />
+			<xsd:element name="applet" type="AppletType" />
+			<xsd:element name="servlet" type="ServletType" />
+			<xsd:element name="iappli" type="IappliType" />
+			<xsd:element name="ejb" type="EjbType" />
+			<xsd:element name="publics" type="PublicsType" />
+			<xsd:element name="android" type="AndroidType" />
+			<xsd:element name="springbean" type="SpringBeanType" />
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:complexType name="EntryClassesType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="method" type="EntryMethodType" />
+			<xsd:element name="field" type="EntryFieldType" />
+		</xsd:choice>
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename" type="xsd:boolean" default="false" />
+		<xsd:attribute name="modifiers" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A list of Java modifiers or their negation:
+					abstract; final; static; default; public; protected; private;
+					native; strictfp; synchonized; transient; volatile; class;
+					interface; enum; annotation; synthetic. Items are separated by
+					whitespace. Negation is specified with a leading ! (e.g. "!public")
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="EntryMethodType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="signature" type="xsd:string" use="required" />
+		<xsd:attribute name="rename" type="xsd:boolean" default="false" />
+		<xsd:attribute name="modifiers" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A list of Java modifiers or their negation:
+					abstract; final; static; default; public; protected; private;
+					native; strictfp; synchonized; transient; volatile; class;
+					interface; enum; annotation; synthetic. Items are separated by
+					whitespace. Negation is specified with a leading ! (e.g. "!public")
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="EntryFieldType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename" type="xsd:boolean" default="false" />
+		<xsd:attribute name="modifiers" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A list of Java modifiers or their negation:
+					abstract; final; static; default; public; protected; private;
+					native; strictfp; synchonized; transient; volatile; class;
+					interface; enum; annotation; synthetic. Items are separated by
+					whitespace. Negation is specified with a leading ! (e.g. "!public")
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="MethodCallRemovalType">
+		<xsd:sequence minOccurs="0">
+			<xsd:element name="method" type="RemoveMethodType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="RemoveMethodType">
+		<xsd:attribute name="className" type="xsd:string" use="required" />
+		<xsd:attribute name="methodName" type="xsd:string" use="required" />
+		<xsd:attribute name="signature" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="ReportType">
+		<xsd:sequence minOccurs="0">
+			<xsd:element name="file" type="FileType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Deprecated: use path attribute
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="path" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="OutputType">
+		<xsd:sequence minOccurs="0" maxOccurs="1">
+			<xsd:choice minOccurs="0" maxOccurs="1">
+				<xsd:element name="dir" type="DirType" />
+				<xsd:element name="jar">
+					<xsd:complexType>
+						<xsd:attribute name="path" type="xsd:string" use="required" />
+						<xsd:attribute name="manifest" type="xsd:string">
+							<xsd:annotation>
+								<xsd:documentation>The name of a file or jar that contains the
+									manifest for the output jar.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="apk" type="ApkType" />
+			</xsd:choice>
+			<xsd:element name="constpooltag" type="SimpleValueType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>A string that is added to the constant pool of
+						all classes.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="sourcefile" type="SimpleValueType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The value for the SourceFile attribute of all
+						classes.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="merge" type="xsd:boolean" default="true">
+			<xsd:annotation>
+				<xsd:documentation>When true all input classes will be merged into a
+					single directory or jar. If false, then classes will retain their
+					original jar or directory name in the output directory.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="autocopy" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>When true non-class files from the inputpath will
+					be copied to the output. If false, then only the processed classes
+					from the inputpath will be sent to the output. If the version is
+					before 6.4.1 this value is ignored and autocopy is not performed.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="filesonly" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>When true any output jars will contain only file
+					entries, no directory entries.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="compress" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>When true files in output jars will be
+					compressed.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="level" type="xsd:int" default="6">
+			<xsd:annotation>
+				<xsd:documentation>The level of compression in files in the jar : 0
+					(uncompressed) to 9 (maximum compression).</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="includeNonClassJars" type="xsd:boolean"
+			default="false">
+			<xsd:annotation>
+				<xsd:documentation>When true jars without any remaining class files will still be output.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="zipAlign" type="xsd:boolean"
+			default="false">
+			<xsd:annotation>
+				<xsd:documentation>When true the output apk will be aligned.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="RemovalType">
+		<xsd:sequence>
+			<xsd:element name="debug" type="DebugRemovalType"
+				minOccurs="0" />
+			<xsd:element name="attributes" type="AttributeRemovalType"
+				minOccurs="0" />
+			<xsd:element name="excludelist" type="ClassListType"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="action" type="xsd:NMTOKEN">
+			<xsd:annotation>
+				<xsd:documentation>This attribute has been deprecated in version
+					6.0001 and is replaced by members.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="classes" default="none">
+			<xsd:annotation>
+				<xsd:documentation>Removal action for class not found as part of the
+					entry point traversal.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="none">
+						<xsd:annotation>
+							<xsd:documentation>No classes will be removed from the input
+								classes.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="unused">
+						<xsd:annotation>
+							<xsd:documentation>All unused classes will be removed from the
+								input classes.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="unused-non-public">
+						<xsd:annotation>
+							<xsd:documentation>Unused class will be removed if they are not
+								public.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="members" default="none">
+			<xsd:annotation>
+				<xsd:documentation>Removal action for class members
+					(fields/methods).</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="none">
+						<xsd:annotation>
+							<xsd:documentation>No members will be removed from the input
+								classes.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="unused">
+						<xsd:annotation>
+							<xsd:documentation>All unused members will be removed from the
+								input classes.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="unused-non-public">
+						<xsd:annotation>
+							<xsd:documentation>Unused members will be removed from the input
+								classes if they are not public members.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="DebugRemovalType">
+		<xsd:attribute name="types" type="xsd:string"
+			default="SourceFile SourceDir SourceDebugExtension LineNumberTable LocalVariableTable LocalVariableTypeTable">
+			<xsd:annotation>
+				<xsd:documentation>Types of debug information to be removed.
+					Multiple items are separated by one or more spaces.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="AttributeRemovalType">
+		<xsd:attribute name="types" type="xsd:string"
+			default="Deprecated Synthetic RuntimeInvisibleAnnotations RuntimeInvisibleParameterAnnotations">
+			<xsd:annotation>
+				<xsd:documentation>Types of attributes to be removed. Multiple items
+					are separated by one or more spaces.
+					Defined values are: Exceptions; Signature; Deprecated; Synthetic;
+					EnclosingMethod; RuntimeVisibleAnnotations;
+					RuntimeInvisibleAnnotations; RuntimeVisibleParameterAnnotations;
+					RuntimeInvisibleParameterAnnotations; AnnotationDefault;
+					InnerClasses.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="RenamingType">
+		<xsd:sequence>
+			<xsd:element name="class-options" type="RenamingClassOptionsType"
+				minOccurs="0" />
+			<xsd:element name="member-options" type="RenamingMemberOptionsType"
+				minOccurs="0" />
+			<xsd:element name="excludelist" type="RenamingClassListType"
+				minOccurs="0" />
+			<xsd:element name="mapping" type="MappingType" minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="option" default="on">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+					<xsd:enumeration value="onlynonpublics">
+						<xsd:annotation>
+							<xsd:documentation>Deprecated: replaced by &lt;member-options
+								keeppublics=&quot;true/false&quot;&gt;</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="ON">
+						<xsd:annotation>
+							<xsd:documentation>Deprecated: use lowercase version
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="OFF">
+						<xsd:annotation>
+							<xsd:documentation>Deprecated: use lowercase version
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="ONLYNONPUBLICS">
+						<xsd:annotation>
+							<xsd:documentation>Deprecated: replaced by &lt;member-options
+								keeppublics=&quot;true/false&quot;&gt;</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="prefix" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>Deprecated: Replaced by &lt;class-options&gt;
+					attributes.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="renameAnnotations" default="on">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="RenamingClassOptionsType">
+		<xsd:attribute name="rename" type="xsd:boolean" default="true">
+			<xsd:annotation>
+				<xsd:documentation>If false then classes will not be renamed.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="keeppackages" type="xsd:boolean"
+			default="false">
+			<xsd:annotation>
+				<xsd:documentation>When true then the packages of classes will be
+					retained while the classes themselves may be renamed. When false
+					all renamed classed will be placed in the default package.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="randomize" type="xsd:boolean"
+			default="false">
+			<xsd:annotation>
+				<xsd:documentation>Should new class names be selected in-order or in
+					a random fashion.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="alphabet" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The alphabet used to create identifiers for
+					renaming. The initial characters number be legal Java start
+					characters and renaming values must be valid Java identifier
+					characters.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="minlength" type="xsd:int" default="1">
+			<xsd:annotation>
+				<xsd:documentation>The minimum length of new identifiers for
+					renaming.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="prefix" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A prefix added to renamed classes.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="RenamingMemberOptionsType">
+		<xsd:attribute name="keeppublics" type="xsd:boolean"
+			default="false">
+			<xsd:annotation>
+				<xsd:documentation>When true then public members of classes will not
+					be renamed. When false or not present then all members will be
+					renamed.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="randomize" type="xsd:boolean"
+			default="false">
+			<xsd:annotation>
+				<xsd:documentation>Should new members names be selected in-order or
+					in a random fashion.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="alphabet" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The alphabet used to create identifiers for
+					renaming. The initial characters number be legal Java start
+					characters and renaming values must be valid Java identifier
+					characters.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="minlength" type="xsd:int" default="1">
+			<xsd:annotation>
+				<xsd:documentation>The minimum length of new identifiers for
+					renaming.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="OptimizationType">
+		<xsd:sequence>
+			<xsd:element name="includelist" type="ClassListType"
+				minOccurs="0" />
+			<xsd:element name="excludelist" type="ClassListType"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="option" default="on">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="ControlflowType">
+		<xsd:sequence>
+			<xsd:element name="includelist" type="ClassListType"
+				minOccurs="0" />
+			<xsd:element name="excludelist" type="ClassListType"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="option" default="on">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="tryCatch" default="on">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="catchHandlers" default="1">
+			<xsd:annotation>
+				<xsd:documentation>The maximum number exception handlers to be added
+					to a method.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="10" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+
+	</xsd:complexType>
+
+	<xsd:complexType name="StringEncryptType">
+		<xsd:sequence>
+			<xsd:element name="decrypter" type="DecrypterType"
+				minOccurs="0" />
+			<xsd:element name="includelist" type="ClassListType"
+				minOccurs="0" />
+			<xsd:element name="excludelist" type="ClassListType"
+				minOccurs="0" />
+			<xsd:element name="seInput" type="SEInputType" minOccurs="0" />
+			<xsd:element name="seOutput" type="SEOutputType"
+				minOccurs="0" />
+			<xsd:element name="customEncryption" type="customEncryptionType"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="option" default="on">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="level" default="1">
+			<xsd:annotation>
+				<xsd:documentation>A value that describes the level of effort used
+					to obscure the values of strings. Level 1 is the simplest and has
+					the lowest runtime overhead. Level 10 is the most complex and has
+					the highest runtime overhead.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="10" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="implementations" default="1">
+			<xsd:annotation>
+				<xsd:documentation>The number of encryption/decryptions that will be
+					generated and added to the output.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="1" />
+					<xsd:maxInclusive value="10" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="SEInputType">
+		<xsd:attribute name="path" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="SEOutputType">
+		<xsd:attribute name="path" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="DecrypterType">
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The name of the class, which can be either a
+					regular expression, text, or pattern.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="modifiers" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A list of Java modifiers or their negation:
+					abstract; final; static; default; public; protected; private;
+					native; strictfp; synchonized; transient; volatile; class;
+					interface; enum; annotation; synthetic. Items are separated by
+					whitespace. Negation is specified with a leading ! (e.g. "!public")
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="excludedPackages" type="xsd:string"
+			default="java., javax., android.">
+			<xsd:annotation>
+				<xsd:documentation>The names of packages, separated by commas, which
+					should not be searched for target classes.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="customEncryptionType">
+		<xsd:sequence>
+			<xsd:element name="includelist" type="ClassListType"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="useCustomEncryption" type="xsd:boolean" default="false" />
+		<xsd:attribute name="encryptionJar" type="xsd:string" />
+		<xsd:attribute name="encryptionClass" type="xsd:string" />
+		<xsd:attribute name="encryptionMethod" type="xsd:string" />
+		<xsd:attribute name="decryptionClass" type="xsd:string" />
+		<xsd:attribute name="decryptionMethod" type="xsd:string" />
+	</xsd:complexType>
+	
+
+	<xsd:complexType name="MakeSyntheticType">
+		<xsd:sequence>
+			<xsd:element name="excludelist" type="ClassListType"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="value" default="all">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="none" />
+					<xsd:enumeration value="private" />
+					<xsd:enumeration value="non-public" />
+					<xsd:enumeration value="all" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="PremarkType">
+		<xsd:sequence>
+			<xsd:element name="passphrase" type="xsd:string"
+				minOccurs="0" />
+			<xsd:element name="encoding" minOccurs="0">
+				<xsd:complexType>
+					<xsd:attribute name="name" type="xsd:string" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="watermark" type="xsd:string"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="option" default="on">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="truncate">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="IncludeNonClassFilesType">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="copy" type="CopyType" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="PreverifierType">
+		<xsd:annotation>
+			<xsd:documentation>The text value of this tag is the preverify
+				executable. If blank then the system path is used to locate the
+				executable. May contain property references.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="run" type="xsd:boolean" default="false">
+					<xsd:annotation>
+						<xsd:documentation>Should the preverifier be run on the output
+							classes.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="nofinalize" type="xsd:boolean"
+					default="false">
+					<xsd:annotation>
+						<xsd:documentation>Pass -nofinalize to the preverifier: no
+							finalizer allowed.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="nonative" type="xsd:boolean"
+					default="false">
+					<xsd:annotation>
+						<xsd:documentation>Pass -nonative to the preverifier: no native
+							methods allowed.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="nofp" type="xsd:boolean" default="false">
+					<xsd:annotation>
+						<xsd:documentation>Pass -nofp to the preverifier: no floating
+							point operations allowed.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="SignJarType">
+		<xsd:annotation>
+			<xsd:documentation>The text value of this tag is the jarsigner
+				executable. If blank then the system path is used to locate the
+				executable. May contain property references.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="option" default="on">
+					<xsd:annotation>
+						<xsd:documentation>Should the output jar(s) be signed.
+						</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:NMTOKEN">
+							<xsd:enumeration value="on" />
+							<xsd:enumeration value="off" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+				<xsd:attribute name="keystore" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The location of the keystore: can be a file
+							name or URL. May contain property references.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="storetype" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The type of the keystore. May contain property
+							references.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="storepass" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Password of the keystore. Note: the user
+							interface encrypts this value but plain-text can be used. May
+							contain property references.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="alias" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The alias of the key used to sign the jar. May
+							contain property references.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="keypass" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The password of the key used to sign the jar.
+							If not present the value for storepass is used. May contain
+							property references.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="sigfile" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The name of the signature file. See the
+							documentation of jarsigner for details. May contain property
+							references.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="internalsf" type="xsd:boolean"
+					default="false">
+					<xsd:annotation>
+						<xsd:documentation>Include the .SF file inside the signature
+							block.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="sectionsonly" type="xsd:boolean"
+					default="false">
+					<xsd:annotation>
+						<xsd:documentation>Do not generate hash for manifest file.
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="maxmemory" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>A memory size argument as passed to Java's -Xmx
+							argument. May contain property references.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="addArgs" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Additional arguments to be passed to jarsigner.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="InstrumentationType">
+		<xsd:sequence>
+			<xsd:element name="endpoint" minOccurs="0">
+				<xsd:complexType>
+					<xsd:attribute name="name" type="xsd:string" />
+					<xsd:attribute name="ssl" type="xsd:boolean" default="true" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="runtime" minOccurs="0">
+				<xsd:complexType>
+					<xsd:attribute name="target" default="java14">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:NMTOKEN">
+								<!-- java 1.4 is no longer supported and will be migrated to the 
+									java 1.5 setting -->
+								<xsd:enumeration value="java14" />
+								<xsd:enumeration value="java15" />
+								<xsd:enumeration value="android4" />
+								<!-- xsd:enumeration value="j2me" / -->
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:attribute name="merge" type="xsd:boolean"
+						default="true" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="company" minOccurs="0">
+				<xsd:complexType>
+					<xsd:attribute name="name" type="xsd:string" />
+					<xsd:attribute name="id" type="xsd:string" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="application" minOccurs="0">
+				<xsd:complexType>
+					<xsd:attribute name="name" type="xsd:string" />
+					<xsd:attribute name="id" type="xsd:string" />
+					<xsd:attribute name="version" type="xsd:string" />
+					<xsd:attribute name="type" type="xsd:string" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="expiry" type="ExpiryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>The definition of the expiration information.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="classes" type="AnnotationClassesType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="option" default="on">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:NMTOKEN">
+					<xsd:enumeration value="on" />
+					<xsd:enumeration value="off" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="honorAnnotations" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>Should PA annotations present in class files be
+					honored. If false then the annotations are ignored and only the
+					annotations defined here will be used.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="stripAnnotations" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>Should PA annotations present in class files be
+					removed from the output. If false the annotations remain after
+					instrumentation processing.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="sendMessages" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>Send the generated messages to a PA server. If
+					false the application is considerd "off-line" and messages can be
+					stored locally and transmitted at a later date.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="supportOffline" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>Should "off-line" messages be saved for later
+					transmission. The application can off-line if sendMessages is false
+					or if a PA server cannot be contacted to receive the messages. If
+					false the any messages that cannot be sent immediately to a PA
+					server are discarded.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="fullData" type="xsd:boolean"
+			default="true">
+			<xsd:annotation>
+				<xsd:documentation>Send full or partial information for some PA
+					message types. If false then the minimal amount of data for
+					start-up and system profile messages will be generated.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="omitPII" type="xsd:boolean"
+			default="false">
+			<xsd:annotation>
+				<xsd:documentation>Omit information like IP addresses, MAC identifiers, and names
+				 that could be used to identify the user or machine when 
+				 sending analytics data.
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="ExpiryType">
+		<xsd:annotation>
+			<xsd:documentation>The definition of the expiration information.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="property" type="PropertyType"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>User properties that accompany the expiration
+						information. These are accessable at runtime. Property references
+						in the value portions of the property are expanded.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="key" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The path to the Shelf Life key file. Property
+					references in this value are expanded. File names are relative to
+					the location of the project file.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="period" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The number of days from an initial date before
+					expiration. The initial date is provided at runtime. Property
+					references in this value are expanded.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="warningperiod" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The begining of the warning period in days
+					relative to the expiration date. Property references in this value
+					are expanded.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="date" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The expiration date in MM/DD/YYYY format.
+					Property references in this value are expanded.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="warningdate" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The begining of the warning period in MM/DD/YYYY
+					format.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="AnnotationClassesType">
+		<xsd:sequence>
+			<xsd:element name="annotation" type="AnnotationType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="method" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="annotation" type="AnnotationType"
+							minOccurs="0" maxOccurs="unbounded" />
+					</xsd:sequence>
+					<xsd:attribute name="name" type="xsd:string" use="required" />
+					<xsd:attribute name="signature" type="xsd:string"
+						use="required" />
+					<xsd:attribute name="modifiers" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>A list of Java modifiers or their negation:
+								abstract; final; static; default; public; protected; private;
+								native; strictfp; synchonized; transient; volatile; class;
+								interface; enum; annotation; synthetic. Items are separated by
+								whitespace. Negation is specified with a leading ! (e.g.
+								"!public")</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="modifiers" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A list of Java modifiers or their negation:
+					abstract; final; static; default; public; protected; private;
+					native; strictfp; synchonized; transient; volatile; class;
+					interface; enum; annotation; synthetic. Items are separated by
+					whitespace. Negation is specified with a leading ! (e.g. "!public")
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="AnnotationType">
+		<xsd:sequence>
+			<xsd:element name="property" type="PropertyType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="value" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="ClassListType">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="classes" type="ClassesType" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ClassesType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="method" type="MethodType" />
+			<xsd:element name="field" type="FieldType" />
+		</xsd:choice>
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+		<xsd:attribute name="name" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The name of the class, which can be either a
+					regular expression, text, or pattern.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="modifiers" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A list of Java modifiers or their negation:
+					abstract; final; static; default; public; protected; private;
+					native; strictfp; synchonized; transient; volatile; class;
+					interface; enum; annotation; synthetic. Items are separated by
+					whitespace. Negation is specified with a leading ! (e.g. "!public")
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="RenamingClassListType">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="classes" type="RenamingClassesType" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="RenamingClassesType">
+		<xsd:complexContent>
+			<xsd:extension base="ClassesType">
+				<xsd:attribute name="excludeclass" type="xsd:boolean"
+					default="true" />
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="MethodType">
+		<xsd:attribute name="name" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The name of the method, which can be either a
+					regular expression, text, or pattern.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="signature" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The arguments to the method, which can be either
+					a regular expression, text, or pattern.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="modifiers" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A list of Java modifiers or their negation:
+					abstract; final; static; default; public; protected; private;
+					native; strictfp; synchonized; transient; volatile; class;
+					interface; enum; annotation; synthetic. Items are separated by
+					whitespace. Negation is specified with a leading ! (e.g. "!public")
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="FieldType">
+		<xsd:attribute name="name" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The name of the field, which can be either a
+					regular expression, text, or pattern.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="modifiers" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A list of Java modifiers or their negation:
+					abstract; final; static; default; public; protected; private;
+					native; strictfp; synchonized; transient; volatile; class;
+					interface; enum; annotation; synthetic. Items are separated by
+					whitespace. Negation is specified with a leading ! (e.g. "!public")
+				</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="QuickJarType">
+		<xsd:attribute name="path" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="MidletType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="AndroidType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="rename-members" type="xsd:boolean"
+			default="true" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="SpringBeanType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="true" />
+		<xsd:attribute name="rename-members" type="xsd:boolean"
+			default="true" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+		<xsd:attribute name="entrypoints" type="xsd:string" default="" />
+		<xsd:attribute name="renamePropertyMethods" type="xsd:boolean" default="false" />
+		<xsd:attribute name="renameEntryPoints" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="ServletType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="IappliType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="AppletType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="UnconditionalType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="rename-members" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="EjbType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="rename-members" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="PublicsType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="rename-class" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="rename-members" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="regex" type="xsd:boolean" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="LibraryType">
+		<xsd:choice>
+			<xsd:element name="dir" type="DirType" />
+			<xsd:element name="jar" type="JarType" />
+		</xsd:choice>
+		<xsd:attribute name="public" type="xsd:string" default="on" />
+	</xsd:complexType>
+
+	<xsd:complexType name="ExcludeType">
+		<xsd:attribute name="classname" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="MappingType">
+		<xsd:sequence>
+			<xsd:element name="mapreport" type="MapReportType"
+				minOccurs="0" />
+			<xsd:element name="mapinput" type="MapInputType"
+				minOccurs="0" />
+			<xsd:element name="mapoutput" type="MapOutputType"
+				minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="MapInputType">
+		<xsd:sequence>
+			<xsd:element name="file" type="FileType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Deprecated: use path attribute
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="suffix" type="xsd:string" />
+		<xsd:attribute name="path" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="MapOutputType">
+		<xsd:sequence>
+			<xsd:element name="file" type="FileType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Deprecated: use path attribute
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="overwrite" type="xsd:boolean"
+			default="false" />
+		<xsd:attribute name="path" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="MapReportType">
+		<xsd:sequence>
+			<xsd:element name="file" type="FileType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Deprecated: use path attribute
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="path" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="FileType">
+		<xsd:attribute name="path" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="JarType">
+		<xsd:attribute name="path" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="DirType">
+		<xsd:attribute name="path" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="ApkType">
+		<xsd:attribute name="path" type="xsd:string" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="CopyType">
+		<xsd:attribute name="source" type="xsd:string" use="required" />
+		<xsd:attribute name="relativedest" type="xsd:string" default="/" />
+	</xsd:complexType>
+
+	<xsd:complexType name="SimpleValueType">
+		<xsd:attribute name="value" type="xsd:string" />
+	</xsd:complexType>
+
+</xsd:schema>

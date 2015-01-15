@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="style.css" type="text/css"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>DashO Ant Tasks</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<link href="images/dashoicon-16.png" rel="icon" type="image/png" />
+	<link href="style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="title">
+	<div class="logo"><img src="images/logo.png" alt="DashO"/></div>
+	<h1>Ant Tasks</h1>
+</div>
+<div id="content">
+	<h3>Installation</h3>
+	<p>Before using the tasks they need to be made available to Ant. Please see <a href="install.html">Installation</a> for instructions.</p>
+	<h3>Using the tasks</h3>
+	<p>To use the tasks in your buildfile you need tell Ant that they are available. To do this add the following line to your buildfile:</p>
+	<pre>&lt;typedef resource="com/preemptive/dasho/anttask/antlib.xml"/&gt;</pre>
+	<p>Depending upon your installation choices you may also need to set the <i>dasho.home</i> property. See <a href="dasho-home.html">Setting DashO Home</a> for details.</p>
+	<p>The ant tasks will report failure, halting the ant script, when any error message is encountered.  The old behavior, returning 0 even there are errors, can be set by using the OLDEXITCODEBEHAVIOR option in DashO.</p>
+	<h3>Tasks Overview</h3>
+	<p>DashO provides five tasks for integration with <a href="http://ant.apache.org/index.html">Apache Ant</a>.</p>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+    		<th class="c1">Task Name</th>
+    		<th class="c2">Description</th>
+  		</tr>
+  		<tr>
+			<td class="c1"><p><a href="generate-token-task.html">generate-token</a></p></td>
+			<td class="c2"><p>Create a Shelf Life token. This token can be read in by your application at runtime.</p></td>
+		</tr>
+  		<tr>
+			<td class="c1"><p><a href="obfuscate-task.html">obfuscate</a></p></td>
+			<td class="c2"><p>Obfuscates Java applications and libraries using DashO. Obfuscation projects can be created using DashO's user interface or created within the buildfile.</p></td>
+		</tr>
+  		<tr>
+			<td class="c1"><p><a href="obfuscate-jar-task.html">obfuscate-jar</a></p></td>
+			<td class="c2"><p>Obfuscates one or more jars using DashO. This provides a quick way to obfuscate a Java library or simple application that does not require any advanced configuration.</p></td>
+		</tr>
+  		<tr>
+			<td class="c1"><p><a href="print-token-task.html">print-token</a></p></td>
+			<td class="c2"><p>Display the contents of a Shelf Life token stored in a file.</p></td>
+		</tr>
+  		<tr>
+			<td class="c1"><p><a href="watermark-task.html">watermark</a></p></td>
+			<td class="c2"><p>Add a watermark to a jar using DashO's PreMark&trade; watermarker. You can use this task to add a watermark to a jar without obfuscating it.</p></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

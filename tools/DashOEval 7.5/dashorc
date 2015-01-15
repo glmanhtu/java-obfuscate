@@ -1,0 +1,8 @@
+# Sample resource file for DashO Pro
+# You can alter this copy to apply the settings to all users of DashO
+# or you can copy it to ~/.dashorc to personalize changes
+
+#javaOptions=-verbose:gc
+#memoryStart=192m
+#memoryMax=192m
+#options="--verbose --printStackTraces"

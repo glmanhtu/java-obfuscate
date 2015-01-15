@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="multijar" default="all" basedir=".">
+	<property name="dasho.home" value="../.." />
+
+	<target name="all" depends="compile, dasho, run" />
+
+	<target name="compile">
+		<!-- Build the utility library -->
+		<mkdir dir="classes/lib" />
+		<javac sourcepath="" srcdir="src/lib" destdir="classes/lib" includeAntRuntime="false" fork="true" debug="false" source="1.5" target="1.5" />
+		<mkdir dir="lib" />
+		<jar destfile="lib/common.jar">
+			<fileset dir="classes/lib">
+				<include name="**/*.class" />
+			</fileset>
+			<fileset dir="src/lib">
+				<exclude name="**/*.java" />
+			</fileset>
+		</jar>
+		<!-- Build the first application -->
+		<mkdir dir="classes/app1" />
+		<javac sourcepath="" srcdir="src/app1" destdir="classes/app1" includeAntRuntime="false" classpath="lib/common.jar" fork="true" debug="false" source="1.5" target="1.5" />
+		<jar destfile="app1.jar">
+			<manifest>
+				<attribute name="Main-Class" value="dasho.samples.app1.Main" />
+				<attribute name="Class-Path" value="lib/common.jar app2.jar" />
+			</manifest>
+			<fileset dir="classes/app1">
+				<include name="**/*.class" />
+			</fileset>
+			<fileset dir="src/app1">
+				<exclude name="**/*.java" />
+			</fileset>
+		</jar>
+		<!-- Build the second application -->
+		<mkdir dir="classes/app2" />
+		<javac sourcepath="" srcdir="src/app2" destdir="classes/app2" includeAntRuntime="false" classpath="lib/common.jar" fork="true" debug="false" source="1.5" target="1.5" />
+		<jar destfile="app2.jar">
+			<manifest>
+				<attribute name="Main-Class" value="dasho.samples.app2.Main" />
+				<attribute name="Class-Path" value="lib/common.jar app1.jar" />
+			</manifest>
+			<fileset dir="classes/app2">
+				<include name="**/*.class" />
+			</fileset>
+			<fileset dir="src/app2">
+				<exclude name="**/*.java" />
+			</fileset>
+		</jar>
+		<delete quiet="true">
+			<fileset dir="classes" />
+		</delete>
+	</target>
+
+	<target name="dasho">
+		<java fork="true" classname="DashOPro" classpath="${dasho.home}/DashOPro.jar">
+			<arg value="-v" />
+			<arg file="project.dox" />
+		</java>
+	</target>
+
+	<target name="run">
+		<java fork="true" jar="obfuscated/app1.jar">
+			<arg value="This is a test" />
+		</java>
+		<java fork="true" jar="obfuscated/app2.jar">
+			<arg value="One" />
+			<arg value="Two" />
+			<arg value="This is the third arg" />
+		</java>
+	</target>
+
+	<target name="clean">
+		<delete quiet="true" includeemptydirs="true">
+			<fileset dir="classes" />
+			<fileset dir="lib" />
+			<fileset dir="obfuscated" />
+			<fileset dir=".">
+				<include name="*-mapreport.txt" />
+				<include name="*-report.txt" />
+				<include name="*.map" />
+				<include name="app1.jar" />
+				<include name="app2.jar" />
+			</fileset>
+		</delete>
+	</target>
+
+</project>

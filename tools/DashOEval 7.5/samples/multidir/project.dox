@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dasho version="6.8.1">
+    <propertylist>
+        <property name="projectname" value="multidir"/>
+    </propertylist>
+    <global>
+        <option>FORNAMEDETECTION</option>
+        <option>FORCE</option>
+    </global>
+    <inputpath>
+        <pathelement location="classes/app1"/>
+        <pathelement location="classes/app2"/>
+        <pathelement location="classes/lib"/>
+    </inputpath>
+    <entrypoints>
+        <classes name="dasho.samples.app1.Main">
+            <method name="main" signature="java.lang.String[]"/>
+        </classes>
+        <classes name="dasho.samples.app2.Main">
+            <method name="main" signature="java.lang.String[]"/>
+        </classes>
+    </entrypoints>
+    <report path="${projectname}-report.txt"/>
+    <output autocopy="false" merge="false">
+        <dir path="obfuscated"/>
+    </output>
+    <removal classes="unused" members="unused">
+        <debug/>
+        <attributes/>
+    </removal>
+    <renaming option="on">
+        <mapping>
+            <mapreport path="${projectname}-mapreport.txt"/>
+            <mapoutput overwrite="true" path="${projectname}.map"/>
+        </mapping>
+    </renaming>
+    <optimization option="on"/>
+    <includenonclassfiles>
+        <copy relativedest="app1/dasho/samples/app1" source="src/app1/dasho/samples/app1/*.properties"/>
+        <copy relativedest="app2/dasho/samples/app2" source="src/app2/dasho/samples/app2/*.properties"/>
+    </includenonclassfiles>
+</dasho>
+

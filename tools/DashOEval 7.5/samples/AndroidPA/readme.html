@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Read Me - AndroidPA</title>
+</head>
+<body>
+<h2>PreEmptive Analytics use in an Android App</h2>
+<p>This sample Android app illustrates the  PreEmptive Analytics Instrumentation annotations.  This project can be opened into Eclipse and Android Studio.  Obfuscation is handled via the <a target="_blank" href="../../docs/anttasks/index.html">Ant</a> or <a target="_blank" href="../../docs/gradle/userguide.html">Gradle</a> integration.  If you use Eclipse, the Ant scripts will be used.  If using Android Studio, the Gradle plugin is used.  If not using an IDE, just follow the Gradle instructions.</p>
+<p>Note - For Ant, this sample requires DashO's Ant tools installed, Ant version 1.8 or higher, and the Android 2.3.3(api 10) SDK platform or higher (by default, it will look for Android 4.1.2 (api 16)).  It also expects the <i>ant</i> and <i>android</i> commands to be on your system path.  For Gradle, this sample requires, by default, the Android 5.0(api 21) SDK platform and SDK Build Tools version 21.1.2. But those can be changed by editing <i>build.gradle</i>.  Gradle will need to know the location of the Android SDK.  You will need either an ANDROID_HOME environment variable or a <i>sdk.dir</i> property (inside local.properties) specifying the location of the Android SDK.</p>
+<h3>Instructions</h3>
+<p> These instructions will guide you through the process of setting up an Android project (using the DashO project wizard) and adding additional analytics annotations.</p>
+<ol>
+<li>Open a command prompt (or shell)</li>
+<li>Change to the samples/AndroidPA directory</li>
+<li>Setup and Compile the project
+<ul><li>Ant<ol>
+<li>Run the command: android update project --path . --name AndroidPA</li>
+<li>Run the command: ant debug</li></ol></li>
+<li>Gradle<ol>
+<li>Run the command: gradlew assembleDebug</li></ol></li></ul>
+<li>Start DashO and run the new project wizard choosing <i>samples/AndroidPA</i> as the project directory and choosing Ant or Gradle as your build environment.
+<ul><li>Continue clicking <i>Next,</i> accepting the defaults, then click <i>Finish</i>.</li></ul></li>
+<li>Once the project is created, go to the Instrumentation section
+<ul><li>Turn on instrumentation and make sure the Android runtime is selected</li></ul></li>
+<li>Save the project</li>
+<li>Start an emulator (or connect an Android device)</li>
+<li>Obfuscate and Install the application
+<ul><li>Ant<ol>
+<li>Run the command: ant obfuscate debug</li>
+<li>Run the command: ant installd</li></ol></li>
+<li>Gradle<ol>
+<li>Edit the file <i>dasho.gradle</i> and comment out the disabledForBuildTypes setting.</li>
+<li>Run the command: gradlew installDebug</li></ol></li></ul>
+<li>Run the app from the emulator (or device)<ul>
+<li>Random Generator - Generates a random number in the specified range.  A feature tick message is queued every time a number is generated.</li>
+<li>Fibonacci Calculator - Determines the Fibonacci number at the specified index.</li>
+<li>System Information - Sends the System Profile.</li>
+<li>Throw Error - Throws an Exception.  The injected PreEmptive Analytics code will prevent this exception from crashing the app.</li>
+</ul></li>
+</ol>
+<h3>Adding additional PreEmptive Analytics instrumentation</h3>
+<p>Instrumentation is fairly simple to add.  You will be guided through adding instrumentation to the Fibonacci Calculator.</p>
+<ol>
+<li>Open DashO</li>
+<li>Go to Instrumentation->Annotations</li>
+<li>Add the following:
+<ul>
+<li>@ReportUncaughtExceptions(ignore=true, sendMessage=true) virtual annotation to the FibActivity.processFibRequest() method.</li>
+<li>@FeatureStart("Fibonacci") virtual annotation to the FibActivity$FibTask.doInBackground(Integer[]) method.</li>
+<li>@FeatureStop("Fibonacci") virtual annotation to the FibActivity$FibTask.onPostExecute(Integer) method.</li>
+</ul></li>
+<li>Save the project</li>
+<li>Open a command prompt (or shell)</li>
+<li>Change to the samples/AndroidPA directory</li>
+<li>Start an emulator (or connect an Android device)</li>
+<li>Obfuscate and Install the application
+<ul><li>Ant<ol>
+<li>Run the command: ant obfuscate debug</li>
+<li>Run the command: ant installd</li></ol></li>
+<li>Gradle<ol>
+<li>Run the command: gradlew installDebug</li></ol></li></ul>
+<li>Run the app</li>
+</ol>
+These changes prevent the app from crashing when a number &gt;40 is used in the Fibonacci Calculator and will queue a Feature Start message when a number is requested and Feature Stop message when the number is displayed.
+</body>
+</html>

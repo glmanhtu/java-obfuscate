@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="instrumentation" default="all" basedir=".">
+
+	<property name="dasho.home" value="../.." />
+
+	<target name="all" depends="compile, dasho, run" />
+
+	<target name="compile">
+		<mkdir dir="classes" />
+		<javac srcdir="src" destdir="classes" debug="true" source="1.5" target="1.5" >
+			<classpath>
+				<pathelement location="${dasho.home}/lib/dasho-annotations.jar" />
+			</classpath>
+		</javac>
+		<jar destfile="project.jar">
+			<fileset dir="classes">
+				<include name="**/*.class" />
+			</fileset>
+			<manifest>
+				<attribute name="Main-Class" value="dasho.samples.Instrumentation1" />
+			</manifest>
+		</jar>
+		<delete quiet="true">
+			<fileset dir="classes" />
+		</delete>
+	</target>
+
+	<target name="dasho">
+		<java fork="true" classname="DashOPro" classpath="${dasho.home}/DashOPro.jar">
+			<arg value="-v" />
+			<arg file="project.dox" />
+		</java>
+	</target>
+
+	<target name="run">
+		<!-- Clean up old files -->
+		<delete quiet="true">
+			<fileset dir="${java.io.tmpdir}">
+				<include name="RIS-*.xml" />
+			</fileset>
+		</delete>
+		<!-- Runs the instrumented classes. -->
+		<!-- Since the annotations do not include valid company or application IDs -->
+		<!-- we don't send the messages to the server, but log them to the temp directory. -->
+		<java fork="true" jar="obfuscated/project.jar">
+			<jvmarg value="-Dris.ssl=false" />
+			<jvmarg value="-Dris.endpoint=localhost:8080/sink/Sink" />
+			<jvmarg value="-Dris.log.messages=true" />
+		</java>
+		<java fork="true" classname="dasho.samples.Instrumentation2" classpath="obfuscated/project.jar">
+			<jvmarg value="-Dris.ssl=false" />
+			<jvmarg value="-Dris.endpoint=localhost:8080/sink/Sink" />
+			<jvmarg value="-Dris.log.messages=true" />
+		</java>
+		<echo>Check ${java.io.tmpdir} for RIS-*.xml files</echo>
+	</target>
+
+	<target name="clean">
+		<delete quiet="true" includeemptydirs="true">
+			<fileset dir="classes" />
+			<fileset dir="obfuscated" />
+			<fileset dir=".">
+				<include name="*-mapreport.txt" />
+				<include name="*-report.txt" />
+				<include name="*.map" />
+				<include name="project.jar" />
+			</fileset>
+			<fileset dir="${java.io.tmpdir}">
+				<include name="RIS-*.xml" />
+			</fileset>
+		</delete>
+	</target>
+
+</project>

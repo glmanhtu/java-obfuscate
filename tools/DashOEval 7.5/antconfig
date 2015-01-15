@@ -1,0 +1,23 @@
+#! /bin/sh
+
+if [ "$1" = "" ] ; then
+	DASHO_HOME=`dirname "$0"`
+	DASHO_HOME=`cd "${DASHO_HOME}" 1>/dev/null 2>&1 && pwd`
+	case "`uname`" in
+		CYGWIN*)
+			DASHO_HOME=`cygpath --mixed "${DASHO_HOME}"`
+			;;
+	esac
+else
+	if [ "$1" = "show" ] ; then
+		java -jar ant-dasho.jar
+		DASHO_HOME=""
+	else
+		DASHO_HOME="$1"
+	fi
+fi
+
+if [ ! "${DASHO_HOME}" = "" ] ; then
+	java -jar ant-dasho.jar "${DASHO_HOME}"
+	jar -uf ant-dasho.jar dasho.ant.runtime.properties
+fi

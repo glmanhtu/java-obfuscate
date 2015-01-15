@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="style.css" type="text/css"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Setting DashO Home</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<link href="images/dashoicon-16.png" rel="icon" type="image/png" />
+	<link href="style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="title">
+	<div class="logo"><img src="images/logo.png" alt="DashO"/></div>
+	<h1>Setting DashO Home</h1>
+</div>
+<div id="content">
+	<h3>Setting DashO Home</h3>
+	<p>The ant-dasho.jar file contains only the tasks and related classes, not DashO itself. The tasks need to know the location where DashO is installed and there are several ways to specify its value. The methods are listed in their order of precedence.</p>
+	<h4>The dashohome attribute</h4>
+	<p>Each task has a <i>dashohome</i> attribute where you can specify the directory where DashO is installed. If this attribute is specified it takes precedence over all other methods. For example:</p>
+	<pre>&lt;watermark dashohome="/user/lazardo/dasho<i>x.y</i>"&gt;</pre>
+	<h4>The dasho.home property</h4>
+	<p>You can set a buildfile property called <i>dasho.home</i> that specifies DashO's install directory. If specified it takes precedence over any of the following methods. For example:</p>
+	<pre>&lt;project name="superzap" basedir="."&gt;
+    &lt;property name="dasho.home" value="${user.home}/DashO&nbsp;<i>x.y</i>"/&gt;
+&lt;/project&gt;
+</pre>
+	<p>The property can also be set from the command line:</p>
+	<pre>ant "-Ddasho.home=$HOME/DashO&nbsp;<i>x.y</i>"</pre>
+	<p>Setting <i>dasho.home</i> this ways will override any property setting done in your buildfile. Note that the entire argument needed to be quoted because the value contains a space.</p>
+	<h4>dasho.ant.runtime.properties file</h4>
+	<p>The ant-dasho.jar file can contain the dasho.ant.runtime.properties file which provides the a setting for <i>dasho.home</i>. You can display the current setting in this file by going to the
+	ANT_HOME directory and running:</p>
+	<pre>C:\&gt;java -jar lib\ant-dasho.jar
+dasho.home=C:\Program Files (x86)\DashO <i>x.y</i>
+dasho.fullVersion=<i>x.y.z</i>
+dasho.version=<i>x.y</i></pre>
+	<p>If this value is not correct, please see the instructions in <a href="install.html">Installation</a>.</p>
+	<h4>The environment</h4>
+	<p>The <i>DASHO_HOME</i> environment variable can be used to specify DashO's install directory.</p>
+	<pre>$ export DASHO_HOME=/user/lazardo/dasho<i>x.y</i>
+$ echo $DASHO_HOME
+/user/lazardo/dasho<i>x.y</i>
+</pre>
+	<p/>
+	<pre>C:\&gt;set DASHO_HOME="C:\Program Files (x860\DashO <i>x.y</i>"
+C:\&gt;echo %DASHO_HOME%
+C:\Program Files\DashO <i>x.y</i>
+</pre>
+	<h4>Default locations</h4>
+	<p>If no location is set the task will fall back to default locations where DashO would be installed. These locations vary by operating system:</p>
+	<ul>
+	<li>Microsoft Windows - C:\Program Files (x86)\PreEmptive Solutions\DashO <i>x.y</i></li>
+	<li>Mac OS X - <i>no default currently defined</i></li>
+	<li>Unix/Linux - <i>no default currently defined</i></li>
+	</ul>
+</div>
+</body>
+</html>

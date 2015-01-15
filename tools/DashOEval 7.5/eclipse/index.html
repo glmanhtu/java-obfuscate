@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="style.css" type="text/css"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>DashO Eclipse Plugin</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<link href="style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="title">
+<div class="logo"><img src="images/logo.png" alt="DashO"/></div>
+<h1>Eclipse Plugin</h1>
+</div>
+<div id="content">
+	<h3>Overview</h3>
+	<p>The DashO Eclipse Plugin allows you to create, edit and execute DashO project files from within Eclipse.</p>
+	<h3>Installation</h3>
+	<ol>
+		<li><p><b>Locating your Eclipse plugins directory</b></p>
+		<p>First you will need to locate the directory where Eclipse is installed. We'll call this <tt>ECLIPSE_HOME</tt> in this document.
+		Inside <tt>ECLIPSE_HOME</tt> is a <tt>plugins</tt> directory: this is where the plugin will be installed.</p>
+		</li>
+		<li><p><b>Removing previous versions of the plugin</b></p>
+		<p>Only one version of the plugin can be installed at a time. If you have previously installed the plugin you will need
+		to remove the old version first. To uninstall the plugin delete any file that starts with <tt>com.preemptive.dasho</tt> in 
+		the <tt>ECLIPSE_HOME/plugins</tt> directory.</p>
+		</li>
+		<li><p><b>Installing the plugin</b></p>
+		<p>To install the plugin you need to copy it into the <tt>ECLIPSE_HOME/plugins</tt> directory. The plugin can be found in the 
+		<tt>DASHO_HOME/eclipse/plugins</tt>.</p>
+		</li>
+		<li><p><b>Start Eclipse</b></p>
+		<p>Once the plugin files have been copied you can start Eclipse. To check for the presence of the plugin you can go to 
+		<b>Window &gt; Preferences&#8230;</b>. There you should see see an entry for DashO in the tree:</p>
+		<img alt="Eclipse's Preferences dialog" src="images/eclipse_prefs.png" />
+		<p>If DashO does not appear in the tree, run Eclipse from the command line with the <tt>-clean</tt> option.</p>
+		</li>
+		<li><p><b>Configure the plugin</b></p>
+		<p>In Eclipse go to <b>Window &gt; Preferences&#8230;</b>. Select the <b>DashO</b> entry in the tree:</p>
+		<img alt="DashO's preference page" src="images/dasho_prefs.png" />
+		<p>Click on the <b>Browse</b> button and select the directory where DashO has been installed. Now click on <b>OK</b>. The plugin is now configured.</p>
+		</li>
+	</ol>
+	<h3>Using the plugin</h3>
+	<ul>
+		<li><p><b>Creating a new DashO project file</b></p>
+		<p>To create a new DashO project file go to <b>File &gt; New &gt; Other&#8230;</b>. On the list of wizards you will see two choices
+		for creating a DashO project file:</p>
+		<img alt="Eclipse's New dialog" src="images/new_dialog.png" />
+		<p>You can either create an empty project file or run DashO's new project file wizard. Selecting the new project file wizard runs the wizard built into DashO.
+		To create an empty project file select <b>Project File</b> and click <b>Next</b>.</p>
+		<img alt="DashO's New project file panel" src="images/dasho_new.png" />
+		<p>Select where you wish to create the project file and the name of the project file and click <b>Finish</b>. The new file will be created and DashO will begin
+		editing of the project file.</p>
+		</li>
+		<li><p><b>Opening a DashO project for editing</b></p>
+		<p>DashO's project file will be displayed as a document with the DashO logo superimposed. You can edit the project files using DashO's user interface
+		or as an XML or text file. You can choose which one to use by right clicking on the project file and selecting <b>Open With</b>:</p>
+		<img alt="Eclipse's open with menu for a DashO project file" src="images/open_with.png" />
+		<p>The default is to use DashO's user interface. Eclipse remembers the choice you make as the default for that file. When you double click on the project file
+		the default editor is launched.</p>
+		</li>
+		<li><p><b>Executing a DashO project</b></p>
+		<p>To execute a DashO project from within Eclipse right click on a project file and select <b>Run As</b>:</p>
+		<img alt="Eclipse's run as menu for a DashO project file" src="images/run_as.png" />
+		<p>The output from the run is sent to the <b>Console</b> tab.</p>
+		</li>
+	</ul>
+</div>
+<div id="footer">
+<p>
+<a href="http://validator.w3.org"><img style="border: none; vertical-align: middle;" src="http://www.w3.org/Icons/valid-xhtml10-blue" alt="Valid XHTML 1.0 Strict"/></a>
+<a href="http://jigsaw.w3.org/css-validator/"><img style="border: none; vertical-align: middle;" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!"/></a>
+&emsp;Copyright 1998-2012 <a href="http://www.preemptive.com">PreEmptive Solutions, Inc.</a>
+</p>
+</div>
+</body>
+</html>

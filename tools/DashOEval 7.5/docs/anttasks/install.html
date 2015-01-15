@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="style.css" type="text/css"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>DashO Ant Tasks : Installation</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<link href="images/dashoicon-16.png" rel="icon" type="image/png" />
+	<link href="style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="title">
+	<div class="logo"><img src="images/logo.png" alt="DashO"/></div>
+	<h1>Installation</h1>
+</div>
+<div id="content">
+	<p>DashO's ant tasks are in ant-dasho.jar. This jar and some additional support jars need to be copied into Ant's lib directory.
+	An optional configuration step can be performed before this to make the use of DashO's tasks easier.</p>
+	<p><b>Note:</b> When you update DashO, you need to also update the jars used by ant.</p>
+	<h4>Configuring dasho.ant.runtime.properties</h4>
+	<p>As discussed in <a href="dasho-home.html">Setting DashO Home</a> the Ant tasks need to know where DashO is installed.
+	One of the options is to set the value in a properties file stored in ant-dasho.jar. Setting the home value this way lets buildfiles
+	run with minimum configuration. It is not required that this file be configured as there are other ways to specify where DashO is installed.</p>
+	<p>To see the values that the task will use you can run the <code>antconfig</code> script:</p>
+	<pre>C:&gt;antconfig show
+dasho.home=C:/Program Files/PreEmptive&nbsp;Solutions/DashO 6.0
+dasho.fullVersion=6.0.1
+dasho.version=6.0</pre>
+	<p>If the value returned for <i>dasho.home</i> is correct your configuration is complete.
+	If you have installed DashO in another directory you will need to specify a new location. The simplist method is to let the value be configured automatically:</p>
+	<pre>C:&gt;antconfig
+dasho.home=C:\Documents&nbsp;and&nbsp;Settings\lazardo\DashO 6.0</pre>
+	<p>If the value cannot be determined automatically, you can specify it:</p>
+	<pre>C:&gt;antconfig
+C:\Documents and Settings\lazardo\dasho\DashO 6.0 does not contain DashOPro.jar
+C:&gt;antconfig "C:\Program&nbsp;Files\DashO 6.0"
+dasho.home=C:\Program&nbsp;Files\DashO 6.0</pre>
+	<p>Note that paths that contain spaces must be quoted.</p>
+	<h4>Where to install the tasks</h4>
+	<p>Ant can find tasks stored in one of two locations:</p>
+	<ul>
+	<li><strong>ant.lib directory</strong> - tasks placed in this directory are accessible to all users of Ant.</li>
+	<li><strong>USER_HOME/.ant/lib directory</strong> - tasks found here are available to a single user.</li>
+	</ul>
+	<p>You can determine these locations by running ant for the command line - be prepared for lots of output!</p>
+	<pre>C:&gt;ant -diagnostics
+...
+-------------------------------------------
+ ANT_HOME/lib jar listing
+-------------------------------------------
+ant.home: C:\Program&nbsp;Files\apache-ant-1.7.0
+...
+-------------------------------------------
+ USER_HOME/.ant/lib jar listing
+-------------------------------------------
+user.home: C:\Documents&nbsp;and&nbsp;Settings\lazardo
+...</pre>
+	<p>This means that the two choices for installing the task are <code>C:\Program&nbsp;Files\apache-ant-1.7.0</code> and <code>C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant</code>.</p>
+	<h4>Installing the tasks</h4>
+	<p>Once you have choosen the installation directory you can use the <code>antinstall</code> script to install the ant tasks:</p>
+	<pre>C:&gt;antinstall "C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant"
+Creating C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant
+Creating C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant\lib
+Copying ant-dasho.jar to C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant\lib
+Copying lib\doxfile.jar to C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant\lib
+Copying lib\jaxb-api.jar to C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant\lib
+Copying lib\jaxb-impl.jar to C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant\lib
+Copying lib\jaxb-libs.jar to C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant\lib
+Copying lib\relaxngDatatype.jar to C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant\lib
+Copying lib\xsdlib.jar to C:\Documents&nbsp;and&nbsp;Settings\lazardo\.ant\lib
+Installation complete</pre>
+	<p>Note that paths that contain spaces must be quoted.</p>
+	<h4>Installing the task into Eclipse</h4>
+	<p>If you chose to install the ant tasks in your USER_HOME/.ant your configuration is complete - Eclipse will discover the jars stored here and add them to classpath of its internal version of Ant. Otherwise you need
+	to tell Eclipse to add these jars to Ant's classpath. Do do this open Eclipse's Preferences dialog using <strong>Window&nbsp;&gt;&nbsp;Preferences&#x2026;</strong> from the menu bar. Use the navigation
+	tree to go to <strong>Ant&nbsp;&gt;&nbsp;Runtime</strong>. The dialog will look something like this:</p>
+	<img style="border: none; padding: 1em 4em; width: 80%;" src="images/eclipse-ant-runtime-initial.png" alt="Initial view of Eclipse's Ant Runtime configuration"/>
+	<p>Select <strong>Global&nbsp;Entries</strong> and then click on <strong>Add External Jars&#x2026;</strong>. Use the file selector to go to where ant has been installed. Add the following jars from the <strong>lib</strong> directory:</p>
+	<ul>
+	<li>ant-dasho.jar</li>
+	<li>doxfile.jar</li>
+	<li>jaxb-api.jar</li>
+	<li>jaxb-impl.jar</li>
+	<li>jaxb-libs.jar</li>
+	<li>relaxngDatatype.jar</li>
+	<li>xsdlib.jar</li>
+	</ul>
+	<p>The resulting dialog will look something like this:</p>
+	<img style="border: none; padding: 1em 4em; width: 80%;" src="images/eclipse-ant-runtime-complete.png" alt="Completed view of Eclipse's Ant Runtime configuration"/>
+	<p>Click on <strong>OK</strong> to save you changes, and Eclipse configuration is complete.</p>
+</div>
+</body>
+</html>

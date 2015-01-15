@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dasho version="6.8.1">
+    <propertylist/>
+    <global>
+        <option>NOMAKEPUBLIC</option>
+        <option>FORNAMEDETECTION</option>
+        <option>FORCE</option>
+        <option>RENAMEFORNAME</option>
+    </global>
+    <inputpath>
+        <pathelement location="project.jar"/>
+    </inputpath>
+    <entrypoints>
+        <classes name="dasho.samples.Instrumentation1">
+            <method name="main" signature="java.lang.String[]"/>
+        </classes>
+        <classes name="dasho.samples.Instrumentation2">
+            <method name="main" signature="java.lang.String[]"/>
+        </classes>
+    </entrypoints>
+    <report path="project-report.txt"/>
+    <output level="9">
+        <jar manifest="project.jar" path="obfuscated/project.jar"/>
+    </output>
+    <removal classes="unused" members="unused">
+        <debug types="SourceDir SourceDebugExtension LocalVariableTable LocalVariableTypeTable"/>
+        <attributes/>
+    </removal>
+    <instrumentation honorAnnotations="true" stripAnnotations="true"/>
+</dasho>
+

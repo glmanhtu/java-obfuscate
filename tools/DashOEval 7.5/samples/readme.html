@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Samples Read Me</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<style type="text/css">
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 0;
+	margin: 0;
+}
+
+#title {
+	position: relative;
+	height: 8em;
+	border-bottom: .1em solid #999999;
+}
+
+#title h1 {
+	font-size: 24pt;
+	position: absolute;
+	left: .5em;
+	top: 1.5em;
+	width: auto;
+	margin: 0;
+}
+
+#title .logo {
+	position: absolute;
+	top: .5em;
+	right: 0;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+#title .logo img {
+	padding-bottom: 0;
+	padding-right: 1em;
+}
+
+#footer {
+	margin-top: 2em;
+	border-top : .1em solid #999999;
+	padding: 1em;
+}
+
+.section {
+	padding: 1em 2em 0;
+}
+
+.section h2 {
+	font-size: 16pt;
+	color: #ffffff;
+	background-color: #525D76;
+	margin: .25em 0 0 0;
+	padding: .125em 0em .125em .5em;
+}
+
+.section h2 a {
+	color: #ffffff;
+}
+
+.section h2 a:visited {
+	color: #ffffff;
+}
+
+.section p {
+	font-size: 12pt;
+	margin-bottom: 0;
+	padding-left: 2em;
+}
+
+.section ul {
+	font-size: 12pt;
+	margin-bottom: 0;
+	margin-left: 0;
+	padding-left: 4em;
+}
+
+.section tt {
+	font-size: 12pt;
+}
+
+</style>
+</head>
+<body>
+<div id="title">
+<div class="logo"><img src="logo.png" alt="DashO"/></div>
+<h1>Samples Read Me</h1>
+</div>
+<div id="content">
+<div class="section">
+<h2>DashO Samples</h2>
+<p>This directory contains samples that demonstrate using DashO.</p>
+<p>Most samples contain an Ant build.xml file that can be used to compile, run DashO and run the samples. You do not need to install DashO's ant tasks to be able to use these build.xml files.</p>
+<p>Some samples have specific setup and configuration instructions.</p>
+<p><b>Note:</b> If you are running the samples on a Windows machine and installed to the Program Files directory, you may need to run the command prompt, DashO, and other tools with administrator privileges.</p>
+</div>
+<div class="section">
+<h2><a href="AndroidPA">samples/AndroidPA</a></h2>
+<p>An Android Application which uses PreEmptive Analytics to send messages. See <a href="AndroidPA/readme.html">here</a> for special instructions.</p>
+</div>
+<div class="section">
+<h2><a href="applet">samples/applet</a></h2>
+<p>A calculator Applet. Use <a href="applet/run.html">run.html</a> to see the obfuscated applet, <i>after</i> running DashO.</p>
+</div>
+<div class="section">
+<h2><a href="instrumentation">samples/instrumentation</a></h2>
+<p>A sample of instrumentation using  PreEmptive Analytics. Please contact PreEmptive Solutions for additional details.</p>
+</div>
+<div class="section">
+<h2><a href="jsp-pa">samples/jsp-pa</a></h2>
+<p>A sample WAR file which illustrates the use of the  PreEmptive Analytics taglib in JSPs. See <a href="jsp-pa/readme.html">here</a> for more details.</p>
+</div>
+<div class="section">
+<h2><a href="log4j">samples/log4j</a></h2>
+<p>Use log4j to generate PreEmptive Analytics messages and exception reporting without instrumentation. See <a href="log4j/readme.html">here</a> for special instructions.</p>
+</div>
+<div class="section">
+<h2><a href="multidir">samples/multidir</a></h2>
+<p>Cross-directory obfuscation using the <code>merge="false"</code> output option.</p>
+</div>
+<div class="section">
+<h2><a href="multijar">samples/multijar</a></h2>
+<p>Cross-jar obfuscation using the <code>merge="false"</code> output option.</p>
+</div>
+<div class="section">
+<h2><a href="pa-api">samples/pa-api</a></h2>
+<p>A simple example using the Java PA API.</p>
+</div>
+<div class="section">
+<h2><a href="simpleapp">samples/simpleapp</a></h2>
+<p>A hello world type application.</p>
+</div>
+<div class="section">
+<h2><a href="simpleappjar">samples/simpleappjar</a></h2>
+<p>The simpleapp application using a Quick Jar project.</p>
+</div>
+<div class="section">
+<h2><a href="SpringBean">samples/SpringBean</a></h2>
+<p>An Spring Application showing how DashO deals with Spring Beans. See <a href="SpringBean/readme.html">here</a> for special instructions.</p>
+</div>
+<div class="section">
+<h3>Before running the Shelf Life samples please see <a href="shelflife/readme.html">here</a> for special instructions.</h3>
+<h2><a href="shelflife/basic">samples/shelflife/basic</a></h2>
+<p>Use Shelf Life to add an expiration date to a hello world application.</p>
+<h2><a href="shelflife/customaction">samples/shelflife/customaction</a></h2>
+<p>Use a custom expiration action to bring up dialogs when the application has expired.</p>
+<h2><a href="shelflife/relativestart">samples/shelflife/relativestart</a></h2>
+<p>Expire an application a certain number of days from a dynamic start date.</p>
+<h2><a href="shelflife/tokensource">samples/shelflife/tokensource</a></h2>
+<p>Read the expiration token from an external source, in this case from resources. See <a href="shelflife/tokensource/readme.html">here</a> for special instructions.</p>
+<h2><a href="shelflife/authorized-app">samples/shelflife/authorized-app</a></h2>
+<p>Using Shelf Life to add an authorization check and a free trial period to an existing application. See <a href="shelflife/authorized-app/readme.html">here</a> for special instructions.</p>
+</div>
+<div class="section">
+<h2>Important Links</h2>
+<ul>
+<li><a href="http://www.preemptive.com/support/dasho/pro/index.html">Support and Updates</a> - Please use the username and password that you received when you purchased DashO.</li>
+<li><a href="http://www.preemptive.com/online-remote-support-session.html">Online Remote Support Session</a></li>
+<li>DashO technical support e-mail: <a href="mailto:dasho@preemptive.com?subject=DashO%20Support%20Request">dasho@preemptive.com</a></li>
+</ul>
+</div>
+</div>
+<div id="footer">
+<a href="http://validator.w3.org"><img style="border: none; vertical-align: middle;" src="http://www.w3.org/Icons/valid-xhtml10-blue" alt="Valid XHTML 1.0 Strict"/></a>
+<a href="http://jigsaw.w3.org/css-validator/"><img style="border: none; vertical-align: middle;" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!"/></a>
+&emsp;Copyright 1998-2014 <a href="http://www.preemptive.com">PreEmptive Solutions, LLC</a>
+</div>
+</body>
+</html>

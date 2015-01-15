@@ -1,0 +1,103 @@
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 0;
+	margin: 0;
+}
+
+#title {
+	position: relative; /* lets child boxes be absolute to this */
+	height: 8em;
+	border-bottom: .1em solid #999999;
+}
+
+#title h1 {
+	position: absolute;
+	left: .5em;
+	top: 1.5em;
+	width: auto;
+	margin: 0;
+}
+
+#title .logo {
+	position: absolute;
+	top: .5em;
+	right: 0;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+#title .logo img {
+	padding-bottom: 0;
+	padding-right: 1em;
+}
+
+#content {
+	padding: 1em 2em;
+}
+
+/* modified ant manual styles follow ... */
+h2 {
+	font-size: 200%;
+	padding: .125em 0em .125em .5em;
+	margin-top: .25em;
+	margin-bottom: .25em;
+}
+
+h3 {
+	font-size: 130%;
+	color: #ffffff;
+	background-color: #525D76;
+	padding: .125em 0em .125em .5em;
+	margin-top: .25em;
+	margin-bottom: .25em;
+}
+
+h4,h5 {
+	color: #ffffff;
+	background-color: #828DA6;
+	padding: .125em 0em .125em .75em;
+	margin-bottom: .25em;
+}
+
+.iblock {
+	padding-left: 2em;
+}
+
+table {
+	width: 100%;
+}
+
+table td {
+	color: #000000;
+	background-color: #eeeeee;
+	vertical-align: top;
+	padding: .125em .5em;
+	text-align: left;
+}
+
+table th {
+	color: #000000;
+	background-color: #cccccc;
+	padding: .125em .5em;
+	text-align: left;
+}
+
+table th td {
+	font-weight: bold;
+}
+
+.c1 {
+	white-space: nowrap;
+}
+
+.c3 {
+	text-align: center;
+}
+
+pre {
+	background-color: #efefef;
+	padding: 1em;
+}

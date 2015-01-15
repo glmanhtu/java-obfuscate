@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>DashO Read-Me</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<style type="text/css">
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 0;
+	margin: 0;
+}
+
+#title {
+	position: relative;
+	height: 8em;
+	border-bottom: .1em solid #999999;
+}
+
+#title h1 {
+	font-size: 24pt;
+	position: absolute;
+	left: .5em;
+	top: 1.5em;
+	width: auto;
+	margin: 0;
+}
+
+#title .logo {
+	position: absolute;
+	top: .5em;
+	right: 0;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+#title .logo img {
+	padding-bottom: 0;
+	padding-right: 1em;
+}
+
+#footer {
+	margin-top: 2em;
+	border-top : .1em solid #999999;
+	padding: 1em;
+}
+
+.section {
+	padding: 1em 2em 0;
+}
+
+.section h2 {
+	font-size: 16pt;
+	color: #ffffff;
+	background-color: #525D76;
+	margin: .25em 0 0 0;
+	padding: .125em 0em .125em .5em;
+}
+
+.section p {
+	font-size: 12pt;
+	margin-bottom: 0;
+	padding-left: 2em;
+}
+
+.section ul {
+	font-size: 12pt;
+	margin-bottom: 0;
+	margin-left: 0;
+	padding-left: 4em;
+}
+
+.section tt {
+	font-size: 12pt;
+}
+
+</style>
+</head>
+<body>
+<div id="title">
+<div class="logo"><img src="logo.png" alt="DashO"/></div>
+<h1>Read-Me</h1>
+</div>
+<div id="content">
+<div class="section">
+<h2>Welcome!</h2>
+<p>DashO is already a highly-configurable tool, however, the nature of its abilities implies endless possibilities in the needs of our users.
+We especially appreciate your suggestions to how we can improve DashO to meet your needs.
+Please send your comments or suggestions to <a href="mailto:support@preemptive.com?subject=DashO%20Comments">support@preemptive.com</a>.</p>
+<p>DashO has been tested on large applications which have given insight into many interesting aspects of how DashO needed to work.
+Large applications with thousands of classes have been run through DashO.</p>
+<p>If you encounter problems after obfuscation it is recommended that you turn off all obfuscation features and turn them on one-by-one to determine how to fix the problem.</p>
+</div>
+<div class="section">
+<h2>Important Links</h2>
+<ul>
+<li><a href="changes.html">Changes file</a> - See what's new in this version of DashO.</li>
+<li><a href="pa-changes.html">PA API Changes file</a> - See what has changed in the PreEmptive Analytics API.</li>
+<li><a href="gradlePlugin-changes.html">Gradle Plugin Changes file</a> - See has changed in the Gradle Plugin.</li>
+<li><a href="samples/readme.html">DashO Samples</a> - Try out DashO with different types of applications.</li>
+<li><a href="http://www.preemptive.com/support/dasho-support">Support</a> - View the forums, user manual, and change logs. You can also start an on-line remote support session or open a support ticket.</li>
+<li><a href="http://www.preemptive.com/component/user/login">Updates</a> - Login or <a href="http://www.preemptive.com/component/user/register">sign-up</a> for the site to download updates.</li>
+<li>DashO technical support e-mail: <a href="mailto:support@preemptive.com?subject=DashO%20Support%20Request">support@preemptive.com</a></li>
+</ul>
+</div>
+<div class="section">
+<h2>Running DashO</h2>
+<p>A set of shell scripts and batch files are provided for running DashO:</p>
+<ul>
+<li><tt>dashogui</tt> / <tt>dashogui.bat</tt> - Runs the graphical user interface</li>
+<li><tt>dashocmd</tt> / <tt>dashocmd.bat</tt> - Runs the command line version</li>
+<li><tt>premark</tt> / <tt>premark.bat</tt> - Runs the command line version of the watermarking tool</li>
+<li><tt>dashorc</tt> / <tt>dashorc.bat</tt> - Resource files</li>
+</ul>
+<p>Sample resource files are installed in DashO's home directory. You may
+alter these copies to affect the settings used by all users of DashO.
+You can also copy the files into a your home directory and customize
+the settings just for yourself. Please note that the shell script version
+should be renamed <tt>.dashorc</tt> when you place it in your home directory.</p>
+<p>The resource files can customize these values:</p>
+<ul>
+<li><tt>javaOptions</tt> - These are options passed to the JVM.</li>
+<li><tt>memoryStart</tt> and <tt>memoryMax</tt> - The initial and maximum amount of memory that the JVM will allocate for DashO. Example: <tt>192m</tt> for 192 megabytes.</li>
+<li><tt>options</tt> - Command line options passed to DashO.</li>
+</ul>
+</div>
+<div class="section">
+<h2>PreEmptive Analytics</h2>
+<p>DashO supports PreEmptive Analytics. <a href="http://www.preemptive.com/pa">PreEmptive Analytics</a> improves software quality, application adoption, and user satisfaction.
+DashO supports PA via <a href="docs/annotations/index.html">annotations</a> in your code, virtual annotations from a project file, direct <a href="docs/pa-lib/index.html">API</a> calls, or any combination of these. A JSP Taglib for PA messages is also provided.
+The Taglib is packaged in <tt>pa-taglib.jar</tt>. An example WAR file is provided: see the <tt><a href="samples/jsp-pa/readme.html">Read-me</a></tt> for details.</p>
+</div>
+<div class="section">
+<h2>Ant Tasks</h2>
+<p>DashO includes tasks for use with Apache Ant.
+Please see the <a href="docs/anttasks/index.html">Ant Tasks</a> file for installation and use instructions.</p>
+</div>
+<div class="section">
+<h2>Eclipse Plugin</h2>
+<p>DashO includes a plugin for the <a href="http://www.eclipse.org/">Eclipse IDE</a> that lets you create, edit and execute DashO project files from inside Eclipse.
+Please see the <a href="eclipse/index.html">Eclipse Plugin</a> file for installation and use instructions.</p>
+</div>
+<div class="section">
+<h2>Gradle Plugin</h2>
+<p>DashO includes a plugin for <a href="http://www.gradle.org/">Gradle</a> that integrates DashO into the standard build process for java applications as well as the <a href="http://tools.android.com/tech-docs/new-build-system"> New Build System</a> for Android.
+Please see the <a href="docs/gradle/userguide.html">Gradle Plugin User Guide</a> for additional information.</p>
+</div>
+<div class="section">
+<h2>Map file API</h2>
+<p>DashO creates map files that record renaming information. An API is provided for working with these files. The API is packaged in <tt>mapfile.jar</tt>.
+<a href="docs/mapfile/index.html">Javadoc</a> for the API is provided in the <tt>docs</tt> directory.</p>
+</div>
+<div class="section">
+<h2>Icons</h2>
+<p>DashO uses icons from <a href="http://www.vistaico.com">Vistaico.com</a>.</p>
+<p>DashO uses icons from <a href="http://www.eclipse.org">Eclipse</a> under the terms on the <a href="http://www.eclipse.org/org/documents/epl-v10.php">Eclipse Public License - v 1.0</a>.</p>
+</div>
+</div>
+<div id="footer">
+<a href="http://validator.w3.org"><img style="border: none; vertical-align: middle;" src="http://www.w3.org/Icons/valid-xhtml10-blue" alt="Valid XHTML 1.0 Strict"/></a>
+<a href="http://jigsaw.w3.org/css-validator/"><img style="border: none; vertical-align: middle;" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!"/></a>
+&emsp;Copyright 1998-2014 <a href="http://www.preemptive.com">PreEmptive Solutions, LLC</a>
+</div>
+</body>
+</html>

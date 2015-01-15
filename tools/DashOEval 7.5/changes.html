@@ -1,0 +1,1689 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>DashO Changes</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<style type="text/css">
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 0;
+	margin: 0;
+}
+
+#title {
+	border-bottom: .1em solid #999999;
+	height: 72pt;
+}
+
+#title h1 {
+	font-size: 36pt;
+	padding: 20pt .5em 6pt;
+	margin: 0;
+	float: left;
+}
+
+#title .logo {
+	padding: 6pt .5em 6pt 0;
+	margin: 0;
+	border: none;
+	float: right;
+}
+
+#title .logo img {
+	height: 60pt; 
+	padding: 0;
+	margin: 0;
+}
+
+#footer {
+	margin-top: 2em;
+	border-top : .1em solid #999999;
+	padding: 1em;
+}
+
+#content {
+	clear: both;
+}
+
+.release {
+	padding: 2em 2em 0;
+}
+
+.release h2 {
+	font-size: 16pt;
+	color: #ffffff;
+	background-color: #525D76;
+	margin: .25em 0 0 0;
+	padding: .125em 0em .125em .5em;
+}
+
+.release ul {
+	font-size: 12pt;
+	margin: 0;
+	padding: 0 0 0 2em;
+}
+
+.release li p {
+	font-size: 12pt;
+	font-weight: bold;
+	margin: 0;
+	padding-top: 1em;
+}
+
+.release tt {
+	font-size: 12pt;
+}
+
+.reldate {
+	font-size: 10pt;
+	font-style: italic;
+}
+
+.note {
+	margin: 0;
+	padding: 1em 0 0 0;
+}
+
+.note h3 {
+	font-style: italic;
+	margin: 0;
+	padding: 0;
+}
+
+.note p {
+	margin: 0;
+	padding: .25em 1em 1em 1em;
+}
+</style>
+</head>
+<body>
+<div id="title">
+<h1>Changes</h1>
+<div class="logo"><img src="logo.png" alt="DashO"/></div>
+</div>
+<div id="content">
+
+<!-- *******THE FOLLOWING IS THE TEMPLATE FOR CHANGES COPY IT AND FILL IN APPROPRIATELY*******
+<div class="release">
+<h2>Version&nbsp;XX.xx</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Enhancement 1</li>
+		<li>Enhancement 2</li>
+		<li>...</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Fix 1</li>
+		<li>Fix 2</li>
+		<li>...</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Change 1</li>
+		<li>Change 2</li>
+		<li>...</li>
+	</ul>
+	</li>
+</ul>
+</div>
+******************************* END OF THE RELEASE TEMPLATE ********************* -->
+<div class="release">
+<h2>Version&nbsp;7.5.0</h2>
+<div class="note">
+<p>This release includes support for direct input and output of Android APK files. There is also a new Android Project Wizard to help set up an APK-based project.</p>
+</div>
+<ul>
+	<li>
+	<p>Other Enhancements</p>
+	<ul>
+		<li>Improved processing time for large classes.</li>
+		<li>Allows the configuration of multiple jar files in a single library entry point.</li>
+		<li>New &lt;globalProcessingExclude&gt; functionality allowing a single configuration location to exclude classes or packages from all obfuscation.</li>
+		<li>Ability to generate a Company ID for PreEmptive Analytics instrumentation.</li>
+		<li>Improved documentation relating to Tamper Detection.</li>
+		<li>New documentation on migrating Android applications from Eclipse (Ant) to Android Studio (Gradle).</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Signing UI now enables the configuration necessary for Tamper Detection, when signing is turned off.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Reorganized the Output UI.</li>
+		<li>Includes dex2jar-0.0.9.15.</li>
+		<li>Includes apktool-2.0.0RC3.</li>
+		<li>Updated to use ASM version 5.0.3.</li>
+		<li><a href="gradlePlugin-changes.html">Updates</a> to the DashO Gradle Plugin (v1.4).</li>
+		<li><a href="pa-changes.html">Updates</a> to the PreEmptive Analytics API (v7.4).</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.4.4</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Fixed a devirtualization optimization issue with interface default methods which use lambdas in Java 8.</li>
+		<li>Fixed a renaming issue with InvokeDynamic constants which reference instance methods in Java 8.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.4.3</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Fixed issues processing method handles and bootstrap attributes in some cases compiled with Java 8.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.4.2</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Added support for Android projects created using Android Studio 0.8.1/0.8.2 (beta) to the project wizard.</li>
+		<li>Improved Android project wizard error messages.</li> 
+		<li>Updated CEIP reporting to differentiate between Ant and Gradle usage.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Added support for identifying entrypoints referenced in the resource files of Gradle projects to the Android project wizard.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Changes in the Android-Gradle project wizard to allow referencing "android-L"(preview) for testing.</li>
+		<li><a href="gradlePlugin-changes.html">Updates</a> to the DashO Gradle Plugin (v1.1.1).</li>
+	</ul>
+	</li>
+</ul>
+</div>
+
+<div class="release">
+<h2>Version&nbsp;7.4.1</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Added support for the new Android Gradle Plugin IDs, introduced in v0.12.0, to the project wizard.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li><a href="gradlePlugin-changes.html">Updates</a> to the DashO Gradle Plugin (v1.1.0).</li>
+	</ul>
+	</li>
+</ul>
+</div>
+
+<div class="release">
+<h2>Version&nbsp;7.4</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Added support for the Gradle build environment (<a href="http://www.gradle.org/">http://www.gradle.org/</a>) for standard Java builds and for Android (<a href="http://tools.android.com/tech-docs/new-build-system">http://tools.android.com/tech-docs/new-build-system</a>).</li>
+		<li>Updated the Android project wizard to support Gradle build environments.</li>
+		<li>Updated the AndroidPA sample to work with Gradle and Android Studio.</li>
+		<li>Added support to update the names of renamed classes referenced in JNLP files.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Non-class files can now be copied to locations relative to a parent folder when outputting a jar file.</li>
+		<li>A potential NullPointerException when processing JNLP files will no longer occur.</li>
+		<li>Fixed a line-ending issue on *nix.</li>
+		<li>The SendOfflineData scripts work properly.</li>
+		<li>Paths that start with with forward slashes display properly in the Input and Support UIs.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>The DashO installer no longer allows selection of individual components.</li>
+		<li>Updated End User License Agreement to correspond to changes made for Analytics products.</li>
+		<li><a href="pa-changes.html">Updates</a> to the PreEmptive Analytics API (v7.3.1).</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.3</h2>
+<div class="note">
+<p>This release includes support for Java 8.  Java 8 specific enhancements are as follows:</p>
+<ul>
+<li>Reading &amp; Writing the updated class format.</li>
+<li>Renaming and removal of:
+<ul>
+<li>Methods created by lambda expressions (E.G. (x,y)-&gt;x+y;).</li>
+<li>Methods referenced by method references (E.G. MyClass::myMethod).</li>
+<li>Static methods in interfaces.</li>
+<li>Default methods in interfaces.</li>
+</ul>
+</li>
+<li>Renaming repeating annotations.</li>
+<li>Option removal of the MethodParameters attribute (Controlled by "Unknown Attributes").</li>
+<li>Removal of TypeAnnotations attributes.</li>
+<li>Support for classes using new Java 8 functionality such as Base64 encoding and the Date &amp; Time API.
+</li>
+</ul>
+</div>
+<ul>
+	<li>
+	<p>Other Enhancements</p>
+	<ul>
+		<li>The windows shortcut will attempt to launch DashO as an executable jar when javaw.exe is not on the path.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>A potential Verify Error with the Stack Map Table in Java 7 will no longer occur when working with methods > 32K and try/catch control flow is turned on.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li><a href="pa-changes.html">Updates</a> to the PreEmptive Analytics API (v7.3).</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.2.2</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>A potential NullPointerException will no longer occur during obfuscation when DashO places a LookupSwitch or TableSwitch as the last bytecode in an exception block which ends the method.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.2.1</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Android Quick Start section added to the User's Guide.</li>
+		<li>Hibernate support for many-to-many and one-to-one mappings.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Fixed processing of Hibernate configuration files where the package name was prepended to existing fully qualified names.</li>
+		<li>DashO will not choose a conflicting method name for a superclass private method if there is an abstract subclass which declares but does not implement an interface method.</li>
+		<li>DashO GUI no longer enables String Encryption when not specified in the configuration file.</li>
+		<li>DashO no longer expects a bean definition in all Spring XML files.</li>
+		<li>Running multiple DashO instances concurrently will no longer result in the loss of registration information.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.2</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li> Several enhancements to the PreEmptive Analytics API client for Java/Android
+		<ul>
+		<li>Android supports offline storage of analytic messages.</li>
+		<li>Added configurable retry timer in case network connectivity is lost.</li>
+		<li>Support for TimeToLive functionality allowing expiration of offline stored messages.</li>
+		<li>Support for deleting old messages from cache if there is no space for newer messages.</li>
+		<li>Support for omitting Personally Identifiable Information(PII) from analytics messages.</li>
+		<li>Added a generated and persistent unique Application Instance ID when none is provided to the Java or Android APIs.</li>
+		</ul></li>
+		<li>Added keywords &quot;All&quot; and &quot;None&quot; to the debug and attribute types in the DashO configuration file.</li>
+		<li>Multiple FeatureTick, FeatureStart, and FeatureStop messages can be attached to the same method using Virtual Annotations.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>The PA API removes invalid XML characters from strings.</li>
+		<li>The PA API now sends the correct Message Group header with offline messages.</li>
+		<li>It is now possible to remove debug information when running 'ant obfuscate debug' on an Android project.</li>
+		<li>Fixes failure when a SpringBean's parent classes are in the support libraries.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>The PA API will now retry sending messages periodically.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.1.1</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>The Android Project Wizard now turns on member renaming.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.1</h2>
+<div class="note">
+<p>This release includes significant improvements to Spring framework support.  Spring Beans can now be configured as SpringBean special classes.  If you currently use DashO to obfuscate your Spring projects, we recommend you use this new feature.  The new project wizard will help you setup the new SpringBean special classes.  Documentation has been updated explaining Spring Support in great detail and a new sample application was added to demonstrate the support.  The following areas of spring are supported:</p>
+<ul>
+<li>Renaming properties.</li>
+<li>Renaming entry point methods (<i>init-method, destroy-method, factory-method, lookup-method, replaced-method</i>).</li>
+<li>Renaming Constant Fields using <i>util:constant</i> or <i>FieldRetrievingFactoryBean</i>.</li>
+<li>Renaming classnames passed as values.</li>
+</ul>
+</div>
+<ul>
+	<li>
+	<p>Other Enhancements</p>
+	<ul>
+		<li>Support for v22 of the Android SDK.</li>
+		<li>Improved documentation on the "copy non-class files" feature.</li>
+		<li>Better visibility of configuration errors.</li>
+		<li>Allows the preservation of jars with no remaining classes.</li>
+		<li>Better Error handling with project file read/write issues.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Class files with more than 32767 constants are now supported.</li>
+		<li>The renamed classes/methods listed in the results will no longer temporarily disappear when selecting another entry.</li>
+		<li>The renamemembers, renameclass, and regex attribute are supported in entrypoints defined in an ant task.</li>
+		<li>Menu placement on OSX when running Java 1.7.</li>
+		<li>Renaming Exclusion issue with inner classes.</li>
+		<li>Fixed incorrect error during incremental renaming.</li>
+		<li>Fixed issue where incremental renaming can cause new method overrides.</li>
+		<li>Fixed placement of added exception classes in unmerged output.</li>
+		<li>Renaming will not choose a name which conflicts with an existing support class.</li>
+		<li>Better error handling with jars with invalid entries.</li>
+		<li>Virtual ReportException annotation now send messages by default.</li>
+		<li>Fixed reference to LEAVEDEBUGGINGINFO global option in documentation.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Instrumentation Activation is no longer necessary.</li>
+		<li>Runtime Intelligence re-branded to PreEmptive Analytics.  If you were using ri-*.jar files, they have been renamed to pa-*.jar.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;7.00</h2>
+<p>The 7.0 release includes a variety of enhancements and fixes, including one enhancement that introduces backwards-incompatibilities in certain build scenarios.  Please read this document carefully before upgrading, and refer to this summary, the user guide, or our <a href="http://www.preemptive.com/support/dasho-support">support options</a> if you encounter any issues.</p>
+<h3>Improved reporting of errors and warnings</h3>
+<p>This version of DashO introduces a consistent set of rules and behaviors for reporting build-time issues, which will make it easier to integrate DashO into an automated build process, and will improve the accuracy of the build results.  Specifically:</p>
+<ul>
+<li>DashO builds can now be configured to halt as soon as any error is encountered, rather than trying to proceed with the rest of the build, via the HALTONFIRSTERROR option.  (The default behavior is still to try to continue, to facilitate debugging.)</li>
+<li>The exit code of DashO and/or the &lt;dasho&gt; Ant task will indicate the number of errors (up to 255) encountered before the build halted or completed.  Before, the exit code would always be 0 (meaning &quot;success&quot;), even after an error, unless the build was unable to complete.  You can configure DashO to use the old exit-code behavior via a project-specific setting.  (&quot;Use exit behavior from DashO 6.x and earlier&quot; UI checkbox or &quot;PRE_7_0_EXIT_BEHAVIOR&quot; project file setting).</li>
+<li>Error output will always be on STDERR; before this release errors were logged to STDOUT.  Warnings will continue to be logged to STDOUT.  (The UI will continue to show all output within the UI.)</li>
+<li>Some Errors and Warnings were converted to Fatal Errors (i.e. the build halts immediately).  For example, if a map file for String Encryption was specified, but can't be found at build time, the build will halt immediately and report an Error.</li>
+<li>Many Warnings have been converted to Errors.  In general we are treating any condition in which the project file instructed DashO to take some action, but it was unable to take that specific action, as an Error.  Most of these changes were in the instrumentation features, and cover cases where a required field was missing for a given message type.  Some of these changes affect all parts of the build, such as when an input file is specified in the project but is missing from the filesystem.</li>
+</ul>
+<p>The combination of these changes can result in builds that fail where they didn't before, e.g. if a previously-reported Error wasn't causing a non-zero exit code, or if a Warning was converted to an Error and now causes a non-zero exit code.  In general, we suggest you investigate any errors reported by DashO 7.0 and see if they are truly issues with your build; if so, fixing them may be the best course of action.  If you feel that they are not truly errors, or that they are not worth fixing right away, you can use the &quot;Use exit behavior from DashO 6.x and earlier&quot; checkbox or the PRE_7_0_EXIT_BEHAVIOR project file setting to get the old exit behavior.  (Please also <a href="http://www.preemptive.com/contact/supportrequestform">notify support</a> if you believe the error is not truly an error.)</p>
+<ul>
+	<li>
+	<p>Other Enhancements</p>
+	<ul>
+		<li>It is now possible to provide custom implementations of the encryption/decryption methods for String Encryption.  (Not recommended in most situations.)</li>
+		<li>Added a BYPASSDASHO option to make it easier to &quot;turn off&quot; DashO processing (i.e. obfuscation and/or instrumentation) but still have DashO copy the inputs to the output location</li>
+		<li>The input class list now automatically refreshes when adding or removing inputs.</li>
+		<li>Made installer improvements and fixed a minor bug to provide full support for Windows 8 as a runtime platform for DashO.</li>
+		<li>The Android project wizard now identifies Fragments as entry points, and does a better job identifying entry points on custom views.</li>
+		<li>Build run from the UI will now run much faster (i.e. the same speed as builds run from the command line or Ant).</li>
+		<li>Added a code sample to demonstrate instrumentation (for PreEmptive Analytics) of Android applications.</li>
+		<li>Internal annotations can now be renamed.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>The values of class or enum attributes used in Annotations are renamed to match the renamed class or enum.</li>
+		<li>Interface methods which are not called directly on the interface but are called on implementing classes will not be removed.</li>
+		<li>The LocalVariableTable and LocalVariableTypeTable debug attributes are now kept when requested (except for methods affected by control flow obfuscation).</li>
+		<li>The obfuscate ant task now supports the following attributes and elements:<ul>
+		<li>The &lt;methodcallremoval&gt; element inside &lt;obfuscate&gt;</li>
+		<li>The &lt;attributes&gt; element inside &lt;removal&gt;</li>
+		<li>The <i>path</i> attribute on  &lt;report&gt;</li>
+		<li>The <i>sendMessages</i>, <i>supportOffline</i>, and <i>fullData</i> attributes on &lt;instrumentation&gt;</li></ul></li>
+		<li>Using private methods in Android for sources or actions from Runtime Intelligence will no longer generate Verify Errors on the Android device</li>
+		<li>Fixed an exception when re-writing classes modified by Aspect4J.</li>
+		<li>Android Runtime Intelligence no longer uses the current thread to determine the information needed for ApplicationStart.  The android.os.StrictMode.ThreadPolicy can prevent retrieving host information if the application starts on the UI thread.</li>
+		<li>Fixed an issue with obfuscation of projects located on network drives referenced by UNC paths.</li>
+		<li>Fixed an issue launching DashO on Windows XP.</li>
+		<li>Unchecking 'Selects Class' inside a renaming exclusion rule works properly again.</li>
+		<li>The &quot;ris.log.messages&quot; system property is supported when testing Java applications.</li>
+		<li>Unchecking 'Rename-Members' for an Android special class type properly turns off method renaming.</li>
+		<li>Fixed character encoding in XML documents.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.12</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Improved application startup time for instrumented applications.</li>
+		<li>The 'Removal' feature now supports exclusion rules for classes, methods, and fields.</li>
+		<li>The 'Make Synthetic' feature now supports exclusion rules for methods and fields.</li>
+		<li>Save-As will now prompt before overwriting an existing .dox file.</li>
+		<li>Several new attributes added to the DashO Ant tasks
+		<ul><li>error: Allows for error output to be placed in a different file than standard output.</li>
+		<li>outputProperty: Allows for standard output to be placed inside an Ant-accessible property.</li>
+		<li>errorProperty: Allows for standard error to be placed inside an Ant-accessible property.</li>
+		<li>resultProperty: Allows for the return code to be placed inside an Ant-accessible property.</li></ul></li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>The output jar files contain proper directory entries when &quot;Files Only&quot; is unchecked.</li>
+		<li>The ExceptionHandler class is now properly merged when using UncaughtExceptionHandler instrumentation.</li>
+		<li>Fixed the error when processing &quot;void.class&quot; as the default class element in an annotation.</li>
+		<li>Fixed issue with overriding MakeSynthetic settings from an Ant script.</li>
+		<li>The output file specified in the Obfuscate Ant task, will now contain errors regarding invalid .dox files.</li>
+		<li>Fixed issue where Try/Catch Control Flow would occasionally cause problems in methods that already contain exception handling.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>The New Project Wizard now launches automatically on startup.</li>
+		<li>The New Project toolbar button now launches the New Project Wizard.</li>
+		<li>Runtime Intelligence will now send a hashed windows serial number.</li>
+		<li>DashO will now produce Error messages (instead of Warning) when a specified .jar is missing or it cannot locate a specified entrypoint.</li>
+		<li>The Instrumentation UI is now disabled when not activated, and instrumentation is prevented for un-activated DashO installations  If your build begins to fail with an error about activation, please contact support.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.11</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Support for Android 4.1 - Jelly Bean.</li>
+		<li>Support for Android SDK Tools v20.</li>
+		<li>Enhanced control flow obfuscation.</li>
+		<li>Better support for renaming Android classes. The Android Manifest.xml is updated with new names.</li>
+		<li>Android project wizard automatically includes support libraries from device specific targets.</li>
+		<li>Support for removal of method calls (e.g. to strip-out logging).</li>
+		<li>Configurable off-line storage area for instrumentation messages.</li> 
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>DashO will automatically not rename the CREATOR field of an android.os.Parcelable implementation.</li>
+		<li>Subsequent runs of the Android project wizard properly overwrite previous configurations.</li>
+		<li>Fixed the VerifyError, in Java 7, when using Control Flow on a constructor with a ternary operation in its super call.</li>
+		<li>Updated the sendofflinedata scripts to reference the correct jar file.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.10.3</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>String encryption results can be reproduced for subsequent incremental runs.</li>
+		<li>More configuration options for the placement of decrypter methods.</li>
+		<li>Added support for packaging support libraries for Android applications.</li>
+		<li>Enhanced error handling when parsing war files.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Taglib functions with no parameters no longer cause parse issues.</li>
+		<li>No longer adds abstract method signatures for non-implemented interface methods in abstract java classes.</li>
+		<li>Context.xml is no longer removed from the META-INF directory when working with war files.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>The library wizard will set <i>Make Synthetic</i> to &quot;<i>Only private and package</i>&quot; by default.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.10.2</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Android Wizard now supports applications built using Android SDK (tools) version 14 and above.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.10.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>Members can be marked as <code>synthetic</code> to hide them from some decompilers.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Support for classes compiled with Java 1.7</li>
+		<li>Input and support file list flags items that cannot be read or contain property errors.</li>
+		<li>Added the following new built-in properties:
+		<ul>
+			<li><code>${dasho.basedir}</code> : the absolute path of the project's directory</li>
+			<li><code>${dasho.file}</code> : the absolute path of the project file</li>
+			<li><code>${dasho.project}</code> : the name part of the project file, no extension</li> 
+			<li><code>${dasho.java.version}</code> : the JVM version DashO detected; currently it can hold the values "1.5", "1.6", or "1.7"</li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Wizard creates project with blank name when input item starts with a single period and has no extension.</li>
+		<li>Incorrect icon used in class trees for package-protected constructors.</li>
+		<li>Rename collision when not removing unused classes and using randomized class identifiers.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>The <code>${configdir}</code> property is deprecated and replaced with <code>${dasho.basedir}</code>.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.9.3</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>When sequential string constants passed to method alternating strings not encrypted</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.9.2</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Using the <code>--nosplash</code> command line option causes a <code>NullPointerException</code>. This also affected the Eclipse plugin.</li>
+		<li>Dates sent in Runtime Intelligence messages not normalized to Gregorian calendar</li>
+		<li>DashO registration fails when used with proxy</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.9.1</h2>
+<div class="note">
+    <h3>IMPORTANT NOTE:</h3>
+    <p>DashO now places it license file in directory that is accessible to users without administrative privledges. You will have to re-register DashO after upgrading to 6.9.</p>
+</div>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>String Encryption enhancements. Up to ten string decrypters methods can be added to the application. The level of obfuscation is adjustable from 1 (simple/fast) to 10 (complex/slow).</li>
+		<li>TamperCheck is now supported on Android applications.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Inflater closed error when derived class appears before base class in a jar used as a library entry point</li>
+		<li>Relative paths to keystore causes <code>FileNotFoundException</code></li>
+		<li>TamperCheck placed on static method causes exception at application runtime</li>
+		<li>Java based installer fails on the shortcut screen when using 64 bit Java</li>
+		<li>Spurious missing class when instrumenting and no entry points have been defined</li>
+		<li>Removal report listed all removed fields on one line</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>DashO now requires the Android Toolkit version 10.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.8.1</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>The New Project Wizard has be updated to work with version 7 and up of the Android SDK. The wizard now requires this version or higher of the SDK.</li>
+		<li>New system properties to control Runtime Intelligence features- <code>ris.support.offline</code> and <code>ris.full.data</code>.</li>
+		<li>Removal report displays the actual entries point used by the entry point rules.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>The Ant task's <code>&lt;removal&gt;</code> did not support the <code>classes</code> attribute.</li>
+		<li>Member renaming random check-box not loaded corrected from project file.</li>
+		<li>Incorrect method signature referenced for thread-based unhandled exception reporting.</li>
+		<li>Jar mode should use default attribute removal set rather than remove all attributes.</li>
+		<li><code>NullPointerException</code> in Jar mode when an input jar does not contain a manifest.</li>
+		<li>In Jar mode if the manifest <code>Main-Class</code> attribute references an unknown class no warning message is generated.</li>
+		<li><code>static</code> modifier omitted in reports and verbose output.</li>
+		<li>Class statistics incorrect when classes are removed.</li>
+		<li>Protected fields displayed as package protected fields in class lists.</li>
+		<li>Optimizer replaces string/class reference with string/string.</li>
+		<li>Abstract class without public/protected methods causes renaming errors.</li>
+		<li>Methods with certain nested interface patterns not reconstructed correctly.</li>
+		<li>References to non-primitive static field in an interface rebound to <code>java.lang.Object</code>.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Runtime Intelligence off-line storage uses upper case version of application ID to prevent issues on platforms with case sensitive file systems.</li>
+		<li>Renaming report shows the top ten member identifiers sorted by frequency rather than only single character identifiers.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.7.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>Exception reporting for Runtime Intelligence.<br />
+		New features have been added to instrumentation to support the capture and reporting of exceptions at the global and method level.
+		At the method level caught, uncaught, and thrown exceptions may be intercepted and information sent to the Runtime Intelligence portal for reporting.
+		Global and thread uncaught exception handlers can be installed that allow the application user to enter additional information before sending the exception information.
+		The following RI annotations have been added to support new features:
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/AddUncaughtExceptionHandler.html"><code>AddUncaughtExceptionHandler</code></a>;
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/ReportCaughtExceptions.html"><code>ReportCaughtExceptions</code></a>;
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/ReportThrownExceptions.html"><code>ReportThrownExceptions</code></a>;
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/ReportUncaughtExceptions.html"><code>ReportUncaughtExceptions</code></a>.
+		 </li>
+		<li>Identifiers for class and member renaming can be assigned from a random source rather than using sequentially generated names. For backwards compatablity the default is to use sequentially generated names.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Runtime Intelligence API support for J2ME and RIM Blackberry 4.5 and up.</li>
+		<li>The <code>SourceFile</code> attribute of classes can be set to an arbitrary value. The value can contain DashO properties that are expanded before the attribute is set.</li>
+		<li>The constant pool tag and the <code>SourceFile</code> tag can use information about the current class with the following dynamic properties:
+		<ul>
+		<li><code>CLASS_NAME</code> - the full name of the current class, including its package name.</li>
+		<li><code>CLASS_SIMPLENAME</code> - the simple name of the class, i.e. the class name without its package name.</li>
+		<li><code>CLASS_PACKAGE</code> - the package name of the class, including a trailing period. This will be an empty string for classes in the default package: use <code>${CLASS_PACKAGE:-}</code> to ensure that the property will be expanded.</li>
+		</ul>
+		</li>
+		<li>The new dynamic <code>tstamp</code> property can be used to add a date or time stamp value to file names or other values. When used as <code>${tstamp}</code> the date is formated using the default format for the locale. To control the output of the date format you can use <code>${tstamp[<i>pattern</i>]}</code> where the pattern is identical to Java's <code>SimpleDateFormat</code> pattern.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Renaming error when unused classes not removed.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Runtime Intelligence for Java applications now requires Java 1.5 or up for a runtime environment.</li>
+		<li>The <code>&lt;constantpooltag&gt;</code> tag has been moved from the top level to a <code>&lt;constpooltag&gt;</code> inside of the <code>&lt;output&gt;</code>. The old tag is migrated automatically.</li>
+		<li>The <code>&lt;renaming&gt;</code> tag has been modified.
+		The <code>options="onlynonpublics"</code> value has been moved to the new <code>&lt;member&#x2011;options keeppublics="true/false"&gt;</code> sub-tag's attribute.
+		The <code>prefix="..."</code> attribute has been refactored into various attributes in the new <code>&lt;class&#x2011;options&gt;</code> sub-tag.
+		The old values are migrated automatically.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.6.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>Tamper checking and response. Verifies at runtime that the classes have been signed and verified with a given certificate. Response can be immediate or separated from the check. Responses include sending Runtime Intelligence messages, exiting the application, hanging the application thread, throwing errors or exceptions. Responses can be configured to use a <i>probability</i> of occurence to provide unpredictable behavior to attackers.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Improved memory usage in user interface with large input sets.</li>
+		<li>Improved string decryption time for Runtime Intelligence libraries.</li>
+		<li>Improved property dialogs for rule editors.</li>
+		<li>The New Project Wizard recognizes the <code>Premain-Class</code> and <code>Agent-Class</code> entries in manifests.</li>
+		<li>The <code>Premain-Class</code> and <code>Agent-Class</code> entries in manifests are now rewritten.</li>
+		<li>Runtime Intelligence messages now generate &quot;binary info&quot; to track related jars/library names and versions. Class and method names are automatically tracked with all RI message types.</li>
+		<li>New shelf life <a href="samples/shelflife/authorized-app/read-me.html"><code>sample authorized-app</code></a>.</li>
+		<li>The following RI annotations have been added to support new features:
+		<a href="docs/annotations/com/preemptive/annotation/instrumentation/Binary.html"><code>Binary</code></a>;
+		<a href="docs/annotations/com/preemptive/annotation/instrumentation/BinaryId.html"><code>BinaryId</code></a>;
+		<a href="docs/annotations/com/preemptive/annotation/instrumentation/BinaryName.html"><code>BinaryName</code></a>;
+		<a href="docs/annotations/com/preemptive/annotation/instrumentation/BinaryVersion.html"><code>BinaryVersion</code></a>;
+		<a href="docs/annotations/com/preemptive/annotation/instrumentation/BinaryVersionSource.html"><code>BinaryVersionSource</code></a>;
+		<a href="docs/annotations/com/preemptive/annotation/instrumentation/SignerInfo.html"><code>SignerInfo</code></a>;
+		<a href="docs/annotations/com/preemptive/annotation/instrumentation/TamperCheck.html"><code>TamperCheck</code></a>;
+		<a href="docs/annotations/com/preemptive/annotation/instrumentation/TamperResponse.html"><code>TamperResponse</code></a>.
+		</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Performance issues when opening class files.</li>
+		<li>Rules preview throwing exception for instrumentation rules.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Menu of virtual annotations types has been converted into a tree of menu items broken down into functional groups.</li>
+		<li>Previews of rules runs on a separate, non-UI thread and disables the application while it is running.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.5.2</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Implementation of interface defined method not found when located in support class.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.5.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>Signing of output jars.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Runtime Intelligence and Shelf Life support for Android 1.6 and up.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>GUI generates messages to stderr from <i>which</i> when starting up on AIX.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>New option to allow the navigation tree nodes to be collapsed.</li>
+		<li>The default Shelf Life warning and expiration messages are displayed in a dialog box if the application has a <code>Frame</code>.</li>
+		<li>The jar containing the Ant Tasks has been renamed from <code>ant-dashopro.jar</code> to <code>ant-dasho.jar</code>. The old version is removed when <code>antinstall</code> script is run.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.4.3</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Relative paths to drag-and-drop files incorrect.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Dialog and message generated for evaluations that indicate the obfuscated output will expired at a specified date.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.4.2</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>PreMark screen indicates an error when watermark uses characters not in the current encoding.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Exception when processing methods &gt; 32k bytes long with switch statement near end.</li>
+		<li>Re-written taglib descriptor (TLD) files are blank.</li>
+		<li>Spring files - class references in <code>org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean</code> bean not re-written.</li>
+		<li>Command-Q on Mac causes application to be terminated without asking about saving changes.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.4.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>RI off-line mode. If the instrumented application cannot connect to the RI server, or has been configured to only run as an off-line application, the RI messages will be stored locally for later transmission. When communications with the RI server is restored the stored messages are transfered automatically in the background.
+		For applications that always run off-line a command line tool and <a href="docs/pa-lib/com/preemptive/instrumentation/SendOfflineData.html">Java class</a> are provided to transmit the saved messages on demand.</li>
+		<li>Controlable removal of unused classes. You can now control what should be done with unused input classes. This follows the unused method removal syntax: <code>unused</code>; <code>unused-non-public</code>; <code>none</code>. Classes that are removed are listed in the DashO report.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Property editors have been added to interface items. To configure items in rule trees or lists right click on the item select <b>Properties</b>.</li>
+		<li>Debugging information can be selectively removed. The following types of debugging information can be selectively removed: <code>SourceFile</code>; <code>SourceDir</code>; <code>SourceDebugExtension</code>; <code>LineNumberTable</code>; <code>LocalVariableTable</code>; <code>LocalVariableTypeTable</code>.</li>
+		<li>Class file attributes can be selective removed by type. The following attributes can be removed: <code>Exceptions</code>; <code>Signature</code>; <code>Deprecated</code>; <code>Synthetic</code>; <code>EnclosingMethod</code>; <code>RuntimeVisibleAnnotations</code>; <code>RuntimeInvisibleAnnotations</code>; <code>RuntimeVisibleParameterAnnotations</code>; <code>RuntimeInvisibleParameterAnnotations</code>; <code>AnnotationDefault</code>; <code>InnerClasses</code>.</li>
+		<li>Type and modifiers as criteria. All include and exclude list can now specify the Java modifiers as part of the criteria. In addition, classes entries can speciy the type of the class: interface; enum; annotation; class. These can be combined in the same manner as they used in source code, but can also include negation, such as <code>!public</code>.</li>
+		<li>Duplicate class warnings now indicate the locations of the classes in quesiton. DashO will indicate which copy of the class is being used and which is being ignored.</li>
+		<li>Items from the class list can be draged-and-dropped into the rules list to create rules.</li>
+		<li>Tool tips added to class list and the results list. The tool tips show the declaration of the item as it would appear in source code.</li>
+		<li>Merged output can now specify the <code>autocopy</code> option. This automatically copies non-class files from the input to the output. Non-merged output mode always performs the automatic copying of non-class files.</li>
+		<li>You can now control the location where the string encryption decrypter method is placed. This uses a selection system identical to that used in the rule trees.</li>
+		<li>String decrypter method changed so that it blends in better with the applications methods.</li>
+		<li>Improved string encryption so that identical strings are not encrypted to the same value.</li>
+		<li>Improved the shutdown time of RI instrumented applications that have messages that have not yet been sent to the server.</li>
+		<li>The <a href="docs/annotations/com/preemptive/annotation/instrumentation/ExpiryCheck.html"><code>ExpiryCheck</code></a>
+		 RI annotation now supports the <code>where</code> property.</li>
+		<li>The screen layout on the Mac has been improved. Also integration with OS-X specific features has been added.</li>
+		<li>The toolbar can now be hidden via the Preferences dialog.</li>
+		<li>The following RI annotations have been added to support new features:
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/EndPoint.html"><code>EndPoint</code></a>;
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/OfflineMode.html"><code>OfflineMode</code></a>;
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/OfflineModeSource.html"><code>OfflineModeSource</code></a>;
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/OfflineModeSupport.html"><code>OfflineModeSupport</code></a>;
+		 <a href="docs/annotations/com/preemptive/annotation/instrumentation/OfflineModeSupportSource.html"><code>OfflineModeSupportSource</code></a>.</li>
+		<li>The New Project Wizard now read Castor and ehcache XML files to determine entry points and these files are rewritten after obfuscation.</li>
+		<li>The New project Wizard's identification of 3<sup>rd</sup> party jars has been improved.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Rename exclusion list shows constructors, which are never renamed.</li>
+		<li>Class list is blank when input classes are recompiled and class list refreshed.</li>
+		<li>No way to specify custom RI endpoint/SSL in user interface.</li>
+		<li>Method override introduced when subclassing classes with package-scoped methods.</li>
+		<li>Start-up failure when running from a read-only Samba share when dasho.dat is read-write.</li>
+		<li>Annotation properties editor text fields look like they are read-only.</li>
+		<li>Disabled text in proxy settings editor has wrong background color.</li>
+		<li>Static <code>values()</code> and <code>valueOf()</code> methods in enumerations not preserved.</li>
+		<li>Unparseable XML file in input jar causes failure.</li>
+		<li>Changes in control flow setting et. al. do not cause pop-up menu items to be enabled correctly.</li>
+		<li>Misleading message about merging runtime when no RI annotation specified.</li>
+		<li><code>readObjectNoData()</code> method must be preserved in <code>Serializable</code> classes.</li>
+		<li>Wizard does not open created project file for WAR files.</li>
+		<li>When processing a WAR file output may not be corrected placed in WEB-INF directory.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Controls on the interface that were used to configure rules, such as being a regular expression, have been removed. These have been moved to property editors.</li>
+		<li>When non-merged output is selected the RI runtime jar is now merged into an existing jar or directory. Previously the jar was copied over to output directory.</li>
+		<li>The excludes panel has been moved from the input to the remove part of the tree. No functionality has changed and the project file remains unchanged.</li>
+		<li>The <code>-j</code>/<code>--jar</code> and <code>-o</code>/<code>-p</code>/<code>--output</code> command line options have been removed. No substitute is provided.</li>
+		<li>The global options <code>NOINDUCTSTATICS</code>, <code>RENAMENATIVECLASSES</code>, and <code>PREOBFUSCATED</code>, undocumented options have been removed. No substitutes are provided.</li>
+		<li>The global option <code>LEAVEDEBUGGINGINFO</code> has been replaced with and is migrated to <code>&lt;removal&gt;&lt;debug&gt;</code> element.</li>
+		<li>The New Project Wizard no longer generates entry points for <code>values()</code> and <code>valueOf()</code> methods in enumerations - the obfuscation engine now handles these correctly (See Fixes).</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.3.3</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li><code>NullPointerException</code> when rewriting class names in Hibernate files.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.3.2</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li><code>ArrayIndexOutOfBoundsException</code> when String Encryption performed on class with very long strings.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.3.1</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Control Flow obfuscation is now applied to methods that contain exception handlers and synchronized blocks.</li>
+		<li>Control Flow, String Encryption, and Optimization now use a combination of includes and excludes to determine methods to be obfuscated.
+		A method must be on the list of included methods and not on the list of excluded ones.<br />
+		If the include list is empty it is equivalent to including all methods.<br />
+		If the exclude list is empty then nothing is excluded.</li>
+		<li>Preverification phase can now pass the <code>-nofinalize</code>, <code>-nofp</code>, and <code>-nonative</code> options to the preverifier executable.</li>
+		<li>When obfuscating a jar that has been signed the signing information is now removed. The jar will have to be re-signed after obfuscation.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>DashO reflection detection now reports on <code>Class</code> and <code>Member</code> methods that either take or return <code>Strings</code> since the
+		obfuscated programs behavior could be affected by their use.</li>
+		<li>Constant pool entry can now be changed in evaluation versions of DashO.</li>
+		<li>In the evaluation version of DashO, the output program will <i>expire</i> at the end of the evaluation period.
+		If the evaluation period is extended, you will need to run your DashO builds again to prevent your output from expiring.</li>
+		<li>If String Encryption is enabled but the include list is empty all classes will have their strings encrypted. Previously no strings would be encrypted.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Note for String Encryption</p>
+	<ul>
+		<li>Prior to the addition of the &lt;excludelist&gt; for String Encryption it was recommended that a regular expression negative lookahead pattern
+		be used to exclude one or more items from String Encryption. For example -<br />
+		<br /><code>(?!com\.foo\.(Foo|Bar|FooBar)).*</code><br /><br />
+		The limitation of this technique was that the negative lookahead had to be last <code>&lt;includelist&gt;</code> entry and any entries following
+		it may not work as expected since the actual pattern being matched is "<code>.*</code>" i.e. everything.
+		If any of your projects contains regular expression of this type we recommend moving them to the list of excluded patterns rather than leaving
+		them in the include list. If you choose to leave the expression in the include list your DashO project behavior will not change.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.2.2</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Common UI elements that are localized by the JDK are now used by DashO.</li>
+		<li>Reflection detection now detects class names passed to <code>javax.swing.UIManager.installLookAndFeel()</code>
+		and <code>javax.swing.UIManager.setLookAndFeel()</code>.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li><code>NullPointerException</code> when building a project from the GUI when reports are generated.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.2.1</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Registration simplified so that only the serial number is required.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.1.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>Shelf Life: injection of expiration and expiration warning logic into an application. Expiration checking can be added through annotations in the code or via virtual annotations.</li>
+		<li>Added <code>tokengenerator</code> command line tool to create and print Shelf Life tokens.</li>
+		<li>Added <code>&lt;generate-token&gt;</code> and <code>&lt;print-token&gt;</code> Ant tasks to create and print Shelf Life tokens.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>All Ant tags now support the <code>if</code> and <code>unless</code> attributes. These operate in the same fashion as the attributes of Ant's <a href="http://ant.apache.org/manual/using.html#targets">&lt;target&gt;</a>s.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>RI attributes containing non-ASCII characters not properly encoded.</li>
+		<li><code>NullPointerException</code> in New Project Wizard when reading Spring XML files with <code>FactoryBeans</code> that contain a <code>targetObject</code> property.</li>
+		<li>User interface not saving the setting of <code>&lt;premark&gt;</code>'s <code>truncate</code> attribute correctly.</li>
+		<li>Missing super interface classes eventually led to <code>NullPointerException</code>. Warning messages are now generated correctly, but DashO may still issue an error if the missing interface can not be ignored.</li>
+		<li><code>antconfig.bat</code> failed when install directory contained a space.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>RI activation is required for injection of RI messages, but not required for editing instrumentation settings in the user interface.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.0.3</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Verbose engine output setting propagated to execution of the preverifier as the <code>-verbose</code> command line option.</li>
+		<li>Debug engine output setting propagated to execution of the preverifier as the <code>-verify-verbose</code> command line option.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Backwards branch with uninitialized object verification error with control flow obfuscation with certain construction patterns.</li>
+		<li>Output from external programs is now flushed after the program terminates. This corrects problems with message sent to the console not being in the correct order.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Output from the execution of the preverifier is not longer buffered, reducing memory requirements.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.0.2</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li><code>NullPointerException</code> when determining reflected classes.</li>
+		<li>Preview of entry points with no children rules does not correctly highlight classes.</li>
+		<li>Ant Tasks default DashO home directory incorrect.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;6.0.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>DashO uses a new input model. Items to be processed are added as inputs rather than the classpath. Global exclusions
+		no longer need to be configured for items in the classpath. DashO will automatically migrate project files created with
+		earlier versions. It is recommended that you open these projects in the user interface and ensure the correct items
+		were identified as inputs. Examine the previous global excludes and delete those related to supporting
+		classes found on the classpath as the migration process does not remove these entries.</li>
+		<li>If no entry points are defined, the items in the input are examined to determine entry points from <code>Main-Class</code>
+		entries in Jar manifests. If none are found, the input items are processed like library entries.</li>
+		<li>Jar mode projects can be converted to advanced projects by selecting <b>File &gt; Convert</b>.</li>
+		<li>Command lines now include <code>--file-version</code> which prints the version of the project files created by
+		the release of DashO, i.e. <code>6.0.1</code>. <i>Note that this number may be different from the release version number.</i></li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>User interface elements that are used for setting file values now support drag-and-drop.</li>
+		<li>Class lists now contain <i>all</i> methods and fields present in the input, not just those found via traversal.
+		This makes it possible to add these as entry points that might not be detected by DashO's engine.</li>
+		<li>The class lists are loaded when a project is opened.</li>
+		<li>Entry point panels now include the list of input classes. These can be used to added items to rule lists.</li>
+		<li>Table columns are sortable when the user interface is run under Java 1.6.</li>
+		<li>The table of user properties can be directly edited by double clicking on the name or value of the property.</li>
+		<li>The removal report's summary information has been simplified for easier reading. It now includes the
+		count of input and written classes.</li>
+		<li>Tool-tips have been added to all elements in the main user interface.</li>
+		<li>Controls for reflection detection have been added to the jar mode options.</li>
+		<li>The serial number in the About dialog can now be copied.</li>
+		<li>The new project wizard tries to determine which jars to obfuscate in WAR files by skipping
+		&quot;well known&quot; jar files.</li>
+		<li>If the <code>--quiet</code> option is used before <code>--version</code> on the command line only the version number
+		will be generated.</li>
+		<li>Context information has been added to warnings about classes not being found.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Improved functionality of the user interface with various look-and-feels including the Java 1.6's Nimbus look-and-feel.</li>
+		<li>Duplicated information from reflection detection is now correctly removed.</li>
+		<li>Classes identified as entry points by reflection detection are now only loaded once.</li>
+		<li><code>NullPointerException</code> when command line is used without project file or quick jar entries.</li>
+		<li>Refresh button/menu item enabled in new project.</li>
+		<li>Jar mode class list behavior does not match advanced mode when renaming off.</li>
+		<li>Bad/broken DTD not ignored in wizard analysis of XML files.</li>
+		<li>Jars in WAR files cannot be read by the wizard.</li>
+		<li><code>DashOClassNotFoundException</code> thrown when determining serializability when ignoring not found classes.</li>
+		<li><code>NullPointerException</code> when wizard rewrites entry points in an existing project file.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>DashO now requires a 1.5 JVM or higher.</li>
+		<li>Properties prefixed by <code>env.</code> are <i>only</i> sourced from the environment.</li>
+		<li>Properties prefixed by <code>sys.</code> are <i>only</i> sourced from the system properties.</li>
+		<li>DashO will declare an error if there are no input classes available due to unavailable jars/directories or exclusions.</li>
+		<li>In previous version of DashO, using a literal class name as a renaming exclusion caused the class to be conditionally loaded.
+		This behavior is not supported in project files created with version 6, but is supported for those created with earlier versions.</li>
+		<li>When output is not being merged, DashO only keeps a single jar file open for writing at a time. Previously all output jars
+		were open simultaneously.</li>
+		<li>Project files now store the value as a three-part number, i.e. <code>6.0.1</code>. Older style versions are still recognized, i.e. <code>6.0001</code>.</li>
+		<li>The navigation tree for both advanced mode and jar mode projects has changed to reflect the behavior of the new input model.</li>
+		<li>Rules created from class lists now use patterns rather than regular expressions. If you want the rule to be a regular expression
+		hold down the shift key when performing the action. This works when adding or removing rules.</li>
+		<li><code>&lt;inputpath&gt;</code> tag added to the project file to support the new input model. It contains nested <code>&lt;pathelement&gt;</code> tags.</li>
+		<li>Nested <code>&lt;jar&gt;</code> and <code>&lt;dir&gt;</code> in <code>&lt;classpath&gt;</code> have been replaced with <code>&lt;pathelement&gt;</code>.</li>
+		<li>The global option <code>NODEFAULTEXCLUDES</code> is no longer allowed. Its behavior is applied when migrating pre-6 &lt;classpath&gt; elements.</li>
+		<li>The global option <code>DONOTAPPENDRTJAR</code> is no longer allowed. It has been replaced by <code>&lt;classpath appendrtjar="bool"&gt;</code>.
+		References in pre-6 files are migrated.</li>
+ 	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;5.2.3</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>The New Project Wizard identifies classes from the <a href="http://wicket.apache.org/">Apache Wicket</a> framework as entry points into an application.
+		The Wizard recognizes classes that extend these classes in the framework:
+		<code>org.apache.wicket.Application</code>;
+		<code>org.apache.wicket.protocol.http.WebApplication</code>;
+		<code>org.apache.wicket.authentication.AuthenticatedWebApplication</code>;
+		<code>org.apache.wicket.spring.SpringWebApplication</code>;
+		<code>org.apache.wicket.spring.injection.annot.AnnotSpringWebApplication</code>;
+		<code>org.apache.wicket.Page</code>;
+		<code>org.apache.wicket.markup.html.WebPage</code>;
+		<code>org.apache.wicket.markup.html.pages.AccessDeniedPage</code>;
+		<code>org.apache.wicket.markup.html.pages.BrowserInfoPage</code>;
+		<code>org.apache.wicket.markup.html.pages.ExceptionErrorPage</code>;
+		<code>org.apache.wicket.markup.html.pages.InternalErrorPage</code>;
+		<code>org.apache.wicket.markup.html.pages.PageExpiredErrorPage</code>;
+		<code>org.apache.wicket.markup.html.pages.RedirectPage</code>;
+		<code>org.apache.wicket.authentication.pages.SignInPage</code>;
+		<code>org.apache.wicket.authentication.pages.SignOutPage</code>.
+		Classes that extend any of the page base classes have their public constructors used as entry points.
+		</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>New Project Wizard does not correctly identify classes implementing the following Spring interfaces:
+		<code>org.springframework.beans.factory.InitializingBean</code>;
+		<code>org.springframework.beans.factory.BeanFactoryAware</code>;
+		<code>org.springframework.beans.factory.BeanNameAware</code>;
+		<code>org.springframework.context.ResourceLoaderAware</code>;
+		<code>org.springframework.validation.Validator</code>.
+		</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;5.2.2</h2>
+<ul>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>No longer throws exceptions when the <code>dasho.dat</code> file is not writable.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;5.2.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>Most entry point types can now be renamed. To support this the following attributes have been added to the child tags of <code>&lt;entrypoint&gt;</code>:
+		<ul>
+			<li><code>rename=<i>bool</i></code> to <code>&lt;classes&gt;</code>, <code>&lt;method&gt;</code>, and <code>&lt;field&gt;</code>.</li>
+			<li><code>rename-class=<i>bool</i></code> and <code>rename-members=<i>bool</i></code> to <code>&lt;publics&gt;</code>, <code>&lt;ejb&gt;</code>, and <code>&lt;unconditional&gt;</code>.</li>
+			<li><code>rename-class=<i>bool</i></code> to the <code>&lt;applet&gt;</code>, <code>&lt;servlet&gt;</code>, <code>&lt;midlet&gt;</code>, and <code>&lt;iappli&gt;</code>.</li>
+		</ul></li>
+		<li>DashO will rewrite the <code>Main-Class</code> attribute of a manifest if the class has been renamed.</li>
+		<li>The New Project Wizard generates entry points for classes found in various non-class sources. These include the XML files used by Spring and Hibernate
+		as well as TLD, JNLP, and JAD files and the web.xml. DashO will rewrite the class names in these files if the entry points have been renamed.</li>
+		<li>The New Project Wizard generated projects for Google Android applications.</li>
+		<li>Names for classes and members, and method signatures for entry points and includes/excludes can be specified as simple patterns using <b>?</b>, <b>*</b>, and <b>**</b>. See the user guide for details.</li>
+		<li>Names for classes and member, and method signatures for entry points can be specified using regular expressions.
+		 A <code>regex=<i>bool</i></code> attribute has been added to the following child tags of
+		 <code>&lt;entrypoint&gt;</code>: <code>&lt;classes&gt;</code>; <code>&lt;midlet&gt;</code>;
+		 <code>&lt;servlet&gt;</code>; <code>&lt;iappli&gt;</code>; <code>&lt;applet&gt;</code>;
+		 <code>&lt;unconditional&gt;</code>; <code>&lt;ejb&gt;</code>; <code>&lt;public&gt;</code>.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>The following new properties have been added: <code>${jce.jar}</code>; <code>${jsse.jar}</code>; <code>${javaws.jar}</code>. These expand to the locations of the JCE, JSSE, and Java Web Start jars.</li>
+		<li>Improved support for IBM JVMs.</li>
+		<li>The New Project Wizard generates a much simplier project file for WAR files.</li>
+		<li>When inner classes are renamed each gets its own renaming namespace, reducing the length of class names.</li>
+		<li>When renaming classes but keeping package names, each package gets its own renaming namespace, reducing the length of class names.</li>
+		<li>The <code>RENAMEFORNAME</code> feature uses less memory.</li>
+		<li>Icons used in class displays improved for display on non-white backgrounds.</li>
+		<li>The tar file installer includes man pages for dashocmd and dashogui in the docs directory.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Renamed anonymous inner classes must be prefixed by the name of their outer class.</li>
+		<li>If inner class made non-renameable, outer class must be non-renameable.</li>
+		<li>When Overload Induction&trade; is turned off some non-renameable classes are renamed.</li>
+		<li>Registration email address does not accept uppercase characters.</li>
+		<li><code>NullPointerException</code> if registration is cancelled without entering a serial number.</li>
+		<li>Regression bug in map files where fields were written as methods.</li>
+		<li>Regression bug in stack trace decoding cause by new map file API.</li>
+		<li>Repaint error in classes trees when window is hidden and then exposed.</li>
+		<li>Results panel disabled when build executed and the results panel is the currently displayed panel.</li>
+		<li><code>NullPointerException</code> when renaming is off and generic method signature includes a missing class.</li>
+		<li>Field entry point does not make its class non-renameable by default.</li>
+		<li>Field entry point should make field non-renameable even if the field has been referenced by another execution path.</li>
+		<li><code>NullPointerException</code> after deleting class rule with children.</li>
+		<li><code>NullPointerException</code> when incorrect base directory specified for classpath entry.</li>
+		<li>Class rename collision when rename prefix used.</li>
+		<li>User interface lock-up with project files with names longer than 37 characters on Windows.</li>
+		<li><code>&lt;unconditional&gt;</code> entrypoint not considered included in jar mode projects.</li>
+		<li>Scripts not working in Cygwin when CDPATH is set.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>When a directory is used as the source for non-class file copying JARs and WARs in the hierarchy are not copied.</li>
+		<li>When the file META-INF/MANIFEST.MF in used in non-class file copying it will only get copied if a manifest is not already present.
+		Its contents will be rewritten if required.</li>
+		<li>When project files are written out attributes that are set to their defaults may be omitted. This generates XML that is less cluttered.</li>
+		<li>Class names used in special entry points can no longer be specified using the internal class file format or in file name format.</li>
+ 	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;5.1.3</h2>
+<ul>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>No longer throws exceptions when the <code>dasho.dat</code> file is not writable.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;5.1.2</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Map file contents not created correctly: fields written out as methods.</li>
+		<li><code>NullPointerException</code> with an unresolved class in generics when renaming turned off.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;5.1.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>JSP Taglib for RIS messages. The Taglib is packaged as a separate Jar in <tt>ri-taglib.jar</tt>. An example WAR file is provided: see the <tt><a href="samples/jsp-ri/readme.html">Read-me</a></tt> for details.</li>
+		<li>Map file API for reading, modifying, and creating DashO map files. The API is packaged as a separate Jar in <tt>mapfile.jar</tt> and <a href="docs/mapfile/index.html">Javadoc</a> is provided.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Increased RIS support in MS Windows for the performance probe and system profile messages.</li>
+		<li>Line number debugging information is retained in both obfuscated and un-obfuscated code regardless of the settings of string encryption, optimization, or control flow.</li>
+		<li>Rule editors have keyboard shortcuts: Del - delete; Ctrl-Up - move up; Ctrl-Dn - move down; Ctrl-X - validate.</li>
+		<li>Rule editors now create package rules with a trailing period to prevent coincidental matching with packages that share a common prefix.</li>
+		<li>New Project Wizard creates fewer and more compact exclusion patterns for support jars.</li>
+		<li>New Project Wizard recognizes J2ME <tt>Xlet</tt> derived classes as entry points.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li><tt>ClassCastException</tt> when creating annotation on a method when an already existing annotation has the focus.</li>
+		<li><tt>ClassCastException</tt> in Jar mode projects.</li>
+		<li>Access error with final public methods in non-public base classes when running under Java 1.6 (additional changes from 5.0.1).</li>
+		<li>Files that end in <tt>.class</tt> but are not Java classes cause <tt>ArrayIndexOutOfBoundsException</tt>.</li>
+		<li>Exclusions created on classpath panel are not saved unless the exclude panel is visited before a save.</li>
+		<li>Property values cannot be defined in terms of other properties. This was permitted in 3.4, removed in 4.0, and restored in 5.1.</li>
+		<li><tt>ArrayIndexOutOfBoundsException</tt> when rewriting transformed method where LDC needs to be converted to an LDC_W.</li>
+		<li>Renamer fails renaming classes to MSDOS reserved device names.</li>
+		<li>Validation error on rebound method calls to concrete methods in abstract classes.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Class renaming now starts with <tt>a</tt> rather than <tt>b</tt>.</li>
+		<li>Methods can now be renamed to some previously excluded MSDOS device names, such as <tt>aux</tt>.</li>
+		<li>New advanced projects defaults to a directory output with the merge option off. This allows for quicker setup of cross-jar obfuscation and eliminates the need for non-class file inclusion for single jar obfuscation.</li>
+		<li>New Project Wizard no longer creates entry points for serialization methods and fields as DashO handles these automatically.</li>
+		<li>The <tt>&lt;file&gt;</tt> tag in project files is deprecated and has been replaced by a <tt>path</tt> in a parent tag. DashO automatically updates the project file when you save it.</li>
+		<li>When the UI does a refresh or a build the results panel is cleared to release memory from the previous build.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;5.0.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>DashO supports PreEmptive Solutions Runtime Intelligence System. <a href="http://www.preemptive.com/runtime-intelligence-services.html">Runtime Intelligence</a> is a technology and service that gives application authors and users insight into how their applications are being used.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>The project file's <code>&lt;output&gt;</code> tag now supports the following attributes:
+		<ul>
+		<li><code>compress="<i>boolean</i>"</code> - Should entries in jars be compressed. Defaults to <code>true</code>.</li>
+		<li><code>level="<i>0-9</i>"</code> - Compression level for jar entries. Defaults to <code>6</code>. Higher values give higher compression.</li>
+		<li><code>filesonly="<i>boolean</i>"</code> - Should the jars contain only file entries or both file and directory entries. Defaults to <code>true</code>.</li>
+		</ul>
+		These values apply to any jars that DashO creates.
+		</li>
+		<li>Property references now support operators to delete or
+		replace text. The following Bash-like syntax is supported:
+		<ul>
+			<li><tt>${prop/pattern/replace}</tt> - Replace first regular expression <tt>pattern</tt> with <tt>replace</tt></li>
+			<li><tt>${prop//pattern/replace}</tt> - Replace all regular expression <tt>pattern</tt> with <tt>replace</tt></li>
+			<li><tt>${prop/#pattern/replace}</tt> - Replace leading regular expression <tt>pattern</tt> with <tt>replace</tt></li>
+			<li><tt>${prop/%pattern/replace}</tt> - Replace trailing regular expression <tt>pattern</tt> with <tt>replace</tt></li>
+			<li><tt>${prop#pattern}</tt> - Delete leading regular expression <tt>pattern</tt></li>
+			<li><tt>${prop%pattern}</tt> - Delete trailing regular expression <tt>pattern</tt></li>
+		</ul>
+		</li>
+		<li>Formatting in reports has been improved.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Verify error after control-flow obfuscation in methods longer than 16k.</li>
+		<li>Access error with final public methods in non-public base classes when running under Java 1.6.</li>
+		<li>NullPointerException with string encryption when <tt>merge="false"</tt>.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>The name of the resources for DashO's ant tasks has been changed from <code>preemptive/dasho/anttask/antlib.xml</code> to <code>com/preemptive/dasho/anttask/antlib.xml</code>.</li>
+		<li>Conversion of 3.x style method references using <tt>(applet)</tt>, <tt>(servlet)</tt>, <tt>(ejb)</tt>, <tt>(midlet)</tt>, <tt>(iappli)</tt>, and <tt>(publics)</tt>
+		in project files has been removed. These were replaced with like-named tags in 4.x.</li>
+		<li>Conversion of <tt>&lt;output&gt;/&lt;dir&gt;</tt> with jar names is not longer supported. The <tt>&lt;dir&gt;</tt> should be changed to a <tt>&lt;jar&gt;</tt>.</li>
+		<li>In project files, the <tt>&lt;exclude&gt;</tt> no longer supports the <tt>methodname</tt> attribute and the <tt>classname</tt> attribute is now required.</li>
+ 		<li>The following obsolete project file options have been removed: <tt>PACKAGERTJARCLASSES</tt>; <tt>INCLUDESUN</tt>; <tt>INCLUDEJAVA</tt>; <tt>MAPTRUNC</tt>; <tt>RENAMETRIGGERS</tt>.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;4.2.4</h2>
+<ul>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Late load problem with inner classes with generic outer classes with two or more type parameters.</li>
+		<li>Eclipse plugin created with incorrect version number.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;4.2.3</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>The New Project Wizard reads Hibernate's <tt>.hbm.xml</tt> files and Android's <tt>AndroidManifest.xml</tt> to discover entry points.</li>
+		<li>The New Project Wizard tags classes that extend <tt>android.app.Activity</tt> as Midlet-like entry points.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li><tt>ArrayIndexOutOfBoundsException</tt> when writing optimized classes compiled with Java 1.6.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;4.2.2</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>The arrangement and alignment of items in the stack trace decoding dialog has changed. The results are placed in a separate tab.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Problems with hotspot compiler errors in control flow obfuscated code in Java 1.6.0_5 and up.</li>
+		<li>String encyrption was forced off if there were no inner classes in the input jars.</li>
+		<li>Problems with registration confirmation.</li>
+		<li>Stack trace decoding did not work for obfuscated classes that were in packages.</li>
+		<li>Source class for the string decryption method added to map files. This class is now excluded from the files.</li>
+		<li>Some icons shown in reversed colors on Macintosh.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;4.2.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>Eclipse IDE integration. Allows project files to be created, edited, and executed from inside Eclipse. See the <a href="eclipse/index.html">Eclipse Plugin</a> documentation for installation and use.</li>
+		<li>New output option: <tt>merge="true/false"</tt>. <tt>merge="false"</tt> allows cross jar/directory obfuscation and pruning while retaining the original packaging of the input classes. Previously DashO required that all output be placed in a single jar/directory. A new sample project, multijar, illustrating this feature is provided.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>All command lines now support short and long option names. All provide <tt>--help</tt> and <tt>--version</tt>.</li>
+		<li>Reports use standardized report headings and section breaks.</li>
+		<li>When DashO copies non-class file it attempts to preserve the original date and time of the source file.</li>
+		<li>You can add and remove exclusions for a jar in the class path by right-clicking on it and selecting <b>Add Exclusions</b> or <b>Remove Exclusions</b>.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Project file version now includes the build number of the product. For backwards compatibility the version is encoded as <tt>M.mmbb</tt> where <tt>M</tt> is the major version number, <tt>mm</tt> is the minor version number and <tt>bb</tt> is the build number.</li>
+		<li>DashO adds a default manifest to all jars it creates if a manifest is not provided by other means.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Shell script bug with file names that contain spaces.</li>
+		<li>Forname detection using cast preceding <tt>Class.newInstance()</tt> invocation. DashO now correctly includes the class used in the cast and all implementing classes.</li>
+		<li>User interface creates Jar Mode projects that generates a String Encryption warning.</li>
+		<li><tt>&lt;sysproperty&gt;</tt> and <tt>&lt;env&gt;</tt> do not work in Ant tasks.</li>
+		<li>Sourcing for property expansion prevents command line overrides of values. Values provided on the command line now override values provided in the project file.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;4.1.2</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>New Project Wizard in the <b>File &gt; New Project</b> menu.
+		You can have DashO's New Project Wizard create a project for your
+		application. The Wizard can create projects for libraries,
+		applications, or WAR files. WAR file obfuscation requires installing
+		DashO's Ant tasks.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Control flow re-ordering is stable between obfuscation runs so that methods that trigger JIT compiler bugs can be safely excluded.</li>
+		<li>When creating an output jar with a manifest, the name of the manifest may be a jar name. This jar is then used as the source for the manifest that will be placed in the output jar.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Entry points that reference excluded classes are now generate a warning and are ignored rather than halting the build.</li>
+		<li>DashO now excludes all packages that are defined in JDK 1.6.</li>
+		<li><tt>INCLUDEJAVA</tt> and <tt>INCLUDESUN</tt> global options have been removed. These options are ignored and removed from the project file.</li>
+		<li><tt>PACKAGERTJARCLASSES</tt> global option has been renamed to <tt>NODEFAULTEXCLUDES</tt>. The old option is automatically renamed when you save a project file. When this option is specified DashO does not use its internal list of Java packages that are excluded - only the exclusions in the project file will be used.</li>
+		<li>Build halted when field references are made to missing classes even when <tt>IGNORENOTFOUNDCLASSES</tt> has been specified. A warning is now generated.</li>
+		<li>Build halted when generic signatures make reference to missing classes even when <tt>IGNORENOTFOUNDCLASSES</tt> has been specified. A warning is now generated.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Null Pointer Exception when opening translator dialog.</li>
+		<li>Incremental renaming performance problems with large class hierarchies.</li>
+		<li>Messages not appearing on the problems tab.</li>
+		<li>Typing property reference in report name field causes exception.</li>
+		<li>Non-class file editing boxes being enabled when no item has been selected.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;4.1.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>Ant tasks : <tt>&lt;obfuscate&gt;</tt>; <tt>&lt;obfuscate-jar&gt;</tt>; <tt>&lt;watermark&gt;</tt>. Requires Apache Ant 1.5 or newer. See the <a href="docs/anttasks/index.html">Ant Tasks</a> documentation for installation and use.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>String Encryption improvements to thwart decompilation and reduce class sizes.</li>
+		<li>New Peep Hole optimizer.</li>
+		<li>Improved error messages for missing classes showing the context of the class reference.</li>
+		<li>Entry points, special classes, library entry points, classpath, quick jars, and supporting jars panels now have popup menus.</li>
+		<li>Entry points can now contain <tt>**</tt> and <tt>*</tt> patterns using Ant-like semantics.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Exception with forname detection in unusual instruction patterns.</li>
+		<li>Jar mode interface unable to turn off byte code optimization.</li>
+		<li>Problem inserting manifests files that do not contain versions. Manifest version is automatically added if not present in the text file.</li>
+		<li>Decoding of stack traces that contain a combination of renamed and non-renamed methods and classes.</li>
+		<li>String encrypted code that uses <tt>==</tt> rather than <tt>equals()</tt>.</li>
+		<li>Results panel drawing blank text with Window&nbsp;XP using Window&nbsp;2000 display mode.</li>
+		<li>Input jars list having compressed display when jar has a blank name.</li>
+		<li>User interface not saving files that contain field rules.</li>
+		<li>User interface losing value of manifest name on output panel.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;4.0.1</h2>
+<ul>
+	<li>
+	<p>New Features</p>
+	<ul>
+		<li>A new user interface.</li>
+		<li>Jar Mode interface is now combined with the Advanced Mode interface.</li>
+		<li>New installers using <a href="http://izpack.org">IzPack</a>. The application, documentation, and samples can all be installed separately.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Enhanced use of properties throughout the DOX file.</li>
+		<li>Class name in entry points can use wildcards. Wildcards can now locate classes stored in jars.</li>
+		<li>The script files now use a shared configuration file. See the <a href="readme.html">readme</a> file for instructions on setting JVM options when running DashO.</li>
+		<li>Two new sample projects have been added.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>If a property is not defined it is no longer an error that halts the build. Instead the unexpanded value is left in the string.</li>
+		<li>Relative filenames in project files are resolved relative to the project files location, not the current working directory as in 3.4.</li>
+		<li>All tags that are a child of <tt>&lt;dasho&gt;</tt> in the options file are now optional. Note that this makes the files incompatible with 3.4.</li>
+		<li>User preferences are now stored using Java's user preference mechanism. DashO no longer reads or writes .cfg files.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+</div>
+<div id="footer">
+<a href="http://validator.w3.org"><img style="border: none; vertical-align: middle;" src="http://www.w3.org/Icons/valid-xhtml10-blue" alt="Valid XHTML 1.0 Strict"/></a>
+<a href="http://jigsaw.w3.org/css-validator/"><img style="border: none; vertical-align: middle;" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!"/></a>
+&emsp;Copyright 1998-2014 <a href="http://www.preemptive.com">PreEmptive Solutions, LLC.</a>
+</div>
+</body>
+</html>

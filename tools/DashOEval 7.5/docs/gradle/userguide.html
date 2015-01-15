@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8 />
+    <title>DashO Gradle Plugin User Guide</title>
+    <style media="print">
+    body {
+      font-size: 80%;
+    }
+    </style>
+    <style>
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    h1,
+    h2,
+    h3,
+    p.sample {
+      color: #1981c4;
+      font-family: 'Doppio One', sans-serif;
+    }
+    #header {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 5px;
+      min-height: 100px;
+      background-color: #1981c4;
+      color: #fff;
+      page-break-after: avoid;
+    }
+    #header h1,
+    #header h2 {
+      color: #fff;
+      line-height: 0.75;
+    }
+    #toc ul,
+    #toc li {
+      list-style-image: none;
+      list-style-type: none;
+    }
+    #wrapper {
+      width: 90%;
+      min-width: 40em;
+      max-width: 55em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #content {} p.sample {
+      margin-top: 5px;
+      margin-bottom: 0px;
+      line-height: 0.8;
+      font-size: 80%;
+      page-break-after: avoid;
+    }
+    /*code blocks*/
+    pre {
+      word-wrap: break-word;
+      white-space: pre;
+      width: auto;
+      max-height: 600px;
+      overflow: auto;
+      background-color: #eee;
+      padding-left: 3px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      page-break-inside: avoid;
+    }
+    code {
+      page-break-before: avoid;
+      font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Courier New', monospace;
+      background-color: #eee;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="header">
+        <h1>PreEmptive Solutions</h1>
+        <h2>DashO Gradle Plugin v1.4 User Guide</h2>
+      </div>
+      <div id="content">
+        <div id="toc">
+          <ul>
+            <li><a href="#overview">Overview</a>
+            </li>
+            <li><a href="#plugins">Plugins</a>
+            </li>
+            <li><a href="#requirements">Requirements</a>
+            </li>
+            <li><a href="#configuration">Configuration</a>
+            </li>
+            <ul>
+              <li><a href="#com-preemptive-dasho">com.preemptive.dasho</a>
+              </li>
+              <li><a href="#com-preemptive-dashojar">com.preemptive.dashoJar</a>
+              </li>
+              <li><a href="#com-preemptive-dashocustom">com.preemptive.dashoCustom</a>
+              </li>
+            </ul>
+            <li><a href="#dasho-s-android-configuration">DashO&#39;s Android Configuration</a>
+            </li>
+            <ul>
+              <li><a href="#build-flavors">Build Flavors</a>
+              </li>
+              <li><a href="#advanced-functionality">Advanced functionality</a>
+              </li>
+              <ul>
+                <li><a href="#apk-splitting">APK Splitting</a>
+                </li>
+                <li><a href="#multidex">Multidex</a>
+                </li>
+                <li><a href="#resource-shrinking">Resource Shrinking</a>
+                </li>
+              </ul>
+            </ul>
+            <li><a href="#customization">Customization</a>
+            </li>
+            <ul>
+              <li><a href="#task-types">Task Types</a>
+              </li>
+            </ul>
+            <li><a href="#troubleshooting">Troubleshooting</a>
+            </li>
+            <ul>
+              <li><a href="#verifying-the-plugin-is-available-">Verifying the plugin is available.</a>
+              </li>
+              <ul>
+                <li><a href="#error-unexpected-char-flatdir-dirs-the-path-to-the-dasho-installation-">Error: Unexpected char &#39;\&#39;  ... flatDir dirs: {The Path to the DashO Installation}</a>
+                </li>
+                <li><a href="#error-could-not-find-method-dashoconfig-for-arguments-">Error: Could not find method dashOConfig() for arguments...</a>
+                </li>
+                <li><a href="#error-plugin-with-id-com-preemptive-dasho-not-found-">Error: Plugin with id &#39;com.preemptive.dasho*&#39;  not found.</a>
+                </li>
+                <li><a href="#error-could-not-find-any-version-that-matches-com-preemptive-dasho-1-4-">Error: Could not find any version that matches com.preemptive:dasho:1.4+.</a>
+                </li>
+                <li><a href="#error-could-not-create-plugin-of-type-appplugin-or-libraryplugin-">Error: Could not create plugin of type &#39;AppPlugin&#39; (or &#39;LibraryPlugin&#39;).</a>
+                </li>
+                <li><a href="#error-unable-to-resolve-class-com-android-build-outputfile-or-some-other-com-android-class-">Error: unable to resolve class com.android.build.OutputFile (or some other com.android... class)</a>
+                </li>
+              </ul>
+              <li><a href="#verifying-the-configuration-is-correct-">Verifying the configuration is correct.</a>
+              </li>
+              <ul>
+                <li><a href="#error-file-project-path-project-dox-specified-for-property-doxfile-does-not-exist-">Error:  File &#39;{project path}/project.dox&#39; specified for property &#39;doxFile&#39; does not exist.</a>
+                </li>
+                <li><a href="#error-dashohome-is-not-configured-">Error: DashOHome is not configured.</a>
+                </li>
+                <li><a href="#error-tried-to-access-method-org-gradle-api-tasks-javaexec-exec-v-">Error: tried to access method org.gradle.api.tasks.JavaExec.exec()V...</a>
+                </li>
+              </ul>
+              <li><a href="#errors-during-obfuscation">Errors during obfuscation</a>
+              </li>
+              <li><a href="#gradle-issues-after-obfuscation">Gradle issues after obfuscation</a>
+              </li>
+              <ul>
+                <li><a href="#error-build_dir-manifests-debug-dasho-debug-androidmanifest-xml-error-unable-to-open-file-for-read-no-such-file-or-directory-">Error: {BUILD_DIR}\manifests\debug\..\dasho-debug\AndroidManifest.xml: error: Unable to open file for read: No such file or directory.</a>
+                </li>
+              </ul>
+              <li><a href="#temporarily-disabling-dasho-integration">Temporarily Disabling DashO Integration</a>
+              </li>
+            </ul>
+          </ul>
+        </div>
+        <h1 id="overview">Overview</h1>
+        <p>The PreEmptive Solutions DashO Gradle Plugin allows you to integrate DashO&#39;s obfuscation and instrumentation into your existing Gradle build process. You may use one of our integrated plugins or create your own task. The DashO plugins support
+          Gradle&#39;s UP-TO-DATE checking, so if your classes and configuration do not change between runs, the DashO tasks will be skipped, saving build time.</p>
+        <h1 id="plugins">Plugins</h1>
+        <p>Five plugins are provided:</p>
+        <ul>
+          <li><code>com.preemptive.dasho</code> - Adds an <code>obfuscate</code> task which will run before Gradle creates a jar file. The jar file will contain the obfuscated classes.</li>
+          <li><code>com.preemptive.dashoJar</code> - Adds an <code>obfuscateJar</code> task which will run after Gradle creates a jar file. An obfuscated jar file will be placed in the <code>obfuscated_libs</code> directory in the build output.</li>
+          <li><code>com.preemptive.dashoCustom</code> - Does not add any tasks but allows you to define your own.</li>
+          <li><code>com.android.application</code> - Used in place of the core Android Gradle plugin. Depending on configuration, adds <code>obfuscate[Flavor]Release</code> and/or <code>obfuscate[Flavor]Debug</code> tasks which run before dexing.</li>
+          <li><code>com.android.library</code> - Used in place of the core Android Gradle plugin. Depending on configuration, adds <code>obfuscate[Flavor]ReleaseLibrary</code> and/or <code>obfuscate[Flavor]DebugLibrary</code> tasks.</li>
+        </ul>
+        <h1 id="requirements">Requirements</h1>
+        <ol>
+          <li>Gradle 2.2 (or later)</li>
+          <li>DashO 7.5 (or later)</li>
+          <li>If using the <code>com.android.application</code> or <code>com.android.library</code> plugin, you must be using Android Gradle Plugin version 0.14.3, 0.14.4, 1.0.0-rc*, or 1.0.0 (later versions may not work).</li>
+        </ol>
+        <h1 id="configuration">Configuration</h1>
+        <p>The plugin jar must be made available to your Gradle script.</p>
+        <p>If using <code>com.preemptive.dasho</code>, <code>com.preemptive.dashoJar</code>, or <code>com.preemptive.dashoCustom</code>, add the following to your build script:</p>
+        <pre><code>buildscript {
+    repositories {
+        flatDir dirs: &quot;{DashO&#39;s Installation Directory}/gradle&quot;
+    }
+    dependencies {
+        classpath &quot;com.preemptive:dasho:1.4+&quot;
+    }
+}</code></pre>
+        <p>If using DashO&#39;s <code>com.android.application</code> or <code>com.android.library</code> you will also need the core Android plugin in the mix:</p>
+        <pre><code>buildscript {
+    repositories {
+        flatDir dirs: &quot;{DashO&#39;s Installation Directory}/gradle&quot;
+        jcenter()
+    }
+    dependencies {
+        classpath &quot;com.preemptive:dasho:1.4+&quot;  //This must be before the Android tools
+        classpath &quot;com.android.tools.build:gradle:1.0.0&quot; //DashO works with  0.14.3, 0.14.4, 1.0.0-rc*, and 1.0.0
+    }
+}</code></pre>
+        <p><strong>Note:</strong> Use forward slashes when replacing <code>{DashO&#39;s Installation Directory}</code> with the actual path (E.G. <code>&quot;C:/Program Files/...&quot;</code> instead of <code>&quot;C:\Program Files\...&quot;</code>).</p>
+        <p>Configuration for DashO&#39;s tasks is done via the <code>dashOConfig</code> closure. This closure takes five properties:</p>
+        <ul>
+          <li><code>dashOHome</code> - The name of the directory where DashO is installed. This setting is optional. This information may also be provided via an environment variable named <code>DASHO_HOME</code>.</li>
+          <li><code>doxFilename</code> - The name of the DashO configuration (<code>.dox</code>) file. This setting is optional. It defaults to &quot;project.dox&quot; or a name based on the flavor of an Android build.</li>
+          <li><code>includeAsInputs</code> - The names of support libraries which should be included as inputs and not support libraries. This optional setting is a list of .jar files. The files listed here must already be part of the Gradle compile classpath
+            or an error will occur. If used with an Android project, .aar files can also be listed. When specifying an .aar file the plugin will pass the corresponding <code>classes.jar</code> file to DashO.</li>
+          <li><code>disabledForBuildTypes</code> - Used only by DashO&#39;s <code>com.android.application</code> and <code>com.android.library</code> plugins, this optional setting allows obfuscation to be skipped for debug and/or release builds. You can also
+            specify the name of a flavor to be skipped.</li>
+          <li><code>dexExcluded</code> - Used only by DashO&#39;s <code>com.android.application</code> plugin. DashO&#39;s <code>com.android.application</code> plugin will detect 3rd party libraries which were included as inputs to DashO and will exclude the original
+            jars from dex. This optional setting overrides the plugin&#39;s detection and supplies the list of 3rd party libraries (.jar or .aar) to be excluded from dex. Use the <code>--info</code> option, when running Gradle, to print out the detected
+            exclusions.</li>
+        </ul>
+        <p class="sample">Example</p>
+        <pre><code>dashOConfig {
+    dashOHome = &#39;{DashO&#39;s Installation Directory}&#39;
+    doxFilename = &#39;project.dox&#39;
+    includeAsInputs = [&#39;support.aar&#39;, &#39;myLibrary.jar&#39;]
+    disabledForBuildTypes = [&#39;debug&#39;]
+    dexExcluded = [&#39;support.aar&#39;, &#39;myLibrary.jar&#39;, &#39;myOtherLibrary.jar&#39;]
+}</code></pre>
+        <p><strong>Note:</strong> If configuring both <code>dexExcluded</code> and <code>includeAsInputs</code>, you should include the entries from <code>includeAsInputs</code> in the <code>dexExcluded</code> setting.</p>
+        <p>The plugins will pass the inputs and outputs as <code>User Properties</code> to DashO, your project file should use <code>${gradleInput}</code> and <code>${gradleOutput}</code> as the input and output locations. They will also pass the required support
+          jars in <code>${gradleSupport}</code>. See the DashO User&#39;s Guide for information concerning <code>User Properties.</code> If you use the DashO Android wizard, it will set up these properties automatically. The configured output type needs
+          to match the plugin you are using:</p>
+        <h2 id="com-preemptive-dasho">com.preemptive.dasho</h2>
+        <p>If using the <code>com.preemptive.dasho</code> plugin your output in DashO must be configured to be a merged directory.</p>
+        <p><strong>Note:</strong> The contents of DashO&#39;s output directory will be deleted before DashO runs.</p>
+        <h2 id="com-preemptive-dashojar">com.preemptive.dashoJar</h2>
+        <p>If using the <code>com.preemptive.dashoJar</code> plugin, your output in DashO must configured to be a jar.</p>
+        <h2 id="com-preemptive-dashocustom">com.preemptive.dashoCustom</h2>
+        <p>If using the <code>com.preemptive.dashoCustom</code> plugin, your output in DashO must match the task type being used.</p>
+        <h1 id="dasho-s-android-configuration">DashO&#39;s Android Configuration</h1>
+        <p>If using DashO&#39;s <code>com.android.application</code> or <code>com.android.library</code> plugin, your output in DashO must be configured to be a jar. In addition to configuring <code>${gradleInput}</code> and <code>${gradleOutput}</code>, a non-class
+          file must be configured for the AndroidManifest.xml. Use <code>${AndroidManifestFile}</code> as the source file and <code>${AndroidManifestOutput}</code> as the relative destination. You will also need to add the correct android.jar file to the
+          supporting classpath section of your <code>.dox</code> file and use your package name as the renaming prefix. If you are obfuscating a library, you should also configure DashO to remove the compiled {package name}.R* classes and make sure the
+          classes which will be referenced by applications are configured as entry points.</p>
+        <p>DashO has a project wizard that will configure most of these settings for you, if you use it for initial DashO project setup.</p>
+        <p><strong>Note:</strong> If you have a setup with multiple Gradle projects built at the same time, you will need to disable DashO on the other projects. You can quickly do this by adding <code>dashOConfig {disabledForBuildTypes=[&#39;debug&#39;, &#39;release&#39;]}</code> inside <code>build.gradle</code> of
+          the other projects until you have configured them to use DashO.</p>
+        <p>The following <code>User Properties</code> can also be used if needed:</p>
+        <ul>
+          <li><code>${buildType}</code> - The type of build being run (E.G. <code>debug</code> or <code>release</code>).</li>
+          <li><code>${sdk.dir}</code> - The directory where the Android SDK is located.</li>
+          <li><code>${build.dir}</code> - The directory containing Gradle build output.</li>
+          <li><code>${sdk.target}</code> - The target sdk api.</li>
+          <li><code>${manifest.package}</code> - The package name for the application.</li>
+          <li><code>${gradleSupport}</code> - The list of support jars.</li>
+          <li><code>${KEYSTORE}</code> - The location of the key store.</li>
+          <li><code>${KEYSTORE_PASSWORD}</code> - The password to access the key store.</li>
+          <li><code>${KEY_ALIAS}</code> - The key alias.</li>
+          <li><code>${KEY_ALIAS_PASSWORD}</code> - The password to access the key.</li>
+        </ul>
+        <p><strong>Note:</strong> The signing information is only passed when it is configured in the Android build.</p>
+        <h2 id="build-flavors">Build Flavors</h2>
+        <p>If you are working with different build flavors in your Android configuration and need different DashO configurations for the different flavors, you will need to create multiple DashO configuration files, name them based on the flavor, and remove
+          any <code>doxFilename</code> setting from the <code>dashOConfig</code> closure. For Example: If you have two flavors: <code>personal</code> and <code>pro</code>, you would create a <code>personal.dox</code> and <code>pro.dox</code> configuration. When
+          the DashO task runs, and does not find any configured <code>doxFilename</code>, it will search for a file based on the flavor. If it can&#39;t find one, then it will assume <code>project.dox</code>.</p>
+        <p><strong>Note:</strong> If you use flavor dimensions, the final name for each combined flavor should be used to name the <code>.dox</code> file.</p>
+        <h2 id="advanced-functionality">Advanced functionality</h2>
+        <h3 id="apk-splitting">APK Splitting</h3>
+        <p>The DashO Gradle plugin supports the APK Splitting functionality provided by the base Android Gradle plugin.</p>
+        <h3 id="multidex">Multidex</h3>
+        <p>The DashO Gradle plugin supports, on Lollipop devices, the multidex functionality provided by the base Android Gradle plugin. For older devices you will need to make the following changes to your <code>.dox</code> file.</p>
+        <ol>
+          <li>Add the multidex library to your inputs. It will probably be located in <code>build/intermediates/exploded-aar/com.android.support/multidex/1.0.0/classes.jar</code>.</li>
+          <li>Add the <code>android.support.multidex.MultiDexApplication</code> class with its <code>&lt;init&gt;()</code> method as an Entry Point.</li>
+        </ol>
+        <h3 id="resource-shrinking">Resource Shrinking</h3>
+        <p>The DashO Gradle plugin supports the resource shrinking functionality provided by the base Android Gradle plugin. It is recommended DashO be configured to remove all non-used classes and methods as resource shrinking relies on checking the compiled
+          code for references to the resources.</p>
+        <h1 id="customization">Customization</h1>
+        <p>If the integrated plugins do not work for you, we allow you to create your own Gradle task leveraging DashO by using the <code>com.preemptive.dashoCustom</code> plugin and extending a provided task type.</p>
+        <h2 id="task-types">Task Types</h2>
+        <p>The plugin defines two task types:</p>
+        <ul>
+          <li><code>DashODirTask</code> - Takes a directory as input and outputs to a directory. <strong>Note:</strong> The contents of DashO&#39;s output directory will be deleted before DashO runs.</li>
+          <li><code>DashOFileTask</code> - Takes a jar file as input and outputs to a jar file.</li>
+        </ul>
+        <p>The DashO project should be configured with the correct output type based on the task type being used.</p>
+        <p>These tasks can utilize the same <code>dashOConfig</code> or those properties may be configured in your custom task. When defining your custom task you will need to specify the input and output file (or directory). Simply calling the <code>from</code> and <code>to</code> methods
+          will configure the <code>${gradleInput}</code> and <code>${gradleOutput}</code> properties for DashO. The <code>setSupportClasspath(classpath)</code> method can be used to set <code>${gradleSupport}</code>. The string should be formatted like a standard
+          Java classpath; utilizing the path delimiter specific to your OS. If you have a need for your custom task to pass additional user properties to DashO, you can specify them by using the <code>addUserProperty(name, value)</code> method.</p>
+        <p class="sample">Example</p>
+        <pre><code>task myCustomDashOTask (type:DashODirTask) {
+    from(&quot;$MyInputDirectory&quot;)
+    to(&quot;$MyOutputDirectory&quot;)
+    setSupportClasspath(&quot;$MyClasspath&quot;)
+    addUserProperty(&quot;MyPropertyName&quot;, &quot;MyValue&quot;)
+    addUserProperty(&quot;MyOtherPropertyName, &quot;MyOtherValue&quot;)
+}</code></pre>
+        <h1 id="troubleshooting">Troubleshooting</h1>
+        <h2 id="verifying-the-plugin-is-available-">Verifying the plugin is available.</h2>
+        <p>Run <code>gradlew tasks</code>
+        </p>
+        <p>If you applied the <code>com.preemptive.dasho</code> or <code>com.preemptive.dashoJar</code> plugin, you should see tasks like <code>obfuscate</code> or <code>obfuscateJar</code> listed in the build section.</p>
+        <p>If you applied the <code>com.android.application</code> or <code>com.android.library</code> plugin, you should see tasks like <code>obfustate{Flavor]Release</code> or <code>obfuscate[Flavor]LibraryRelease</code> listed in the build section.</p>
+        <p>If you do not encounter an error and do not see one of those tasks listed, make sure you have applied the plugin in your script.</p>
+        <p>If you encounter an error, here are some common errors and solutions:</p>
+        <h3 id="error-unexpected-char-flatdir-dirs-the-path-to-the-dasho-installation-">Error: Unexpected char &#39;\&#39;  ... flatDir dirs: {The Path to the DashO Installation}</h3>
+        <p>Make sure you use forward slashes (&#39;/&#39;) when specifying the path.</p>
+        <h3 id="error-could-not-find-method-dashoconfig-for-arguments-">Error: Could not find method dashOConfig() for arguments...</h3>
+        <p>Make sure you apply one of the plugins: <code>com.preemptive.dasho</code>, <code>com.preemptive.dashoJar</code>, <code>com.android.application</code>, <code>com.android.library</code>, or <code>com.preemptive.dashoCustom</code>. If you applied <code>com.android.application</code> or <code>com.android.library</code> double
+          check the order of the dependencies. Also make sure that <code>dashOConfig</code> is not inside any other closure.</p>
+        <h3 id="error-plugin-with-id-com-preemptive-dasho-not-found-">Error: Plugin with id &#39;com.preemptive.dasho*&#39;  not found.</h3>
+        <p>Make sure you have referenced the plugin in the dependencies closure.</p>
+        <h3 id="error-could-not-find-any-version-that-matches-com-preemptive-dasho-1-4-">Error: Could not find any version that matches com.preemptive:dasho:1.4+.</h3>
+        <p>Make sure you have referenced the directory containing the dasho-1.4.x jar file in the repositories closure.</p>
+        <h3 id="error-could-not-create-plugin-of-type-appplugin-or-libraryplugin-">Error: Could not create plugin of type &#39;AppPlugin&#39; (or &#39;LibraryPlugin&#39;).</h3>
+        <p>Make sure you are using a supported version of Android&#39;s Gradle plugin (E.G. &quot;1.0.0&quot;)</p>
+        <h3 id="error-unable-to-resolve-class-com-android-build-outputfile-or-some-other-com-android-class-">Error: unable to resolve class com.android.build.OutputFile (or some other com.android... class)</h3>
+        <p>Make sure you are using a supported version of Android&#39;s Gradle plugin (E.G. &quot;1.0.0&quot;)</p>
+        <h2 id="verifying-the-configuration-is-correct-">Verifying the configuration is correct.</h2>
+        <p>Run <code>gradlew build</code>
+        </p>
+        <p>If you applied and configured the plugin correctly, DashO will obfuscate your code.</p>
+        <p>If you encounter an error, here are some common errors and solutions:</p>
+        <h3 id="error-file-project-path-project-dox-specified-for-property-doxfile-does-not-exist-">Error:  File &#39;{project path}/project.dox&#39; specified for property &#39;doxFile&#39; does not exist.</h3>
+        <p><strong>Solution 1:</strong> Make sure you have specified the <code>doxFilename</code> in the <code>dashOConfig</code> closure. It defaults to look for <code>project.dox</code> or a name based on the flavor of an Android build.</p>
+        <p><strong>Solution 2:</strong> You are using DashO&#39;s <code>com.android.application</code> or <code>com.android.library</code> plugin and have other Android projects which are compiled in the same Gradle build which are not yet configured to use DashO.
+          Add <code>dashOConfig {disabledForBuildTypes=[&#39;debug&#39;, &#39;release&#39;]}</code> inside <code>build.gradle</code> of the other projects until you have configured them to use DashO.</p>
+        <h3 id="error-dashohome-is-not-configured-">Error: DashOHome is not configured.</h3>
+        <p>Make sure you either specify the <code>dashOHome</code> in the <code>dashOConfig</code> closure or in the <code>DASHO_HOME</code> environment variable.</p>
+        <h3 id="error-tried-to-access-method-org-gradle-api-tasks-javaexec-exec-v-">Error: tried to access method org.gradle.api.tasks.JavaExec.exec()V...</h3>
+        <p>You are using an old version of Gradle, please upgrade to a later version.</p>
+        <h2 id="errors-during-obfuscation">Errors during obfuscation</h2>
+        <p>If an error occurs during obfuscation the information should be listed in the output. Double check that you used <code>${gradleInput}</code> and <code>${gradleOutput}</code> in your DashO configuration.</p>
+        <h2 id="gradle-issues-after-obfuscation">Gradle issues after obfuscation</h2>
+        <p>Some errors can occur from misconfiguration of the project <code>.dox</code> file.</p>
+        <h3 id="error-build_dir-manifests-debug-dasho-debug-androidmanifest-xml-error-unable-to-open-file-for-read-no-such-file-or-directory-">Error: {BUILD_DIR}\manifests\debug\..\dasho-debug\AndroidManifest.xml: error: Unable to open file for read: No such file or directory.</h3>
+        <p><strong>Solution 1:</strong> Make sure you have specified <code>${AndroidManifestFile}</code> and <code>${AndroidManifestOutput}</code> in the <code>Non-Class Files</code> section of the <code>.dox</code> file.</p>
+        <p><strong>Solution 2:</strong> Make sure you are using DashO version 7.5 (or later).</p>
+        <h3 id="issue-i-am-using-the-com-preemptive-dasho-plugin-and-there-are-no-classes-in-the-jar-file-created-by-gradle-">Issue: I am using the <code>com.preemptive.dasho</code> plugin and there are no classes in the jar file created by Gradle.</h3>
+        <p>Make sure you have used <code>${gradleOutput}</code> as the output location the <code>.dox</code> file (and that it is a merged directory).</p>
+        <h3 id="issue-i-am-using-the-com-preemptive-dashojar-plugin-and-do-not-see-the-obfuscated_libs-directory-in-my-build-folder-">Issue: I am using the <code>com.preemptive.dashoJar</code> plugin and do not see the <code>obfuscated_libs</code> directory in my build folder.</h3>
+        <p>Make sure you have used <code>${gradleOutput}</code> as the output location the <code>.dox</code> file (and that it is a jar file).</p>
+        <h2 id="temporarily-disabling-dasho-integration">Temporarily Disabling DashO Integration</h2>
+        <p>If you would like to run a build without the tasks added by DashO, you can disable them by adding <code>-DDISABLE_DASHO=true</code> to the command line when you run <code>gradlew</code>.</p>
+        <p><strong>Note:</strong> The <code>DISABLE_DASHO=true</code> setting will have no impact if you are using the <code>com.preemptive.dashoCustom</code> plugin as it does not add any tasks.</p>
+      </div>
+    </div>
+  </body>
+</html>

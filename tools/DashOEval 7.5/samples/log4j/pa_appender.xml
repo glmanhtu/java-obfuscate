@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p %c{1} - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- See the Javadoc for com.preemptive.instrumentation.Log4JAppender -->
+	<!-- for a full list and description of parameters. -->
+	<appender name="ri" class="com.preemptive.instrumentation.Log4JAppender">
+		<param name="companyId" value="11111111-aaaa-bbbb-cccc-555555555555" />
+		<param name="applicationId" value="00000000-0000-ffff-0000-000000000000" />
+		<param name="binaryName" value="My Test" />
+		<param name="binaryId" value="BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB" />
+		<param name="propertiesLayout" value="message=%m%ncategory=%c%npriority=%p" />
+		<param name="flowController" value="com.preemptive.instrumentation.ConfigurableFlowController" />
+	</appender>
+
+	<root>
+		<priority value="debug" />
+		<appender-ref ref="console" />
+		<appender-ref ref="ri" />
+	</root>
+
+</log4j:configuration>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>DashO Gradle Plugin Changes</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<style type="text/css">
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 0;
+	margin: 0;
+}
+
+#title {
+	border-bottom: .1em solid #999999;
+	height: 72pt;
+}
+
+#title h1 {
+	font-size: 36pt;
+	padding: 20pt .5em 6pt;
+	margin: 0;
+	float: left;
+}
+
+#title .logo {
+	padding: 6pt .5em 6pt 0;
+	margin: 0;
+	border: none;
+	float: right;
+}
+
+#title .logo img {
+	height: 60pt; 
+	padding: 0;
+	margin: 0;
+}
+
+#footer {
+	margin-top: 2em;
+	border-top : .1em solid #999999;
+	padding: 1em;
+}
+
+#content {
+	clear: both;
+}
+
+.release {
+	padding: 2em 2em 0;
+}
+
+.release h2 {
+	font-size: 16pt;
+	color: #ffffff;
+	background-color: #525D76;
+	margin: .25em 0 0 0;
+	padding: .125em 0em .125em .5em;
+}
+
+.release ul {
+	font-size: 12pt;
+	margin: 0;
+	padding: 0 0 0 2em;
+}
+
+.release li p {
+	font-size: 12pt;
+	font-weight: bold;
+	margin: 0;
+	padding-top: 1em;
+}
+
+.release tt {
+	font-size: 12pt;
+}
+
+.reldate {
+	font-size: 10pt;
+	font-style: italic;
+}
+
+.note {
+	margin: 0;
+	padding: 1em 0 0 0;
+}
+
+.note h3 {
+	font-style: italic;
+	margin: 0;
+	padding: 0;
+}
+
+.note p {
+	margin: 0;
+	padding: .25em 1em 1em 1em;
+}
+</style>
+</head>
+<body>
+<div id="title">
+<h1>Changes</h1>
+<div class="logo"><img src="logo.png" alt="PreEmptive Solutions"/></div>
+</div>
+<div id="content">
+
+<!-- *******THE FOLLOWING IS THE TEMPLATE FOR CHANGES COPY IT AND FILL IN APPROPRIATELY*******
+<div class="release">
+<h2>Version&nbsp;XX.xx</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Enhancement 1</li>
+		<li>Enhancement 2</li>
+		<li>...</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>Fix 1</li>
+		<li>Fix 2</li>
+		<li>...</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Change 1</li>
+		<li>Change 2</li>
+		<li>...</li>
+	</ul>
+	</li>
+</ul>
+</div>
+******************************* END OF THE RELEASE TEMPLATE ********************* -->
+<div class="release">
+<h2>Version&nbsp;1.4</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Support for APK Splits.</li>
+		<li>Support for Multidex.</li>
+		<li>Support for Resource Shrinking.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Requires Gradle 2.2 (or later).</li>
+		<li>Supports Android Gradle Plugin 1.0.0 (requires at least 0.14.3).</li>
+		<li>Requires DashO 7.5 (or later).</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;1.3</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Added an <b>includeAsInputs</b> setting, allowing support libraries to be easily included in obfuscation.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Fixes</p>
+	<ul>
+		<li>The full set of libraries required by the application (including compile-time project dependencies) will be sent to dex in the initial build.</li>
+	</ul>
+	</li>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Requires Gradle 2.1.</li>
+		<li>Requires Android Gradle Plugin 0.13.x.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;1.1.1</h2>
+<ul>
+	<li>
+	<p>Enhancements</p>
+	<ul>
+		<li>Updated to support CEIP changes in DashO.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;1.1.0</h2>
+<ul>
+	<li>
+	<p>Changes</p>
+	<ul>
+		<li>Using qualified plugin IDs:
+			<ul>
+				<li>dasho &#8658; com.preemptive.dasho</li>
+				<li>dashoJar &#8658; com.preemptive.dashoJar</li>
+				<li>dashoCustom &#8658; com.preemptive.dashoCustom</li>
+			</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+</div>
+<div class="release">
+<h2>Version&nbsp;1.0.0</h2>
+<div class="note">
+Initial Release.
+</div>
+</div>
+</div>
+<div id="footer">
+<a href="http://validator.w3.org"><img style="border: none; vertical-align: middle;" src="http://www.w3.org/Icons/valid-xhtml10-blue" alt="Valid XHTML 1.0 Strict"/></a>
+<a href="http://jigsaw.w3.org/css-validator/"><img style="border: none; vertical-align: middle;" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS!"/></a>
+&emsp;Copyright 1998 - 2014 <a href="http://www.preemptive.com">PreEmptive Solutions, LLC.</a>
+</div>
+</body>
+</html>

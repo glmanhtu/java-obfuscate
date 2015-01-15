@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="style.css" type="text/css"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>DashO &lt;print-token&gt; Task</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<link href="images/dashoicon-16.png" rel="icon" type="image/png" />
+	<link href="style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="title">
+	<div class="logo"><img src="images/logo.png" alt="DashO"/></div>
+	<h1>&lt;print-token&gt;</h1>
+</div>
+<div id="content">
+	<h3>Description</h3>
+	<p>Print a Shelf Life token stored in a file.</p>
+	<br />
+	<h3>Task Specific Parameters</h3>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">file</td>
+			<td class="c2">The Shelf Life token file.</td>
+    		<td class="c3">Yes</td>
+  		</tr>
+	</table>
+	<br />
+	<h3>General Parameters</h3>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">append</td>
+			<td class="c2">If <i>true</i> the filea specified by <i>output</i> and <i>error</i> will have output appended rather than being overwritten.</td>
+    		<td class="c3">No; defaults to <i>false</i></td>
+  		</tr>
+		<tr>
+			<td class="c1">dashohome</td>
+			<td class="c2">The location of DashOPro.jar. See <a href="dasho-home.html">Setting DashO Home</a> for details.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">dir</td>
+			<td class="c2">The directory where the process will be invoked.</td>
+    		<td class="c3">No; defaults to the <i>basedir</i> of the buildfile.</td>
+  		</tr>
+		<tr>
+			<td class="c1">error</td>
+			<td class="c2">Name of a file to which to write the error output.  (Error messages print to the error output)</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">errorProperty</td>
+			<td class="c2">Name of a property in which to store the standard error output.  (Error messages print to the standard error output)</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">failonerror</td>
+			<td class="c2">If <i>true</i> stops the buildprocess if the process exits with a returncode other than 0.</td>
+    		<td class="c3">No; defaults to <i>true</i></td>
+  		</tr>
+		<tr>
+			<td class="c1">if</td>
+			<td class="c2">Execute only if the named property has been set.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">jvm</td>
+			<td class="c2">The command used to invoke the Java Virtual Machine. The command is resolved by <code>java.lang.Runtime.exec()</code>.</td>
+    		<td class="c3">No; default is <i>java</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">maxmemory</td>
+			<td class="c2">Max amount of memory to allocate to the process.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">newenvironment</td>
+			<td class="c2">If <i>true</i> the old environment settings will not be propogated when new environment variables are specified.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">output</td>
+			<td class="c2">Name of a file to which to write the output of the process.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">outputProperty</td>
+			<td class="c2">Name of a property in which to store the standard output.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">printstacktraces</td>
+			<td class="c2">If <i>true</i> stack traces will be printed for errors.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">quiet</td>
+			<td class="c2">If <i>true</i> output will be terse.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">resultproperty</td>
+			<td class="c2">The property name which will contain the return code from the task.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">timeout</td>
+			<td class="c2">Stop the process if it doesn't finish within the specified time in milliseconds.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">unless</td>
+			<td class="c2">Execute only if the named property has not been set.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">verbose</td>
+			<td class="c2">If <i>true</i> additional information will be printed.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+	</table>
+	<br />
+	<h3>Parameters specified as nested elements</h3>
+	<!-- common elements for java -->
+	<h4>arg and jvmarg</h4>
+	<p>Use nested <code>&lt;arg&gt;</code> and <code>&lt;jvmarg&gt;</code> elements to specify arguments to DashO and the JVM respectively.
+	See <a href="http://ant.apache.org/manual/using.html#arg">Command line arguments</a>.</p>
+	<h4>sysproperty</h4>
+	<p>Use nested <code>&lt;sysproperty&gt;</code> elements to specify system properties required by DashO.
+	This tag uses the same syntax as <code>&lt;env&gt;</code>: see the <a href="http://ant.apache.org/manual/CoreTasks/exec.html#env"><code>&lt;exec&gt;</code> task</a> for details.</p>
+	<h4>env</h4>
+	<p>Use nested <code>&lt;env&gt;</code> elements to add or replace environment variables passed to the process.
+	See the <a href="http://ant.apache.org/manual/CoreTasks/exec.html#env"><code>&lt;exec&gt;</code> task</a> for details.</p>
+    <h3>Example</h3>
+<pre>
+&lt;property name=&quot;token-file&quot; value=&quot;tokens/my-token.txt&quot;/&gt;
+
+&lt;target name=&quot;print-it&quot;&gt;
+    &lt;print-token file=&quot;${token-file}&quot;&gt;
+        &lt;jvmarg value=&quot;-verbose:gc&quot;/&gt;
+    &lt;/print-token&gt;
+&lt;/target&gt;
+</pre>
+</div>
+</body>
+</html>

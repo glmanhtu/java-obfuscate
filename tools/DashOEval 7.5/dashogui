@@ -1,0 +1,28 @@
+#! /bin/sh
+#==============================================================================
+# Note: A 1.5 or later VM is required to run DashO PRO GUI
+#==============================================================================
+
+DASHO_HOME=`dirname "$0"`
+DASHO_HOME=`cd "${DASHO_HOME}" 1>/dev/null 2>&1 && pwd`
+IS_MAC=false
+case "`uname`" in
+	CYGWIN*)
+		DASHO_HOME=`cygpath --mixed "${DASHO_HOME}"`
+		;;
+	Darwin*)
+		IS_MAC=true;
+		;;
+esac
+if [ -f "${DASHO_HOME}/dashorc" ] ; then
+	. "${DASHO_HOME}/dashorc"
+fi
+if [ -f "${HOME}/.dashorc" ] ; then
+	. "${HOME}/.dashorc"
+fi
+
+if ${IS_MAC} ; then
+	java "-Xms${memoryStart:=192m}" "-Xmx${memoryMax:=192m}" ${javaOptions} "-Xdock:name=DashO" "-Xdock:icon=${DASHO_HOME}/dockicon.png" -cp "${DASHO_HOME}/DashOPro.jar" DashOProGui ${options} "$@"
+else
+	java "-Xms${memoryStart:=192m}" "-Xmx${memoryMax:=192m}" ${javaOptions} -cp "${DASHO_HOME}/DashOPro.jar" DashOProGui ${options} "$@"
+fi

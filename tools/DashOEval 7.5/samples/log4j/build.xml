@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="log4j" default="all" basedir=".">
+	<property name="dasho.home" value="../.." />
+
+	<target name="all" depends="compile, run" />
+
+	<target name="compile">
+		<mkdir dir="classes" />
+		<path id="build.class.path">
+			<fileset dir="lib">
+				<include name="log4j-*.jar" />
+			</fileset>
+		</path>
+		<javac sourcepath="" srcdir="src" destdir="classes" includeAntRuntime="false" fork="true" debug="true" source="1.5" target="1.5">
+			<classpath refid="build.class.path"/>
+		</javac>
+		<pathconvert pathSep=" " dirsep="/" property="manifest.build.class.path">
+			<path refid="build.class.path"/>
+			<map from="${basedir}/lib/" to="lib/"/>
+		</pathconvert>
+		<jar destfile="sample.jar">
+			<manifest>
+				<attribute name="Main-Class" value="RIAppenderSample" />
+				<attribute name="Class-Path" value="${manifest.build.class.path} ${dasho.home}/lib/pa-java15.jar" />
+			</manifest>
+			<fileset dir="classes">
+				<include name="**/*.class" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="run">
+		<java fork="true" jar="sample.jar">
+			<jvmarg value="-Dris.ssl=false" />
+			<jvmarg value="-Dris.endpoint=localhost:8080/sink/Sink" />
+			<jvmarg value="-Dris.log.messages=true" />
+		</java>
+	</target>
+
+	<target name="clean">
+		<delete quiet="true" includeemptydirs="true">
+			<fileset dir="classes" />
+			<fileset dir=".">
+				<include name="sample.jar" />
+			</fileset>
+		</delete>
+	</target>
+
+</project>

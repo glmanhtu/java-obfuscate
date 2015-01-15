@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="style.css" type="text/css"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>DashO &lt;obfuscate&gt; Task</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	<meta http-equiv="Content-Style-Type" content="text/css"/>
+	<link href="images/dashoicon-16.png" rel="icon" type="image/png" />
+	<link href="style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="title">
+	<div class="logo"><img src="images/logo.png" alt="DashO"/></div>
+	<h1>&lt;obfuscate&gt;</h1>
+</div>
+<div id="content">
+	<h3>Description</h3>
+	<p>Runs DashO using either an existing project file, a project file defined in the buildfile, or an existing project file augmented by the buildfile.</p>
+	<p>This task can be used in one of three different manners:</p>
+	<ul>
+	<li><strong>Use an existing project file</strong> - Specify the <i>project</i> attribute without nested DashO project file elements.
+	DashO will execute the project file without modification.</li>
+	<li><strong>Specify the project in the buildfile</strong> - Configure your project using nested DashO project file elements directly in the buildfile -
+	the <i>project</i> attribute is not used. DashO creates a temporary project file the configuration specified and executes it.</li>
+	<li><strong>Augment an existing project file</strong> - Specify both <i>project</i> and use nested DashO project file elements.
+	The nested project file elements can be used to augment or override the configuration in the project file.
+	DashO creates a temporary project file based on the resulting configuration and executes it.</li>
+	</ul>
+	<p>The <code>&lt;obfuscate&gt;</code> task supports all DashO project file elements <i>except</i> for <code>&lt;dasho&gt;</code>, <code>&lt;propertylist&gt;</code>, and <code>&lt;property&gt;</code>.
+	The <code>&lt;obfuscate&gt;</code> tag takes the place of <code>&lt;dasho&gt;</code> in the project file structure.
+	See the <a href="../userguide.pdf#dashoProjectFileReference" target="_blank">Project File Reference</a> in the DashO User's Guide.</p>
+	<p>Properties used in project elements in the buildfile are expanded by Ant, not by DashO.</p>
+	<br />
+	<h3>Task Specific Parameters</h3>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">project</td>
+			<td class="c2">The name of an existing DashO project file to be executed or augmented.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">force</td>
+			<td class="c2">If <i>true</i>, build continues when reflection is detected.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">androidDexDir</td>
+			<td class="c2">The name of the directory where the obfuscated jar and support jars should be copied to.  Used in android development.</td>
+    		<td class="c3">No</td>
+  		</tr>	
+	</table>
+	<br />
+	<h3>General Parameters</h3>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">append</td>
+			<td class="c2">If <i>true</i> the filea specified by <i>output</i> and <i>error</i> will have output appended rather than being overwritten.</td>
+    		<td class="c3">No; defaults to <i>false</i></td>
+  		</tr>
+		<tr>
+			<td class="c1">dashohome</td>
+			<td class="c2">The location of DashOPro.jar. See <a href="dasho-home.html">Setting DashO Home</a> for details.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">dir</td>
+			<td class="c2">The directory where the process will be invoked.</td>
+    		<td class="c3">No; defaults to the <i>basedir</i> of the buildfile.</td>
+  		</tr>
+		<tr>
+			<td class="c1">error</td>
+			<td class="c2">Name of a file to which to write the error output.  (Error messages print to the error output)</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">errorProperty</td>
+			<td class="c2">Name of a property in which to store the standard error output.  (Error messages print to the standard error output)</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">failonerror</td>
+			<td class="c2">If <i>true</i> stops the buildprocess if the process exits with a returncode other than 0.</td>
+    		<td class="c3">No; defaults to <i>true</i></td>
+  		</tr>
+		<tr>
+			<td class="c1">if</td>
+			<td class="c2">Execute only if the named property has been set.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">jvm</td>
+			<td class="c2">The command used to invoke the Java Virtual Machine. The command is resolved by <code>java.lang.Runtime.exec()</code>.</td>
+    		<td class="c3">No; default is <i>java</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">maxmemory</td>
+			<td class="c2">Max amount of memory to allocate to the process.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">newenvironment</td>
+			<td class="c2">If <i>true</i> the old environment settings will not be propogated when new environment variables are specified.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">output</td>
+			<td class="c2">Name of a file to which to write the output of the process.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">outputProperty</td>
+			<td class="c2">Name of a property in which to store the standard output.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">printstacktraces</td>
+			<td class="c2">If <i>true</i> stack traces will be printed for errors.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">quiet</td>
+			<td class="c2">If <i>true</i> output will be terse.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+		<tr>
+			<td class="c1">resultproperty</td>
+			<td class="c2">The property name which will contain the return code from the task.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">timeout</td>
+			<td class="c2">Stop the process if it doesn't finish within the specified time in milliseconds.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">unless</td>
+			<td class="c2">Execute only if the named property has not been set.</td>
+    		<td class="c3">No</td>
+  		</tr>
+		<tr>
+			<td class="c1">verbose</td>
+			<td class="c2">If <i>true</i> additional information will be printed.</td>
+    		<td class="c3">No; defaults to <i>false</i>.</td>
+  		</tr>
+	</table>
+	<br />
+	<h3>Parameters specified as nested elements</h3>
+	<h4>global</h4>
+	<p>The <code>&lt;global&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigGlobal" target="_blank"><code>&lt;global&gt;</code>&nbsp;Section</a> of the DashO User's Guide.
+	In addition to the elements described in the user's guide the following nested elements are added:</p>
+	<div class="iblock">
+	<h5>&lt;makepublic value="..."/&gt;</h5>
+	<p>Sets make public to <i>true</i>, <i>false</i>, or <i>auto</i>. See <a href="../userguide.pdf#dashoUsingConfigNomakepublic" target="_blank"><code>Makepublic</code> and <code>Nomakepublic</code> Global Options</a> in the DashO User's Guide.</p>
+	<h5>&lt;leavedebugginginfo value="<i>true/false</i>"/&gt;</h5>
+	<p>Sets the <a href="../userguide.pdf#dashoUsingConfigLeavedebuginfo" target="_blank">leavedebugginginfo</a> global option.</p>
+	<h5>&lt;fornamedetection value="<i>true/false</i>"/&gt;</h5>
+	<p>Sets the <a href="../userguide.pdf#dashoUsingConfigFornamedetection" target="_blank">fornamedetection</a> global option.</p>
+	<h5>&lt;renameforname value="<i>true/false</i>"/&gt;</h5>
+	<p>Sets the <a href="../userguide.pdf#dashoUsingConfigRenameforname" target="_blank">renameforname</a> global option.</p>
+	<h5>&lt;ignorenotfoundclasses value="<i>true/false</i>"/&gt;</h5>
+	<p>Sets the <a href="../userguide.pdf#dashoUsingConfigIgnorenotfound" target="_blank">ignorenotfoundclasses</a> global option.</p>
+	<h5>&lt;ignorebrokencalls value="<i>true/false</i>"/&gt;</h5>
+	<p>Sets the <a href="../userguide.pdf#BROKEN" target="_blank">ignorebrokencalls</a> option.</p>
+	<h5>&lt;pre_7_0_exit_behavior value="<i>true/false</i>"/&gt;</h5>
+	<p>Sets the <a href="../userguide.pdf#dashodashoUsingPre_7_0_exit_behavior" target="_blank">pre_7_0_exit_behavior</a> global option.</p>
+	<h5>&lt;bypassdasho value="<i>true/false</i>"/&gt;</h5>
+	<p>Sets the <a href="../userguide.pdf#dashoUsingbypassdasho" target="_blank">bypassdasho</a> global option.</p>
+	<h5>&lt;haltonfirsterror value="<i>true/false</i>"/&gt;</h5>
+	<p>Sets the <a href="../userguide.pdf#dashoUsinghaltonfirsterror" target="_blank">haltonfirsterror</a> global option.</p>
+	</div>
+	<h4>inputpath</h4>
+	<p>The <code>&lt;inputpath&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigInputpath" target="_blank"><code>&lt;inputpath&gt;</code>&nbsp;Section</a> of the DashO User's Guide.
+	In addition to the elements described in the user's guide the following element has been added:</p>
+	<div class="iblock">
+	<h5>&lt;fileset&gt;</h5>
+	<p>The <code>&lt;fileset&gt;</code> element adds jars or zip files to the inputpath. See <a href="http://ant.apache.org/manual/CoreTypes/fileset.html">FileSet</a> for details.</p>
+	</div>
+	<h4>classpath</h4>
+	<p>The <code>&lt;classpath&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigClasspath" target="_blank"><code>&lt;classpath&gt;</code>&nbsp;Section</a> of the DashO User's Guide.
+	In addition to the elements described in the user's guide the following element has been added:</p>
+	<div class="iblock">
+	<h5>&lt;fileset&gt;</h5>
+	<p>The <code>&lt;fileset&gt;</code> element adds jars or zip files to the classpath. See <a href="http://ant.apache.org/manual/CoreTypes/fileset.html">FileSet</a> for details.</p>
+	</div>
+	<h4>entrypoints</h4>
+	<p>The <code>&lt;entrypoints&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigEntrypoints" target="_blank"><code>&lt;entrypoints&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<p>Note that attributes with dashes such as &quot;rename-class&quot; and &quot;rename-members&quot; cannot be used in ant.  The same attributes are supported but without the dash.  (&quot;renameclass&quot; and &quot;renamemembers&quot;)</p>
+	<h4>renaming</h4>
+	<p>The <code>&lt;renaming&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigRenaming" target="_blank"><code>&lt;renaming&gt;</code>&nbsp;Section</a> of the DashO User's Guide.
+	In addition to the elements described in the user's guide the following attributes have been added:</p>
+	<div class="iblock">
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">report</td>
+			<td class="c2">Equivalent to the nested elements <code>&lt;mapping&gt;/&lt;mapreport&gt;/&lt;file&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">input</td>
+			<td class="c2">Equivalent to the nested elements <code>&lt;mapping&gt;/&lt;mapinput&gt;/&lt;file&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">output</td>
+			<td class="c2">Equivalent to the nested elements <code>&lt;mapping&gt;/&lt;mapoutput&gt;/&lt;file&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">overwrite</td>
+			<td class="c2">Equivalent to the nested elements <code>&lt;mapping&gt;/&lt;mapoutput overwrite="..."&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">overloadinduction</td>
+			<td class="c2">If <i>true</i> uses <a href="../userguide.pdf#dashoRenamingOI" target="_blank">Overload Induction&trade;</a> rather than simple renaming.
+			Related to global option <a href="../userguide.pdf#BROKEN" target="_blank">nooverloadinduction</a>.</td>
+			<td class="c3">No; defaults to <i>true</i></td>
+		</tr>
+	</table>
+	<p>Likewise the following nested element has been modified:</p>
+	<h5>&lt;mapping report="..." input="..." output="..."/&gt;</h5>
+	<p>The <i>report</i>, <i>input</i>, and <i>output</i> attributes have been added.</p>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">report</td>
+			<td class="c2">Equivalent to the nested elements <code>&lt;mapreport&gt;/&lt;file&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">input</td>
+			<td class="c2">Equivalent to the nested elements <code>&lt;mapinput&gt;/&lt;file&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">output</td>
+			<td class="c2">Equivalent to the nested elements <code>&lt;mapoutput&gt;/&lt;file&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">overwrite</td>
+			<td class="c2">Equivalent to the nested elements <code>&lt;mapping&gt;/&lt;mapoutput overwrite="..."&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+	</table>
+	</div>
+	<h4>removal</h4>
+	<p>The <code>&lt;removal&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigRemoval" target="_blank"><code>&lt;removal&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<h4>methodCallRemoval</h4>
+	<p>The <code>&lt;methodCallRemoval&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigMethodCallRemoval" target="_blank"><code>&lt;methodCallRemoval&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<h4>optimization</h4>
+	<p>The <code>&lt;optimization&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigOptimizationExcludes" target="_blank"><code>&lt;optimization&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<h4>output</h4>
+	<p>The <code>&lt;output&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigOutput" target="_blank"><code>&lt;output&gt;</code>&nbsp;Section</a> of the DashO User's Guide.
+	In addition to the elements described in the user's guide the following attributes have been added:</p>
+	<div class="iblock">
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">dir</td>
+			<td class="c2">Equivalent to the nested element <code>&lt;dir&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">jar</td>
+			<td class="c2">Equivalent to the nested element <code>&lt;jar&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">manifest</td>
+			<td class="c2">Equivalent to the nested element <code>&lt;jar&nbsp;manifest="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">apk</td>
+			<td class="c2">Equivalent to the nested element <code>&lt;apk&nbsp;path="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+	</table>
+	</div>
+	<h4>report</h4>
+	<p>The <code>&lt;report&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigReport" target="_blank"><code>&lt;report&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<h4>controlflow</h4>
+	<p>The <code>&lt;controlflow&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigControlFlow" target="_blank"><code>&lt;controlflow&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<h4>stringencrypt</h4>
+	<p>The <code>&lt;stringencrypt&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigStringEncrypt" target="_blank"><code>&lt;stringencrypt&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<h4>premark</h4>
+	<p>The <code>&lt;premark&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigPremark" target="_blank"><code>&lt;premark&gt;</code>&nbsp;Section</a> of the DashO User's Guide.
+	In addition to the elements described in the user's guide the following attributes have been added:</p>
+	<div class="iblock">
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">passphrase</td>
+			<td class="c2">Equivalent to the nested element <code>&lt;passphrase&gt;...&lt;/passphrase&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">watermark</td>
+			<td class="c2">Equivalent to the nested element <code>&lt;watermark&gt;...&lt;/watermark&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+		<tr>
+			<td class="c1">encoding</td>
+			<td class="c2">Equivalent to the nested element <code>&lt;encoding&nbsp;name="..."/&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+	</table>
+	<p>Likewise the following nested elements have been modified:</p>
+	<h5>&lt;passphrase value="..."/&gt;</h5>
+	<p>The <i>value</i> attribute has been added. It is equivalent to <code>&lt;passphrase&gt;...&lt;/passphrase&gt;</code>.</p>
+	<h5>&lt;watermark value="..."/&gt;</h5>
+	<p>The <i>value</i> attribute has been added. It is equivalent to <code>&lt;watermark&gt;...&lt;/watermark&gt;</code>.</p>
+	</div>
+	<h4>constantpooltag</h4>
+	<p>The <code>&lt;constantpooltag&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigConstPoolTag" target="_blank"><code>&lt;constantpooltag&gt;</code>&nbsp;Section</a> of the DashO User's Guide.
+	In addition to the elements described in the user's guide the following attribute has been added:</p>
+	<div class="iblock">
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">value</td>
+			<td class="c2">Equivalent to <code>&lt;constantpooltag&gt;...&lt;/constantpooltag&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+	</table>
+	</div>
+	<h4>instrumentation</h4>
+	<p>The <code>&lt;instrumentation&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoInstrumentation" target="_blank"><code>&lt;instrumentation&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<p>Note that the nested <code>&lt;property&gt;</code> tag is different from Ant's : it only supports the <code>name</code> and <code>value</code> attributes.</p>
+	<h4>includenonclassfiles</h4>
+	<p>The <code>&lt;includenonclassfiles&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoIncNonClassFiles" target="_blank"><code>&lt;includenonclassfiles&gt;</code>&nbsp;Section</a> of the DashO User's Guide.</p>
+	<h4>preverifier</h4>
+	<p>The <code>&lt;preverifier&gt;</code> element's use is as described in the <a href="../userguide.pdf#dashoUsingConfigPreverifier" target="_blank"><code>&lt;preeverifier&gt;</code>&nbsp;Section</a> of the DashO User's Guide.
+	In addition to the elements described in the user's guide the following attribute has been added:</p>
+	<div class="iblock">
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">path</td>
+			<td class="c2">Equivalent to <code>&lt;preverifier&gt;...&lt;/preverifier&gt;</code>.</td>
+			<td class="c3">No</td>
+		</tr>
+	</table>
+	</div>
+	<!-- common elements for java -->
+	<h4>arg and jvmarg</h4>
+	<p>Use nested <code>&lt;arg&gt;</code> and <code>&lt;jvmarg&gt;</code> elements to specify arguments to DashO and the JVM respectively.
+	See <a href="http://ant.apache.org/manual/using.html#arg">Command line arguments</a>.</p>
+	<h4>sysproperty</h4>
+	<p>Use nested <code>&lt;sysproperty&gt;</code> elements to specify system properties required by DashO.
+	This tag uses the same syntax as <code>&lt;env&gt;</code>: see the <a href="http://ant.apache.org/manual/CoreTasks/exec.html#env"><code>&lt;exec&gt;</code> task </a> for details.</p>
+	<h4>env</h4>
+	<p>Use nested <code>&lt;env&gt;</code> elements to add or replace environment variables passed to the process.
+	See the <a href="http://ant.apache.org/manual/CoreTasks/exec.html#env"><code>&lt;exec&gt;</code> task</a> for details.</p>
+	<h3 style="margin-top: 1em;">&lt;includelist&gt; and &lt;excludelist&gt; Elements</h3>
+	<p>The project file's <code>&lt;includelist&gt;</code> and <code>&lt;excludelist&gt;</code> elements contain an additional attribute:</p>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<tr>
+			<th class="c1">Attribute</th>
+			<th class="c2">Description</th>
+			<th class="c3">Required</th>
+		</tr>
+		<tr>
+			<td class="c1">replace</td>
+			<td class="c2">If <i>true</i> the nested <code>&lt;classes&gt;</code> elements replace the existing values in the project file.
+			If <i>false</i> the elements augment existing values in the project file.</td>
+			<td class="c3">No; defaults to <i>false</i>.</td>
+		</tr>
+	</table>
+	<p>The <i>replace</i> attribute can be used when the buildfile is used to augment an existing project file.</p>
+	<h3 style="margin-top: 2em;">Examples</h3>
+	<pre>&lt;obfuscate project="samples/simpleapp/project.dox"&gt;
+    &lt;sysproperty key="lib_dir" value="new_libs"/&gt;
+    &lt;sysproperty key="collections_ver" value="2.1"/&gt;
+&lt;/obfuscate&gt;</pre>
+	<p>This task invokes a pre-existing project file. <code>&lt;sysproperty&gt;</code> elements are used to set path information and library version information that is used inside the project file.</p>
+	<pre>&lt;property name="ver.short" value="6.5"/&gt;
+&lt;property name="ver.type" value="BETA"/&gt;
+
+&lt;tstamp&gt;
+    &lt;format property="rel.date" pattern="yyyy-MM-dd"/&gt;
+&lt;/tstamp&gt;
+
+&lt;obfuscate project="project.dox"&gt;
+    &lt;output jar="logicfoundry_${rel.date}_${ver.short}_${ver.type}.jar"/&gt;
+&lt;/obfuscate&gt;</pre>
+	<p>This example shows how values in the buildfile override those in the project file. The project file is originally configured to send its output to a directory, but
+	the buildfile settings change that to a jar. The properties referenced in the <i>path</i> attribute are defined in and expanded by Ant, not DashO.</p>
+	<pre>&lt;property name="projectname" value="contrib"/&gt;
+
+&lt;obfuscate force="true" dir="${user.home}"&gt;
+    &lt;global&gt;
+        &lt;ignorenotfoundclasses value="true"/&gt;
+        &lt;fornamedetection value="true"/&gt;
+    &lt;/global&gt;
+    &lt;classpath&gt;
+        &lt;fileset dir="${ant.home}/lib"&gt;
+            &lt;include name="*.jar"/&gt;
+            &lt;exclude name="ant-contrib-*.jar"/&gt;
+        &lt;/fileset&gt;
+    &lt;/classpath&gt;
+    &lt;entrypoints&gt;
+        &lt;quickjars dir="${ant.home}/lib"&gt;
+            &lt;include name="ant-contrib-*.jar"/&gt;
+        &lt;/quickjars&gt;
+    &lt;/entrypoints&gt;
+    &lt;report file="${projectname}-report.txt"/&gt;
+    &lt;output jar="${projectname}.jar"/&gt;
+    &lt;renaming option="on" report="${projectname}-mapreport.txt"&gt;
+        &lt;excludelist&gt;
+            &lt;classes name="net.sf.antcontrib.**"/&gt;
+        &lt;/excludelist&gt;
+    &lt;/renaming&gt;
+&lt;/obfuscate&gt;</pre>
+	<p>This example shows an entire project file defined in the buildfile - in this case a quick jar project. It illustrates the use of extensions to the project file syntax
+	including the use of <code>&lt;fileset&gt;</code>s and using properties defined by Ant. Note that use of the <i>dir</i> attribute to give the execution of DashO a location other
+	than the location of the buildfile.</p>
+</div>
+</body>
+</html>

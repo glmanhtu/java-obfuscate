@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Read Me - SpringBean</title>
+</head>
+<body>
+<h2>DashO's handling of Spring Beans</h2>
+<p>This sample illustrates how DashO works with Spring Beans.  It will be compiled via ant, obfuscated with DashO and then both versions should be run side-by-side.</p>
+<p>Note - This sample requires ant version 1.8 or higher to compile.</p>
+<h3>Building</h3>
+<p> These instructions will guide you through the process of building the original app using ant.</p>
+<ol>
+<li>Download some Spring jar files and copy them to the <i>SpringBeans/libs</i> directory.<br >The following jars are needed (Please note other versions will probably work as well).
+<ul>
+<li>spring-beans-4.0.1.RELEASE.jar</li>
+<li>spring-context-4.0.1.RELEASE.jar</li>
+<li>spring-core-4.0.1.RELEASE.jar</li>
+<li>spring-expression-4.0.1.RELEASE.jar</li>
+</ul>
+You should be able to get them from inside the spring-framework-4.0.1.RELEASE-dist.zip file available at one of these locations:
+<ul>
+<li><a target="_blank" href="http://repo.spring.io/release/org/springframework/spring/4.0.1.RELEASE">http://repo.spring.io/release/org/springframework/spring/4.0.1.RELEASE</a></li>
+<li><a target="_blank" href="http://maven.springframework.org/release/org/springframework/spring/4.0.1.RELEASE">http://maven.springframework.org/release/org/springframework/spring/4.0.1.RELEASE</a></li>
+</ul>
+</li>
+<li>Download an Apache jar file from <a target="_blank" href="http://commons.apache.org/logging/download_logging.cgi">http://commons.apache.org/logging/download_logging.cgi</a> and copy it to the <i>SpringBeans/libs</i> directory.<br >This jar was needed by the Spring Framework jars listed above. (Please note other versions will probably work as well). 
+<ul>
+<li>commons-logging-1.1.1.jar</li>
+</ul></li>
+<li>Open a command prompt (or shell)</li>
+<li>Change to the samples/SpringBean directory</li>
+<li>Run the command: ant compile (Make sure you do not have any compile errors and that <i>MySpringApp.jar</i> is created.)</li>
+<li>Run the command: ant run (Click on the buttons and verify no errors occur.)</li>
+</ol>
+<p>If any error occured during compiling or running, please double check the downloaded jar files.</p>
+<h3>Obfuscating</h3>
+<p> These instructions will guide you through the process of creating the project using DashO's New Project Wizard.</p>
+<ol>
+<li>Start DashO and run the new project wizard.
+<ul><li>Choose "An application packaged in a Jar file.</li>
+<li>Click <i>Next</i> and choose <i>samples/SpringBean/MySpringApp.jar</i> as the application jar.</li>
+<li>Click <i>Next</i> and add the jars in the <i>libs</i> directory as support jars.</li>
+<li>Continue clicking <i>Next,</i> accepting the defaults, then click <i>Finish</i>.</li></ul></li>
+<li>Once the project is created, go to the Input->Options section
+<ul><li>Check <i>Rename Reflected Classes</i></li></ul></li>
+<li>Go to the Output section
+<ul>
+<li>Check <i>Merge Inputs</i></li>
+<li>Choose <i>Create: Single Jar</i></li>
+<li>Enter the name <i>MyObfuscatedSpringApp.jar</i></li>
+</ul></li>
+<li>Save the project</li>
+<li>Run the project (Make sure you do not have any errors and that <i>MyObfuscatedSpringApp.jar</i> is created.)</li>
+</ol>
+<h3>Running the application</h3>
+<p>These instructions will guide you through running both applications side by side.</p>
+<ol>
+<li>Go back to your command prompt</li>
+<li>Start both applications (on a background thread)
+<ul>
+<li>Windows<ul>
+<li>Run the command: start java -jar MySpringApp.jar (You will see an app come up)</li>
+<li>Run the command: start java -jar MyObfuscatedSpringApp.jar (You will see another app come up)</li>
+</ul></li>
+<li>Unix<ul>
+<li>Run the command: java -jar MySpringApp.jar & (You will see an app come up)</li>
+<li>Run the command: java -jar MyObfuscatedSpringApp.jar & (You will see another app come up)</li>
+</ul></li>
+</ul></li>
+<li>Click the <i>Life Cycle</i> button in both apps and read the output.</li>
+<li>Click the <i>Properties</i> button in both apps and read the output.</li>
+<li>Click the <i>Lookup/Replaced</i> button in both apps and read the output.</li>
+<li>Click the <i>Constants</i> button in both apps and read the output.</li>
+<li>Close the apps by clicking the <i>X</i></li>
+</ol>
+</body>
+</html>

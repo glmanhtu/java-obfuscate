@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="applet" default="all" basedir=".">
+	<property name="dasho.home" value="../.." />
+
+	<target name="all" depends="compile, dasho, run" />
+
+	<target name="compile">
+		<mkdir dir="classes" />
+		<javac sourcepath="" srcdir="src" destdir="classes" includeAntRuntime="false" fork="true" debug="false" source="1.5" target="1.5" />
+		<jar jarfile="BNCApplet.jar">
+			<fileset dir="classes">
+				<include name="**/*" />
+			</fileset>
+		</jar>
+		<delete quiet="true" includeemptydirs="true">
+			<fileset dir="classes" />
+		</delete>
+	</target>
+
+	<target name="dasho">
+		<java fork="true" classname="DashOPro" classpath="${dasho.home}/DashOPro.jar">
+			<arg value="-v" />
+			<arg file="project.dox" />
+		</java>
+	</target>
+
+	<target name="run">
+		<exec dir="." executable="appletviewer">
+			<arg value="run.html" />
+		</exec>
+	</target>
+
+	<target name="clean">
+		<delete quiet="true" includeemptydirs="true">
+			<fileset dir="classes" />
+			<fileset dir="obfuscated" />
+			<fileset dir=".">
+				<include name="*-mapreport.txt" />
+				<include name="*-report.txt" />
+				<include name="*.map" />
+				<include name="project.jar" />
+				<include name="BNCApplet.jar" />
+			</fileset>
+		</delete>
+	</target>
+
+</project>

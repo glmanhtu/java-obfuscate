@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dasho version="7.5.0">
+    <propertylist/>
+    <global>
+        <option>IGNORENOTFOUNDCLASSES</option>
+        <option>FORNAMEDETECTION</option>
+        <option>FORCE</option>
+    </global>
+    <inputpath>
+        <pathelement location="DashOPro.jar"/>
+    </inputpath>
+    <entrypoints>
+        <library public="false">
+            <jar path="DashOPro.jar"/>
+        </library>
+        <classes name="DashOPro">
+            <method modifiers="public static" name="main" signature="java.lang.String[]"/>
+        </classes>
+        <classes name="DashOProGui">
+            <method modifiers="public static" name="main" signature="java.lang.String[]"/>
+        </classes>
+        <classes name="JVMInfo">
+            <method modifiers="public static" name="main" signature="java.lang.String[]"/>
+        </classes>
+        <classes name="TokenGenerator">
+            <method modifiers="public static" name="main" signature="java.lang.String[]"/>
+        </classes>
+        <classes name="Watermarker">
+            <method modifiers="public static" name="main" signature="java.lang.String[]"/>
+        </classes>
+    </entrypoints>
+    <report path="${dasho.project}-report.txt"/>
+    <output merge="false">
+        <dir path="obfuscated"/>
+    </output>
+    <removal classes="unused" members="unused-non-public">
+        <debug/>
+        <attributes/>
+    </removal>
+    <methodCallRemoval/>
+    <renaming option="on" renameAnnotations="on">
+        <member-options keeppublics="true"/>
+        <mapping>
+            <mapreport path="${dasho.project}-mapreport.txt"/>
+            <mapoutput overwrite="true" path="${dasho.project}.map"/>
+        </mapping>
+    </renaming>
+    <optimization option="on"/>
+    <controlflow catchHandlers="10" option="on"/>
+    <stringencrypt implementations="10" level="10" option="on">
+        <seOutput path="${dasho.project}-se.map"/>
+    </stringencrypt>
+    <make-synthetic value="private"/>
+</dasho>
+

@@ -1,0 +1,1180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xsd:annotation>
+	<xsd:documentation>RI REST Messages
+(c)2008-2011  PreEmptive Solutions, LLC
+
+The following restrictions apply:
+
+* Messages can be transmitted in multiple groups, but the messages must be associated with a single pair of app-start/app-stop messages.
+* app-start and app-stop message must be paired. The messages are considered paired when their contents are identical and they are associated with the same message-group. Once an app-stop is sent for a message-group, the message-group id should be considered closed an never re-used.
+* session-start and session-stop messages are paired by their session ids. Once a session-stop has been sent for the session id it is considered closed and should not be re-used.
+* An app-start and session-start are required to appear before other messages types can be associated with them.
+* feature start and stop messages are paired by their group id. Once the stop has been sent the group id considered closed and should not be re-used.
+* feature tick requires a group message id, but this id can only be used once.
+
+The typical order of messages is : app-start; session-start; any number of other message types; session-stop; app-stop.</xsd:documentation>
+	</xsd:annotation>
+	<xsd:element name="messages">
+		<xsd:annotation>
+			<xsd:documentation>The body of the message sent to the RI server.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="company" type="CompanyType" minOccurs="1" maxOccurs="1" />
+				<xsd:element name="application" type="ApplicationType" minOccurs="1" maxOccurs="1" />
+				<xsd:choice minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>A collection of zero or more messages.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element name="app-start" type="ApplicationStartType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="app-stop" type="ApplicationStopType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="app-exp" type="ApplicationExpirationType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="app-exp-warn" type="ApplicationExpirationWarningType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="tamper" type="TamperType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="feature" type="FeatureType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="fault" type="FaultType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="performance-probe" type="PerformanceProbeType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="session-start" type="SessionStartType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="session-stop" type="SessionStopType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="system-profile" type="SystemProfileType" minOccurs="0" maxOccurs="1" />
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute name="id" type="GuidType" use="required">
+				<xsd:annotation>
+					<xsd:documentation>A unique identifier for this group of messages.
+This identifier should be created by an identifier generator that follows RFC 4122.
+An identifier for a block of messages should NOT be reused or repeated.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="message-group" type="GuidType" use="required">
+				<xsd:annotation>
+					<xsd:documentation>The identifier for the grouping of messages related to the pairing of an application start and stop.
+This identifier should be created by an identifier generator that follows RFC 4122.
+Each block of messages sent related to a particular start should use the same identifier.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="sent" type="xsd:dateTime" use="required">
+				<xsd:annotation>
+					<xsd:documentation>The time that this group of message was sent. Note that this may be totally different from when the messages were generated.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="origin-ip" type="IPV4Type">
+				<xsd:annotation>
+					<xsd:documentation>The IPV4 of the sender of the message. This attribute should be left blank in most cases as the RI server will determine the correct IP.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="protocol" type="xsd:int" use="required" fixed="3">
+				<xsd:annotation>
+					<xsd:documentation>The protocol version of this set of messages. The value must be 3.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="agent-name" type="NonEmptyStringType" use="required">
+				<xsd:annotation>
+					<xsd:documentation>The name of the client API that is sending the messages.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="agent-version" type="NonEmptyStringType" use="required">
+				<xsd:annotation>
+					<xsd:documentation>The version of the client API that is sending the messages. This MUST begin with a X.X format version number.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="MessageType" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>The base for all message types.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="binary" type="BinaryInfoType" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Information about the executable context of the message.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="property" type="PropertyType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Arbitrary key/value information to be associated with the message. AKA "Extended Keys".</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="GuidType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>A unique identifier for the message.
+This identifier should be created by an identifier generator that follows RFC 4122.
+An identifier used here should NEVER be reused or repeated.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="generated" type="xsd:dateTime" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The time that this message was generated.
+Since messages may be generated and their transmission to the server deferred this value is different from the transmission time.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="session" type="GuidType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>A unique identifier for the associated session.
+This identifier should be created by an identifier generator that follows RFC 4122.
+The same identifier should be used for messages generated within the same logical session.
+See session start and stop message types.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="SessionStartType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that a new session has begun.
+The session attribute is a newly generated id that identifies this session. Its value should be used as the session id with all other messages that are generated by this logical session.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<!-- Nothing at this time -->
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="SessionStopType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that the session has ended.
+The session attribute is the id previously appearing with a session start.
+The session id should not be reused after it appears in the session stop.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<!-- Nothing at this time -->
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="FaultType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that an exceptional conditional has occurred. Added in protocol version 2.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<xsd:sequence>
+					<xsd:element name="exception" type="ExceptionType" minOccurs="1" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>The exception and a series of chained or inner exceptions. The elements are ordered by their seq attribute.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="component" type="AppComponentType" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>The components (Assemblies, JARs, DLLs, etc.) that constitute the application that generated the exceptional condition.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:attribute name="event" type="FaultEventType" use="required">
+					<xsd:annotation>
+						<xsd:documentation>The type of the fault event.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="contact">
+					<xsd:annotation>
+						<xsd:documentation>Optional contact information (email, phone, etc).</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1" />
+							<xsd:maxLength value="500" />
+							<xsd:whiteSpace value="collapse" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+				<xsd:attribute name="comment">
+					<xsd:annotation>
+						<xsd:documentation>An optional comment for the fault.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1" />
+							<xsd:maxLength value="500" />
+							<xsd:whiteSpace value="collapse" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:simpleType name="FaultEventType">
+		<xsd:annotation>
+			<xsd:documentation>The description of a fault event.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="thrown">
+				<xsd:annotation>
+					<xsd:documentation>The described exception was thrown.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="caught">
+				<xsd:annotation>
+					<xsd:documentation>The described exception was caught.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="uncaught">
+				<xsd:annotation>
+					<xsd:documentation>The described exception was not caught.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="ExceptionType">
+		<xsd:annotation>
+			<xsd:documentation>A chained or inner exception.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="stack" type="StackType" minOccurs="1" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>The elements that describe the call chain to the location that generated the exception. The elements are ordered by their seq attribute.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="seq" type="xsd:nonNegativeInteger" use="required">
+			<xsd:annotation>
+				<xsd:documentation>A sequence number for this exception.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="exceptionType" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The type of exceptional condition, e.g. the name of an exception class.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="message" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A human readable message that describes the condition.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="StackType">
+		<xsd:annotation>
+			<xsd:documentation>An element in an execution stack.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="seq" type="xsd:nonNegativeInteger" use="required">
+			<xsd:annotation>
+				<xsd:documentation>A sequence number for this element.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="type" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The class that generated the exception.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="method" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The method that generated the exception.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="signature" type="NonEmptyStringType">
+			<xsd:annotation>
+				<xsd:documentation>The signature of the method that generated the exception. The format is language specific and may include both the arguments and the return type of the method.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="file" type="NonEmptyStringType">
+			<xsd:annotation>
+				<xsd:documentation>The source code file for the class that generated the exception.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="line" type="xsd:long">
+			<xsd:annotation>
+				<xsd:documentation>The line number in the source code for where the exception was generated.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="AppComponentType">
+		<xsd:annotation>
+			<xsd:documentation>A component (Assembly, JAR, DLL, etc.) that is a part of the application.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="name" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The simple/short name of the component.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="version" type="NonEmptyStringType">
+			<xsd:annotation>
+				<xsd:documentation>The version of the component.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="fullName" type="NonEmptyStringType">
+			<xsd:annotation>
+				<xsd:documentation>A full name for the component which may be a URL, indicate the location on the file system, or include other details beyond the simple name.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="FeatureType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that a feature event has occurred.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<xsd:attribute name="name" type="NonEmptyStringType" use="required">
+					<xsd:annotation>
+						<xsd:documentation>The name of the feature.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="event" type="FeatureEventType" use="required">
+					<xsd:annotation>
+						<xsd:documentation>The type of the feature event.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="group" type="GuidType" use="required">
+					<xsd:annotation>
+						<xsd:documentation>A unique identifier to pair start and stop events.
+This identifier should be created by an identifier generator that follows RFC 4122.
+A start/stop pair of messages should have the same value for group. Feature tick message should use a unique identifier.
+Once an identifier has been used for the tick or stop message it must NOT be reused.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:simpleType name="FeatureEventType">
+		<xsd:annotation>
+			<xsd:documentation>The description of a feature event.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="start">
+				<xsd:annotation>
+					<xsd:documentation>The feature has begun. This is used to bound the execution of a feature.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="stop">
+				<xsd:annotation>
+					<xsd:documentation>The feature has ended. This is used to bound the execution of a feature.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="tick">
+				<xsd:annotation>
+					<xsd:documentation>The feature has generated a tick. This is used to indicate the feature was used, but not to bound its execution.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="PerformanceProbeType">
+		<xsd:annotation>
+			<xsd:documentation>The message that returns information about the performance of the host/application.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<xsd:sequence>
+					<xsd:element name="memory" type="MemoryPerformanceType" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="cpu" type="CpuPerformanceType" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+				<xsd:attribute name="name" type="NonEmptyStringType">
+					<xsd:annotation>
+						<xsd:documentation>A name that describes the point at which the performance probe is performed. Added in protocol version 2.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="SystemProfileType">
+		<xsd:annotation>
+			<xsd:documentation>The message that returns (mostly) static information about the host environment.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<xsd:sequence>
+					<xsd:element name="cpu" type="CpuInfoType" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="memory" type="MemoryInfoType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="disk" type="DiskInfoType" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="network" type="NetworkInfoType" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="domain" type="DomainInfoType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="time-zone" type="TimeZoneInfoType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="page-file" type="PageFileInfoType" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element name="screen" type="ScreenInfoType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="video" type="VideoInfoType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="sound" type="SoundInfoType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="modem" type="ModemInfoType" minOccurs="0" maxOccurs="1" />
+					<xsd:element name="terminal-services" type="TerminalServicesInfoType" minOccurs="0" maxOccurs="1" />
+				</xsd:sequence>
+				<xsd:attribute name="manufacturer" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>A human readable form of the manufacturer of the host system.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="model" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>A human readable form of the model of the host system.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+				<xsd:attribute name="power-state" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>A human readable form current power state of the host system.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="CpuInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a CPU installed in a host system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="speed" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The speed at which the CPU is currently running in MHz.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="max-speed" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The maximum speed at which the CPU can run in MHz.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="address-width">
+			<xsd:annotation>
+				<xsd:documentation>The address width of the CPU : e.g. 32 or 64 bits.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="manufacturer" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A human readable name of the manufacture of the CPU.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="model" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A human readable name of the model of the CPU.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The name label of the specified CPU: e.g. "cpu1".</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="MemoryInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the installed memory.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="total" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>Total amount of memory in MB.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="speed" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The speed of the physical memory in the system measured in nanoseconds.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="capacity" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The measurement of physical memory available to the OS measured in MB. Does not include memory that can be used by BIOS or other subsystems.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="DiskInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a physical or logical disk.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="size" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The size of the disk in M bytes.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="free" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The amount of free space on the disk in M bytes.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The name assigned to the disk.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="fstype" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The file system type.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="serial" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The serial number of the disk, if available.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="NetworkInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a network interface.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="speed" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The current bandwidth of the network connection measured in Mb/sec.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="max-speed" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The maximum possible speed of the network connection measured in Mb/sec.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="dhcp" type="xsd:boolean" use="optional" default="false">
+			<xsd:annotation>
+				<xsd:documentation>Does the network interface acquire its settings via DHCP?</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="ip" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The first IP address associated with the network interface. Can be either IPv6 or IPv4.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="mac" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The MAC address of the network interface. At present there are no restrictions on the format of this value.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="conn-id" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>Name of the network connection as it appears in the Windows Network Connections Control Panel program.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="DomainInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a hosts domain membership.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="member" type="xsd:boolean" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Is the host a member of a domain?</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The name of the domain.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="role" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The type of computer that this is in an active directory domain, it is an value that denotes if the computer is a standalone workstation, domain member workstation, standalone server, domain member server, primary domain controller or a backup domain controller.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="TimeZoneInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the time zone setting on a host.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="zone" type="xsd:integer" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>Amount of time in minutes the system is offset from UTC.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="dst" type="xsd:boolean" use="optional" default="false">
+			<xsd:annotation>
+				<xsd:documentation>Is daylight savings time in effect?</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="PageFileInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the paging file on a host.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="initial" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The initial size of the paging file in MB.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="max" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The maximum size of the paging file in MB.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>An optional name for the paging file.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="ScreenInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a display device attached to the host.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>An optional name for the device.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="width" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The width of the device's display area in pixels.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="height" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The height of the device's display area in pixels.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="refresh" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The refresh rate of the device in Hz.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="VideoInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a video card installed in the host.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>An optional name for the video card.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="driver" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A version of the software driver that manages the card.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="memory" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The amount of memory available to the card in MB.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="colors" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The number of colors the card can display.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:long">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="SoundInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a sound card installed in the host.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="manufacturer" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A human readable version of the manufactuer of the card.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="model" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A human readable version of the model of the card.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="ModemInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a modem attached to the host.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="model" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A human readable version of the model of the device.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="type" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The type of modem the device is, e.g.: "Null Modem", "Internal Modem", "External Modem", "PCMCIA Modem", "Unknown".</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="TerminalServicesInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Denotes if the application is being run on a terminal services server (as in is hosted in a thin-client type configuration such as Citrix or Windows Terminal Server).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="connections-allowed" type="xsd:boolean" use="optional" default="false">
+			<xsd:annotation>
+				<xsd:documentation>Are new connections are allowed? I.e. is the current server currently maxed out in the number of users it can serve.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="mode">
+			<xsd:annotation>
+				<xsd:documentation>
+					0 or 1 depending on if the server the application is running on is accessed via the small number of administrative remote desktop sessions available to a server operating system or if the application is running on an actual application
+					server installation.
+				</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="0">
+					<xsd:annotation>
+						<xsd:documentation>
+							The server the application is running on is accessed via the small number of administrative remote desktop sessions available to a server operating system.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+					<xsd:enumeration value="1">
+						<xsd:annotation>
+							<xsd:documentation>
+								The application is running on an actual application server installation.
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:enumeration>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="licensing-name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The name of the licensing mode of the terminal server, e.g. "per user", "per seat", "per CPU"</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="MemoryPerformanceType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the current state of the applications memory.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="available" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The total amount of memory available to the application in M bytes.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="used" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The amount of memory used by the application in M bytes.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="CpuPerformanceType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the current state of the hosts CPU(s).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="utilization" use="optional" default="0">
+			<xsd:annotation>
+				<xsd:documentation>The percent of the CPU being utilized.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:int">
+					<xsd:minInclusive value="0" />
+					<xsd:maxInclusive value="100" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="ApplicationStartType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that the application has started.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<xsd:sequence>
+					<xsd:element name="host" type="HostType" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="user" type="UserType" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="ApplicationStopType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that the application has terminated.
+The information provided for the host and user must match that provided with the application start message or the application will be considered to have terminated abnormally.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<xsd:sequence>
+					<xsd:element name="host" type="HostType" minOccurs="1" maxOccurs="1" />
+					<xsd:element name="user" type="UserType" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="ApplicationExpirationType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that the application has reached its expiration date.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<xsd:attribute name="slid" type="GuidType" use="required">
+					<xsd:annotation>
+						<xsd:documentation>The Shelf Life ID of the application.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="ApplicationExpirationWarningType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that application is in its expiration warning period.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<xsd:attribute name="slid" type="GuidType" use="required">
+					<xsd:annotation>
+						<xsd:documentation>The Shelf Life ID of the application.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="TamperType">
+		<xsd:annotation>
+			<xsd:documentation>The message that indicates that application binary has been tampered with.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="MessageType">
+				<!-- TBD -->
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="ApplicationType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the application.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="id" type="GuidType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>A unique identifier for this application.
+This identintifier should be used for all versions of the same application.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="name" type="NonEmptyStringType">
+			<xsd:annotation>
+				<xsd:documentation>A human readable name for the application.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="type" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A description of the type of application.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="version" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A version identifier for the application. The form is undefined.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="instance" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>An instance idenfier for this application: i.e. a serial number type identifier.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="CompanyType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the company that produced this application.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="id" type="GuidType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>A unique identifier for this company.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="name" type="NonEmptyStringType">
+			<xsd:annotation>
+				<xsd:documentation>A human readable name for the company that produced this applciation.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="UserType">
+		<xsd:annotation>
+			<xsd:documentation>Information about a host computer.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="name" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>An MD5 hash of the name of the computer name and the users name.
+This is used to provide an identifier that can be used to track unique users.
+It should not contain any identifiable information.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="admin" type="xsd:boolean" use="optional" default="false">
+			<xsd:annotation>
+				<xsd:documentation>Does the user have adminstrator/super-user rights.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="HostType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the host computer.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="os" type="OSType" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+		<xsd:attribute name="name" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>An MD5 hash of the name of the computer the application is running on, not necessarily a FQDN but the Windows system name.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="ip" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The IP address for this host. Can be IPv4 or IPv6.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="locale" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The current locale for the host.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="virtualized" type="xsd:boolean" use="optional" default="false">
+			<xsd:annotation>
+				<xsd:documentation>Is the host actually a VM?</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="src-lang" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The source language used to produce the application or the client API.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="src-lang-ver" type="NonEmptyStringType" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The source language version running on the host. This value MUST begin with a X.X format version number.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="OSType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the operating system.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>A human readable representation of the name of the operating system.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="product-code" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The vendor defined product code, if the operating system supports such a concept.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="sp-major" type="xsd:long" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The major version number of the operating system's service pack. If the operating system does not support the concept zero should be used.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="sp-minor" type="xsd:long" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The minor version number of the operating system's service pack. If the operating system does not support the concept zero should be used.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="language" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The specialized human language version of the operating system, if it supports such a concept.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="installed-date" type="xsd:dateTime" default="1970-01-01T00:00:00Z">
+			<xsd:annotation>
+				<xsd:documentation>The date and time when the operating sytem was installed.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:simpleType name="PropertyTypeType">
+		<xsd:annotation>
+			<xsd:documentation>The type of a property value.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="string">
+				<xsd:annotation>
+					<xsd:documentation>The property value is a string.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="decimal">
+				<xsd:annotation>
+					<xsd:documentation>The property value is a number. The number may be a integral or fractional value and my be negative or positive.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="PropertyType">
+		<xsd:annotation>
+			<xsd:documentation>A typed name/value pair.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="name" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The name of the property.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="2000" />
+					<xsd:whiteSpace value="collapse" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="value" use="required">
+			<xsd:annotation>
+				<xsd:documentation>The value for the property.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="4000" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="type" type="PropertyTypeType" use="optional" default="string">
+			<xsd:annotation>
+				<xsd:documentation>The type of the property. Defaults to string.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="BinaryInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Information about the executable context of the message.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="id" type="GuidType" use="optional" default="00000000-0000-0000-0000-000000000000">
+			<xsd:annotation>
+				<xsd:documentation>A unique identifier for the binary.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="modified" type="xsd:dateTime" use="optional" default="1970-01-01T00:00:00Z">
+			<xsd:annotation>
+				<xsd:documentation>The date and time when the binary was last modified.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="name" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The name of the executable.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="version" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The version of the executable.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="type" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The type of the source of the message, i.e. the name of a class.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="method" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation>The method that is the source of the message.</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:simpleType name="NonEmptyStringType">
+		<xsd:annotation>
+			<xsd:documentation>A string that has at least one character</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:whiteSpace value="collapse" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="GuidType">
+		<xsd:annotation>
+			<xsd:documentation>A Global Unique Identifier in the form of : 00000000-0000-0000-0000-000000000000.
+This identifier should be created by an identifier generator that follows RFC 4122.
+Unless specified otherwise, an identifier should be used ONCE and never reused either within a group of messages or in another group of messages.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="IPV4Type">
+		<xsd:annotation>
+			<xsd:documentation>An IPv4 address in decimal format.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="((25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

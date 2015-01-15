@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="jsp-pa" basedir="." default="compile">
+
+	<target name="clean">
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="." includes="*.war" />
+			<fileset dir="classes" />
+			<fileset dir="lib" includes="pa-*.jar" />
+		</delete>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="lib" />
+		<copy file="../../pa-taglib.jar" todir="lib" />
+		<copy file="../../lib/pa-java15.jar" todir="lib" />
+		<mkdir dir="classes" />
+		<path id="build.class.path">
+			<fileset dir="lib">
+				<include name="**/*.jar" />
+			</fileset>
+		</path>
+		<javac srcdir="src" destdir="classes" includes="**/*">
+			<classpath refid="build.class.path" />
+		</javac>
+		<war destfile="jsp-pa.war" webxml="web.xml" filesonly="true">
+			<webinf dir="." includes="*.tld" />
+			<lib dir="lib" includes="pa-*.jar" />
+			<classes dir="classes" />
+			<fileset dir=".">
+				<include name="**/*.html" />
+				<include name="**/*.jsp" />
+				<include name="images/*" />
+				<exclude name="readme.html" />
+			</fileset>
+		</war>
+	</target>
+
+</project>

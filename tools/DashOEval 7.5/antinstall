@@ -1,0 +1,31 @@
+#! /bin/sh
+
+if [ "$1" = "" ] ; then
+	echo "use: antinstall ANT_HOME"
+	exit 1
+fi
+
+ANT_HOME="$1"
+ANT_LIB="${ANT_HOME}/lib"
+
+for dir in "${ANT_HOME}" "${ANT_LIB}" ;
+do
+	if [ ! -d "$dir" ]; then
+		echo "Creating $dir"
+		mkdir "$dir"
+	fi
+done
+
+if [ -r "${ANT_LIB}/ant-dashopro.jar" ]; then
+	echo "Removing old ant-dashopro.jar in ${ANT_LIB}"
+	rm -f "${ANT_LIB}/ant-dashopro.jar"
+fi
+
+for fn in ant-dasho.jar lib/doxfile.jar lib/jaxb-api.jar lib/jaxb-impl.jar lib/jaxb-libs.jar lib/relaxngDatatype.jar lib/xsdlib.jar ;
+do
+	echo "Copying $fn to ${ANT_LIB}"
+	cp -p "$fn" "${ANT_LIB}"
+done
+
+echo "Installation complete"
+exit 0;

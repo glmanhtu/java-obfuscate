@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+<!-- Disable these checks in this project -->
+<issue id="LabelFor" severity="ignore" /> <!-- Currently targeted to 15 -->
+<issue id="GradleOverrides" severity="ignore" /> <!-- This sample still supports ant builds. -->
+</lint>

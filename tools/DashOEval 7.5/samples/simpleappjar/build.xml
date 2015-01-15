@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="simpleappjar" default="all" basedir=".">
+	<property name="dasho.home" value="../.." />
+
+	<target name="all" depends="compile, dasho, run" />
+
+	<target name="compile">
+		<mkdir dir="classes" />
+		<javac sourcepath="" srcdir="src" destdir="classes" includeAntRuntime="false" fork="true" debug="false" source="1.5" target="1.5" />
+		<jar jarfile="simpleapp.jar">
+			<fileset dir="classes">
+				<include name="**/*" />
+			</fileset>
+			<manifest>
+				<attribute name="Main-Class" value="dasho.samples.HelloWorld" />
+			</manifest>
+		</jar>
+		<delete quiet="true">
+			<fileset dir="classes" />
+		</delete>
+	</target>
+
+	<target name="dasho">
+		<java fork="true" classname="DashOPro" classpath="${dasho.home}/DashOPro.jar">
+			<arg value="-v" />
+			<arg file="project.dox" />
+		</java>
+	</target>
+
+	<target name="run">
+		<java fork="true" jar="obfuscated/simpleapp.jar">
+			<arg value="World" />
+		</java>
+	</target>
+
+	<target name="clean">
+		<delete quiet="true" includeemptydirs="true">
+			<fileset dir="classes" />
+			<fileset dir="obfuscated" />
+			<fileset dir=".">
+				<include name="*-mapreport.txt" />
+				<include name="*-report.txt" />
+				<include name="*.map" />
+				<include name="simpleapp.jar" />
+			</fileset>
+		</delete>
+	</target>
+
+</project>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="dasho-annotations">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/dasho-annotations.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
